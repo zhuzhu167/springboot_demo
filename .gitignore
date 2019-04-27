@@ -10,7 +10,8 @@ HELP.md
 .settings
 .springBeans
 .sts4-cache
-
+target
+test
 ### IntelliJ IDEA ###
 .idea
 *.iws
