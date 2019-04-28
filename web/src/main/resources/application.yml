@@ -14,3 +14,11 @@ spring:
       force: true
   messages:
     encoding: UTF-8
+#mybatis≈‰÷√
+mybatis:
+  type-aliases-package: cn.ykthink.jewelry.model
+  mapper-locations: classpath:mybatis/mapper/pc/*.xml
+  configLocation: classpath:mybatis/mybatis-config.xml
+jewelry:
+  jwt:
+    key: jewelry2019

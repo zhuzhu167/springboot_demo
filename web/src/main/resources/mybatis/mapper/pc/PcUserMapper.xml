@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+Author: YK
+Title: PcUserMapper
+Description: 客户端用户Mapper
+Date: 2019/4/28
+Time: 15:23
+-->
+<mapper namespace="cn.ykthink.jewelry.orm.pc.PcUserMapper">
+    <select id="queryAccountPwd" resultType="cn.ykthink.jewelry.model.pc.user.to.UserInfoTO">
+        select uuid, password
+        from users_info
+        where account = #{account}
+    </select>
+</mapper>
+ 
