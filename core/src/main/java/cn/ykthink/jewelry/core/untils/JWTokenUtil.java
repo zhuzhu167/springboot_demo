@@ -23,8 +23,13 @@ import java.util.TimeZone;
  */
 @Component
 public class JWTokenUtil {
-    @Value("{jewelry.jwt.key}")
+
     private static String KEY;
+
+    @Value("{jewelry.jwt.key}")
+    public void setKey(String key) {
+        KEY = key;
+    }
 
     /**
      * 生成JWT
@@ -84,7 +89,6 @@ public class JWTokenUtil {
         String accessToken = request.getHeader("X-Access-Token");  //通过token 获取用户uuid
         return validateToken(accessToken);
     }
-
 
 
     public static void main(String[] args) {

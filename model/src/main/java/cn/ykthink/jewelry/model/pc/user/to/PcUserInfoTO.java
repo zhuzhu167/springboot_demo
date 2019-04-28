@@ -5,13 +5,13 @@ import lombok.Data;
 
 /**
  * Author: YK
- * Title: UserInfoTO
+ * Title: PcUserInfoTO
  * Description: 用户信息VO
  * Date: 2019/4/28
  * Time: 15:09
  */
 @Data
-public class UserInfoTO extends BasePO {
+public class PcUserInfoTO extends BasePO {
     /**
      * 用户uuid
      */

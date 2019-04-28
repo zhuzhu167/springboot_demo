@@ -3,8 +3,6 @@ server:
   tomcat:
     uri-encoding: UTF-8
 spring:
-  main:
-    allow-bean-definition-overriding: true #当遇到同样名字的时候，是否允许覆盖注册
   profiles:
     active: native
   http:
@@ -14,11 +12,17 @@ spring:
       force: true
   messages:
     encoding: UTF-8
-#mybatis配置
+#mybatis閰嶇疆
 mybatis:
   type-aliases-package: cn.ykthink.jewelry.model
   mapper-locations: classpath:mybatis/mapper/pc/*.xml
   configLocation: classpath:mybatis/mybatis-config.xml
+#鍒嗛〉鎻掍欢閰嶇疆
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
 jewelry:
   jwt:
     key: jewelry2019

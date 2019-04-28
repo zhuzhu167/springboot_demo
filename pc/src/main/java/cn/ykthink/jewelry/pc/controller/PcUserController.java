@@ -1,7 +1,11 @@
 package cn.ykthink.jewelry.pc.controller;
 
+import cn.ykthink.jewelry.core.annotation.ValidatePcPermission;
+import cn.ykthink.jewelry.core.annotation.validateEnums.ValidatePcPermissionEnum;
 import cn.ykthink.jewelry.core.uri.SystemUri;
-import cn.ykthink.jewelry.model.pc.user.to.PcLoginTO;
+import cn.ykthink.jewelry.model.pc.user.bo.PcLoginBO;
+import cn.ykthink.jewelry.model.pc.user.bo.PcRegisterBO;
+import cn.ykthink.jewelry.model.pc.user.vo.PcUserLoginVO;
 import cn.ykthink.jewelry.service.pc.PcUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,8 +32,14 @@ public class PcUserController {
     PcUserService pcUserService;
 
     @PostMapping("login")
-    @ApiOperation(value = "用户端登录", response = ResponseEntity.class)
-    public ResponseEntity<Object> login(@RequestBody @Validated PcLoginTO pcLoginTO) {
-        return pcUserService.login(pcLoginTO);
+    @ApiOperation(value = "用户端登录", response = PcUserLoginVO.class)
+    public ResponseEntity<Object> login(@RequestBody @Validated PcLoginBO pcLoginBO) {
+        return pcUserService.login(pcLoginBO);
+    }
+
+    @PostMapping("register")
+    @ApiOperation(value = "客户端注册", response = ResponseEntity.class)
+    public ResponseEntity<Object> register(@RequestBody @Validated PcRegisterBO pcRegisterBO) {
+        return pcUserService.register(pcRegisterBO);
     }
 }

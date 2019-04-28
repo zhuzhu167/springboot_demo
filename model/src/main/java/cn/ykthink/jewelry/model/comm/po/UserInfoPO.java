@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * Author: YK
- * Title: UserInfoTO
+ * Title: PcUserInfoTO
  * Description: 用户信息PO
  * Date: 2019/4/28
  * Time: 15:09
