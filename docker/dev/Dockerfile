@@ -1,6 +1,4 @@
 FROM registry.cn-shenzhen.aliyuncs.com/ykthink/spring-boot
-
 COPY app.jar /app/app.jar
-
 ENV JAVA_OPTS=""
 ENTRYPOINT exec java $JAVA_OPTS -jar /app/app.jar --spring.profiles.active=dev
