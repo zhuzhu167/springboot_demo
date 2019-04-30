@@ -40,9 +40,9 @@ public class PcUserController {
         return pcUserService.register(pcRegisterBO);
     }
 
-    @GetMapping("person")
-    @ApiOperation(value = "个人信息",response = ResponseEntity.class)
-    public ResponseEntity<Object> person(){
-        return pcUserService.person();
-    }
+//    @GetMapping("person")
+//    @ApiOperation(value = "个人信息",response = ResponseEntity.class)
+//    public ResponseEntity<Object> person(){
+//        return pcUserService.person();
+//    }
 }
