@@ -8,6 +8,7 @@ import cn.ykthink.jewelry.model.pc.user.bo.PcLoginBO;
 import cn.ykthink.jewelry.model.pc.user.bo.PcRegisterBO;
 import cn.ykthink.jewelry.model.pc.user.to.PcUserInfoTO;
 import cn.ykthink.jewelry.model.pc.user.vo.PcUserLoginVO;
+import cn.ykthink.jewelry.model.pc.user.vo.PcUserPersonMessageVO;
 import cn.ykthink.jewelry.orm.pc.PcUserMapper;
 import cn.ykthink.jewelry.service.pc.PcUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +55,11 @@ public class PcUserServiceImpl implements PcUserService {
                 return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "数据异常", "Abnormal data");
             }
         }
+    }
+
+    @Override
+    public ResponseEntity<Object> person() {
+        PcUserPersonMessageVO PersonMessage=pcUserMapper.selectPersonMessage("");
+        return null;
     }
 }

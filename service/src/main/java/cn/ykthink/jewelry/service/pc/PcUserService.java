@@ -27,4 +27,10 @@ public interface PcUserService {
      * @return
      */
     ResponseEntity<Object> register(PcRegisterBO pcRegisterBO);
+
+    /**
+     * 获取个人信息
+     * @return
+     */
+    ResponseEntity<Object> person();
 }

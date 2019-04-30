@@ -12,10 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Author: YK
@@ -41,5 +38,11 @@ public class PcUserController {
     @ApiOperation(value = "客户端注册", response = ResponseEntity.class)
     public ResponseEntity<Object> register(@RequestBody @Validated PcRegisterBO pcRegisterBO) {
         return pcUserService.register(pcRegisterBO);
+    }
+
+    @GetMapping("person")
+    @ApiOperation(value = "个人信息",response = ResponseEntity.class)
+    public ResponseEntity<Object> person(){
+        return pcUserService.person();
     }
 }

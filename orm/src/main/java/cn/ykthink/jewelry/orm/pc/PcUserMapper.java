@@ -2,6 +2,7 @@ package cn.ykthink.jewelry.orm.pc;
 
 import cn.ykthink.jewelry.model.comm.po.UserInfoPO;
 import cn.ykthink.jewelry.model.pc.user.to.PcUserInfoTO;
+import cn.ykthink.jewelry.model.pc.user.vo.PcUserPersonMessageVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -18,10 +19,27 @@ import org.springframework.stereotype.Repository;
 public interface PcUserMapper {
     /**
      * 核对用户信息
+     *
      * @param account
      * @return
      */
     PcUserInfoTO queryAccountPwd(@Param("account") String account);
 
+    /**
+     * 用户注册
+     *
+     * @param userInfoPO
+     * @return
+     */
     Integer insertAccount(UserInfoPO userInfoPO);
+
+    /**
+     * 用户个人信息
+     *
+     * @param userUuid
+     * @return
+     */
+    PcUserPersonMessageVO selectPersonMessage(@Param("userUuid") String userUuid);
+
+
 }

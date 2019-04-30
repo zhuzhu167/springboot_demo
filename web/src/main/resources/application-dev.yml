@@ -4,7 +4,7 @@ spring:
     url: jdbc:mysql://39.108.132.170:3306/jewelry?serverTimezone=UTC&useSSL=false
     username: root
     password: fyk159753
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.jdbc.Driver
     #连接池配置
     #获得连接后检测其可用性
     test-on-borrow: true
