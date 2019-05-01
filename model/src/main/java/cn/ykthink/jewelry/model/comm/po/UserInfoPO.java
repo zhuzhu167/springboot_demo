@@ -1,6 +1,7 @@
 package cn.ykthink.jewelry.model.comm.po;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * Author: YK
@@ -10,6 +11,7 @@ import lombok.Data;
  * Time: 15:09
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class UserInfoPO extends BasePO {
     /**
      * 账号
