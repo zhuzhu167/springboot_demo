@@ -17,6 +17,7 @@ public class PcRegisterBO {
     @NotBlank(message = "账号不能为空")
     @ApiModelProperty(value = "账号", name = "account", example = "test1", dataType = "String", required = true)
     private String account;
+
     @NotBlank(message = "密码不能为空")
     @ApiModelProperty(value = "密码", name = "password", example = "", dataType = "String", required = true)
     private String password;

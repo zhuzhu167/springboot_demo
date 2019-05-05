@@ -18,11 +18,11 @@ public class BasePO {
     /**
      * 是否删除0-否1-是
      */
-    private String isDeleted;
+    private Integer isDeleted;
     /**
      * 状态
      */
-    private String status;
+    private Integer status;
     /**
      * 创建时间
      */
