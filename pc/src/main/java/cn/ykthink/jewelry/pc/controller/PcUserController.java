@@ -3,14 +3,15 @@ package cn.ykthink.jewelry.pc.controller;
 import cn.ykthink.jewelry.core.annotation.ValidatePcPermission;
 import cn.ykthink.jewelry.core.annotation.validateEnums.ValidatePcPermissionEnum;
 import cn.ykthink.jewelry.core.uri.SystemUri;
-import cn.ykthink.jewelry.model.pc.user.bo.PcUserEditPerson;
-import cn.ykthink.jewelry.model.pc.user.bo.PcUserEditPwd;
-import cn.ykthink.jewelry.model.pc.user.bo.PcUserLoginBO;
-import cn.ykthink.jewelry.model.pc.user.bo.PcUserRegisterBO;
+import cn.ykthink.jewelry.model.pc.user.bo.*;
 import cn.ykthink.jewelry.model.pc.user.vo.PcUserLoginVO;
-import cn.ykthink.jewelry.model.pc.user.vo.PcUserPersonVO;
+import cn.ykthink.jewelry.model.pc.user.vo.PcUserPersonInfoVO;
+import cn.ykthink.jewelry.model.pc.user.vo.PcUserReceiverInfoVO;
 import cn.ykthink.jewelry.service.pc.PcUserService;
+import com.github.catalpaflat.valid.annotation.ParameterValid;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +46,7 @@ public class PcUserController {
 
     @ValidatePcPermission(validatePcPermissionEnum = ValidatePcPermissionEnum.PC_USER)
     @GetMapping("person")
-    @ApiOperation(value = "个人信息", response = PcUserPersonVO.class)
+    @ApiOperation(value = "个人信息", response = PcUserPersonInfoVO.class)
     public ResponseEntity<Object> person() {
         return pcUserService.person();
     }
@@ -53,14 +54,41 @@ public class PcUserController {
     @PutMapping("person")
     @ApiOperation(value = "修改资料", response = ResponseEntity.class)
     public ResponseEntity<Object> editPerson(@RequestBody PcUserEditPerson body) {
-        return null;
+        return pcUserService.editPerson(body);
     }
 
     @PutMapping("pwd")
     @ApiOperation(value = "修改密码", response = ResponseEntity.class)
-    public ResponseEntity<Object> pwd(@RequestBody PcUserEditPwd body) {
-        return null;
+    public ResponseEntity<Object> editPwd(@RequestBody PcUserEditPwd body) {
+        return pcUserService.editPwd(body);
     }
 
+    @GetMapping("consignee")
+    @ApiOperation(value = "收货信息", response = PcUserReceiverInfoVO.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", dataType = "int", name = "pageNum", value = "第几页", required = false),
+            @ApiImplicitParam(paramType = "query", dataType = "int", name = "pageSize", value = "显示多少条", required = false)
+    })
+    public ResponseEntity<Object> consignee(@ParameterValid(type = Integer.class, msg = "pageNum不能为空", isMin = true) @RequestParam(defaultValue = "${jewelry.pages.page_index}") Integer pageNum,
+                                            @ParameterValid(type = Integer.class, msg = "pageSize不能为空", isMin = true) @RequestParam(defaultValue = "${jewelry.pages.page_size}") Integer pageSize) {
+        return pcUserService.consignee(pageNum,pageSize);
+    }
 
+    @DeleteMapping("consignee/{consigneeUuid}")
+    @ApiOperation(value = "删除收货信息", response = ResponseEntity.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "path", dataType = "String", name = "consigneeUuid", value = "收货信息uuid", required = true),
+    })
+    public ResponseEntity<Object> removeConsignee(@PathVariable String consigneeUuid) {
+        return pcUserService.removeConsignee(consigneeUuid);
+    }
+
+    @PutMapping("consignee/{consigneeUuid}")
+    @ApiOperation(value = "修改收货信息", response = ResponseEntity.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "path", dataType = "String", name = "consigneeUuid", value = "收货信息uuid", required = true),
+    })
+    public ResponseEntity<Object> editConsignee(@PathVariable String consigneeUuid, @RequestBody PcUerReceiverInfoBO body) {
+        return pcUserService.editConsignee(consigneeUuid,body);
+    }
 }

@@ -1,7 +1,6 @@
 package cn.ykthink.jewelry.service.pc;
 
-import cn.ykthink.jewelry.model.pc.user.bo.PcUserLoginBO;
-import cn.ykthink.jewelry.model.pc.user.bo.PcUserRegisterBO;
+import cn.ykthink.jewelry.model.pc.user.bo.*;
 import org.springframework.http.ResponseEntity;
 
 /**
@@ -23,6 +22,7 @@ public interface PcUserService {
 
     /**
      * 用户注册
+     *
      * @param body
      * @return
      */
@@ -30,7 +30,50 @@ public interface PcUserService {
 
     /**
      * 获取个人信息
+     *
      * @return
      */
     ResponseEntity<Object> person();
+
+    /**
+     * 编辑个人信息
+     *
+     * @param body
+     * @return
+     */
+    ResponseEntity<Object> editPerson(PcUserEditPerson body);
+
+    /**
+     * 修改密码
+     *
+     * @param body
+     * @return
+     */
+    ResponseEntity<Object> editPwd(PcUserEditPwd body);
+
+    /**
+     * 收货点信息
+     *
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    ResponseEntity<Object> consignee(Integer pageNum, Integer pageSize);
+
+    /**
+     * 删除收货信息
+     *
+     * @param consigneeUuid
+     * @return
+     */
+    ResponseEntity<Object> removeConsignee(String consigneeUuid);
+
+    /**
+     * 编辑收货信息
+     *
+     * @param consigneeUuid
+     * @param body
+     * @return
+     */
+    ResponseEntity<Object> editConsignee(String consigneeUuid, PcUerReceiverInfoBO body);
 }

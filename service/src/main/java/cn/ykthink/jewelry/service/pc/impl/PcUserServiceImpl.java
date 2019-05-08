@@ -4,8 +4,7 @@ import cn.ykthink.jewelry.core.support.http.ResponseEntitySupport;
 import cn.ykthink.jewelry.core.untils.JWTokenUtil;
 import cn.ykthink.jewelry.core.untils.Md5Utils;
 import cn.ykthink.jewelry.model.comm.po.UserInfoPO;
-import cn.ykthink.jewelry.model.pc.user.bo.PcUserLoginBO;
-import cn.ykthink.jewelry.model.pc.user.bo.PcUserRegisterBO;
+import cn.ykthink.jewelry.model.pc.user.bo.*;
 import cn.ykthink.jewelry.model.pc.user.to.PcUserInfoTO;
 import cn.ykthink.jewelry.model.pc.user.vo.PcUserLoginVO;
 import cn.ykthink.jewelry.model.pc.user.vo.PcUserPersonInfoVO;
@@ -15,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Author: YK
@@ -33,7 +35,10 @@ public class PcUserServiceImpl implements PcUserService {
         PcUserInfoTO pcUserInfoTO = pcUserMapper.queryAccountPwd(body.getAccount());
         if (pcUserInfoTO != null && pcUserInfoTO.getPassword().equals(Md5Utils.getStringMD5(body.getPassword()))) {
             PcUserLoginVO pcUserLoginVO=new PcUserLoginVO();
-            pcUserLoginVO.setToken(JWTokenUtil.generateToken(pcUserInfoTO.getUuid()));
+            Map<String, Object> map = new HashMap<>();
+            map.put("uuid", pcUserInfoTO.getUuid());
+            String accessToken = JWTokenUtil.generateJWToken(map, (24 * 60 * 60 * 1000L));//24小时
+            pcUserLoginVO.setToken(accessToken);
             return ResponseEntitySupport.success(pcUserLoginVO);
         } else{
             return ResponseEntitySupport.error(HttpStatus.NOT_FOUND, "登录名或密码错误", "account or password is wrong");
@@ -59,7 +64,32 @@ public class PcUserServiceImpl implements PcUserService {
 
     @Override
     public ResponseEntity<Object> person() {
-        PcUserPersonInfoVO PersonMessage=pcUserMapper.selectPersonMessage("");
+        String userUuid= JWTokenUtil.validateJWToken(JWTokenUtil.getRequestHeader("X-Access-Token"), "uuid");
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<Object> editPerson(PcUserEditPerson body) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<Object> editPwd(PcUserEditPwd body) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<Object> consignee(Integer pageNum, Integer pageSize) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<Object> removeConsignee(String consigneeUuid) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<Object> editConsignee(String consigneeUuid, PcUerReceiverInfoBO body) {
         return null;
     }
 }

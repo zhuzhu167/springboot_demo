@@ -46,15 +46,7 @@ public class PcPermissionAspect {
             }
             //使用JwtToken校验 用前两部分加密之后与第三部分判断
             //判断token是否过期
-            try {
-                Jwts.parser()
-                        .setSigningKey(KEY)
-                        .parseClaimsJws(token)
-                        .getBody();
-            } catch (Exception e) {
-                return ResponseEntitySupport.error(HttpStatus.UNAUTHORIZED, HttpResponseConstant.HTTP_MESSAGE_UNAUTHORIZED, "X-Access-Token expire");
-            }
-            String uuid = JWTokenUtil.validateToken(token);
+            String uuid = JWTokenUtil.validateJWToken(token,"uuid");
             if (StringUtils.isBlank(uuid)) {
                 return ResponseEntitySupport.error(HttpStatus.UNAUTHORIZED, "无效的用户", "Invalid token");
             }

@@ -1,17 +1,17 @@
-package cn.ykthink.jewelry.model.pc.user.vo;
+package cn.ykthink.jewelry.model.pc.user.bo;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
  * Author: YK
- * Title: PcUserReceiverInfoVO
- * Description: 收货人信息
+ * Title: PcUerReceiverInfoBO
+ * Description: 收货信息BO
  * Date: 2019/5/8
- * Time: 14:16
+ * Time: 15:45
  */
 @Data
-public class PcUserReceiverInfoVO {
+public class PcUerReceiverInfoBO {
     @ApiModelProperty(value = "收货信息uuid", name = "receiverUuid", example = "name", dataType = "String", required = true)
     private String receiverUuid;
 
