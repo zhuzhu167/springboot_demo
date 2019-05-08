@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
  **/
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class ConsigneePO extends BasePO{
+public class ConsigneePO extends BasePO {
     /**
      * 用户uuid
      */
@@ -40,4 +40,9 @@ public class ConsigneePO extends BasePO{
      * 收货人详细地址
      */
     private String receiverAddress;
+    /**
+     * 邮编
+     */
+    private String zipCode;
+
 }

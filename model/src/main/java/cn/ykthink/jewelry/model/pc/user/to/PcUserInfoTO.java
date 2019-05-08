@@ -1,6 +1,5 @@
 package cn.ykthink.jewelry.model.pc.user.to;
 
-import cn.ykthink.jewelry.model.comm.po.BasePO;
 import lombok.Data;
 
 /**
@@ -11,7 +10,7 @@ import lombok.Data;
  * Time: 15:09
  */
 @Data
-public class PcUserInfoTO extends BasePO {
+public class PcUserInfoTO {
     /**
      * 用户uuid
      */

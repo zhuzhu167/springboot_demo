@@ -1,7 +1,7 @@
 package cn.ykthink.jewelry.service.pc;
 
-import cn.ykthink.jewelry.model.pc.user.bo.PcLoginBO;
-import cn.ykthink.jewelry.model.pc.user.bo.PcRegisterBO;
+import cn.ykthink.jewelry.model.pc.user.bo.PcUserLoginBO;
+import cn.ykthink.jewelry.model.pc.user.bo.PcUserRegisterBO;
 import org.springframework.http.ResponseEntity;
 
 /**
@@ -16,17 +16,17 @@ public interface PcUserService {
     /**
      * 用户登录
      *
-     * @param pcLoginBO
+     * @param body
      * @return
      */
-    ResponseEntity<Object> login(PcLoginBO pcLoginBO);
+    ResponseEntity<Object> login(PcUserLoginBO body);
 
     /**
      * 用户注册
-     * @param pcRegisterBO
+     * @param body
      * @return
      */
-    ResponseEntity<Object> register(PcRegisterBO pcRegisterBO);
+    ResponseEntity<Object> register(PcUserRegisterBO body);
 
     /**
      * 获取个人信息

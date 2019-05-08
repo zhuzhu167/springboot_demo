@@ -21,7 +21,7 @@ Time: 15:23
         from users_info
         where account = #{account}
     </select>
-    <select id="selectPersonMessage" resultType="cn.ykthink.jewelry.model.pc.user.vo.PcUserPersonMessageVO">
+    <select id="selectPersonMessage" resultType="cn.ykthink.jewelry.model.pc.user.vo.PcUserPersonInfoVO">
         select account, phone, email
         from users_info
         where uuid = #{userUuid}

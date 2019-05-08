@@ -7,13 +7,13 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * Author: YK
- * Title: PcRegisterBO
+ * Title: PcUserRegisterBO
  * Description: 客户端注册TO
  * Date: 2019/4/28
  * Time: 17:10
  */
 @Data
-public class PcRegisterBO {
+public class PcUserRegisterBO {
     @NotBlank(message = "账号不能为空")
     @ApiModelProperty(value = "账号", name = "account", example = "test1", dataType = "String", required = true)
     private String account;

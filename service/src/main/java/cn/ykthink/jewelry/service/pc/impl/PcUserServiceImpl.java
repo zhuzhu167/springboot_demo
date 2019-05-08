@@ -4,11 +4,11 @@ import cn.ykthink.jewelry.core.support.http.ResponseEntitySupport;
 import cn.ykthink.jewelry.core.untils.JWTokenUtil;
 import cn.ykthink.jewelry.core.untils.Md5Utils;
 import cn.ykthink.jewelry.model.comm.po.UserInfoPO;
-import cn.ykthink.jewelry.model.pc.user.bo.PcLoginBO;
-import cn.ykthink.jewelry.model.pc.user.bo.PcRegisterBO;
+import cn.ykthink.jewelry.model.pc.user.bo.PcUserLoginBO;
+import cn.ykthink.jewelry.model.pc.user.bo.PcUserRegisterBO;
 import cn.ykthink.jewelry.model.pc.user.to.PcUserInfoTO;
 import cn.ykthink.jewelry.model.pc.user.vo.PcUserLoginVO;
-import cn.ykthink.jewelry.model.pc.user.vo.PcUserPersonMessageVO;
+import cn.ykthink.jewelry.model.pc.user.vo.PcUserPersonInfoVO;
 import cn.ykthink.jewelry.orm.pc.PcUserMapper;
 import cn.ykthink.jewelry.service.pc.PcUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +29,9 @@ public class PcUserServiceImpl implements PcUserService {
     PcUserMapper pcUserMapper;
 
     @Override
-    public ResponseEntity<Object> login(PcLoginBO pcLoginBO) {
-        PcUserInfoTO pcUserInfoTO = pcUserMapper.queryAccountPwd(pcLoginBO.getAccount());
-        if (pcUserInfoTO != null && pcUserInfoTO.getPassword().equals(Md5Utils.getStringMD5(pcLoginBO.getPassword()))) {
+    public ResponseEntity<Object> login(PcUserLoginBO body) {
+        PcUserInfoTO pcUserInfoTO = pcUserMapper.queryAccountPwd(body.getAccount());
+        if (pcUserInfoTO != null && pcUserInfoTO.getPassword().equals(Md5Utils.getStringMD5(body.getPassword()))) {
             PcUserLoginVO pcUserLoginVO=new PcUserLoginVO();
             pcUserLoginVO.setToken(JWTokenUtil.generateToken(pcUserInfoTO.getUuid()));
             return ResponseEntitySupport.success(pcUserLoginVO);
@@ -41,14 +41,14 @@ public class PcUserServiceImpl implements PcUserService {
     }
 
     @Override
-    public ResponseEntity<Object> register(PcRegisterBO pcRegisterBO) {
-        PcUserInfoTO pcUserInfoTO = pcUserMapper.queryAccountPwd(pcRegisterBO.getAccount());
+    public ResponseEntity<Object> register(PcUserRegisterBO body) {
+        PcUserInfoTO pcUserInfoTO = pcUserMapper.queryAccountPwd(body.getAccount());
         if(pcUserInfoTO!=null){
             return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "该账号已被注册", "the account is existed");
         }else{
             UserInfoPO userInfoPO=new UserInfoPO();
-            userInfoPO.setAccount(pcRegisterBO.getAccount());
-            userInfoPO.setPassword(Md5Utils.getStringMD5(pcRegisterBO.getPassword()));
+            userInfoPO.setAccount(body.getAccount());
+            userInfoPO.setPassword(Md5Utils.getStringMD5(body.getPassword()));
             if(pcUserMapper.insertAccount(userInfoPO)>0){
                 return ResponseEntitySupport.success("注册成功","Registered successfully");
             }else{
@@ -59,7 +59,7 @@ public class PcUserServiceImpl implements PcUserService {
 
     @Override
     public ResponseEntity<Object> person() {
-        PcUserPersonMessageVO PersonMessage=pcUserMapper.selectPersonMessage("");
+        PcUserPersonInfoVO PersonMessage=pcUserMapper.selectPersonMessage("");
         return null;
     }
 }

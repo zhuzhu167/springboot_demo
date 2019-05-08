@@ -26,7 +26,7 @@ public class JWTokenUtil {
 
     private static String KEY;
 
-    @Value("{jewelry.jwt.key}")
+    @Value("${jewelry.jwt.key}")
     public void setKey(String key) {
         KEY = key;
     }

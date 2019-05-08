@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 @Aspect
 @Component
 public class PcPermissionAspect {
-    @Value("{jewelry.jwt.key}")
+    @Value("${jewelry.jwt.key}")
     private String KEY;
 
     @Around("@annotation(validatePcPermission)")
