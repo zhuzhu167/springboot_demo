@@ -1,6 +1,8 @@
 package cn.ykthink.jewelry.core.support.http;
 
-import com.alibaba.fastjson.JSONObject;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONException;
+import net.sf.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -32,7 +34,15 @@ public class ResponseEntitySupport {
     }
 
     public static ResponseEntity<Object> success(Object obj) {
-        return obtainResponseEntity(obj, HttpStatus.OK);
+
+        try {
+            JSONObject response = JSONObject.fromObject(obj);
+            return obtainResponseEntity(response, HttpStatus.OK);
+        } catch (JSONException exception) {
+            JSONArray response = JSONArray.fromObject(obj);
+            return obtainResponseEntity(response, HttpStatus.OK);
+        }
+
     }
 
     public static ResponseEntity<Object> error(HttpStatus httpStatus, String msg, Object reason) {

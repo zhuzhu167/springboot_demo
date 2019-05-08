@@ -46,9 +46,13 @@ public class PcPermissionAspect {
             }
             //使用JwtToken校验 用前两部分加密之后与第三部分判断
             //判断token是否过期
-            String uuid = JWTokenUtil.validateJWToken(token,"uuid");
-            if (StringUtils.isBlank(uuid)) {
-                return ResponseEntitySupport.error(HttpStatus.UNAUTHORIZED, "无效的用户", "Invalid token");
+            try{
+                String uuid = JWTokenUtil.validateJWToken(token,"uuid");
+                if (StringUtils.isBlank(uuid)) {
+                    return ResponseEntitySupport.error(HttpStatus.UNAUTHORIZED, "无效的用户", "Invalid token");
+                }
+            }catch (IllegalStateException e){
+                return ResponseEntitySupport.error(HttpStatus.UNAUTHORIZED, "无效token", "Invalid token");
             }
             return joinPoint.proceed();
         } catch (Throwable throwable) {

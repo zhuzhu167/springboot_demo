@@ -51,18 +51,21 @@ public class PcUserController {
         return pcUserService.person();
     }
 
+    @ValidatePcPermission(validatePcPermissionEnum = ValidatePcPermissionEnum.PC_USER)
     @PutMapping("person")
     @ApiOperation(value = "修改资料", response = ResponseEntity.class)
     public ResponseEntity<Object> editPerson(@RequestBody PcUserEditPerson body) {
         return pcUserService.editPerson(body);
     }
 
+    @ValidatePcPermission(validatePcPermissionEnum = ValidatePcPermissionEnum.PC_USER)
     @PutMapping("pwd")
     @ApiOperation(value = "修改密码", response = ResponseEntity.class)
     public ResponseEntity<Object> editPwd(@RequestBody PcUserEditPwd body) {
         return pcUserService.editPwd(body);
     }
 
+    @ValidatePcPermission(validatePcPermissionEnum = ValidatePcPermissionEnum.PC_USER)
     @GetMapping("consignee")
     @ApiOperation(value = "收货信息", response = PcUserReceiverInfoVO.class)
     @ApiImplicitParams({
@@ -74,6 +77,7 @@ public class PcUserController {
         return pcUserService.consignee(pageNum,pageSize);
     }
 
+    @ValidatePcPermission(validatePcPermissionEnum = ValidatePcPermissionEnum.PC_USER)
     @DeleteMapping("consignee/{consigneeUuid}")
     @ApiOperation(value = "删除收货信息", response = ResponseEntity.class)
     @ApiImplicitParams({
@@ -83,6 +87,7 @@ public class PcUserController {
         return pcUserService.removeConsignee(consigneeUuid);
     }
 
+    @ValidatePcPermission(validatePcPermissionEnum = ValidatePcPermissionEnum.PC_USER)
     @PutMapping("consignee/{consigneeUuid}")
     @ApiOperation(value = "修改收货信息", response = ResponseEntity.class)
     @ApiImplicitParams({

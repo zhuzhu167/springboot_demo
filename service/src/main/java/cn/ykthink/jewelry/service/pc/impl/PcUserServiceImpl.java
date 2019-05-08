@@ -8,6 +8,7 @@ import cn.ykthink.jewelry.model.pc.user.bo.*;
 import cn.ykthink.jewelry.model.pc.user.to.PcUserInfoTO;
 import cn.ykthink.jewelry.model.pc.user.vo.PcUserLoginVO;
 import cn.ykthink.jewelry.model.pc.user.vo.PcUserPersonInfoVO;
+import cn.ykthink.jewelry.model.pc.user.vo.PcUserReceiverInfoVO;
 import cn.ykthink.jewelry.orm.pc.PcUserMapper;
 import cn.ykthink.jewelry.service.pc.PcUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,31 +66,31 @@ public class PcUserServiceImpl implements PcUserService {
     @Override
     public ResponseEntity<Object> person() {
         String userUuid= JWTokenUtil.validateJWToken(JWTokenUtil.getRequestHeader("X-Access-Token"), "uuid");
-        return null;
+        return ResponseEntitySupport.success(new PcUserPersonInfoVO());
     }
 
     @Override
     public ResponseEntity<Object> editPerson(PcUserEditPerson body) {
-        return null;
+        return ResponseEntitySupport.success();
     }
 
     @Override
     public ResponseEntity<Object> editPwd(PcUserEditPwd body) {
-        return null;
+        return ResponseEntitySupport.success();
     }
 
     @Override
     public ResponseEntity<Object> consignee(Integer pageNum, Integer pageSize) {
-        return null;
+        return ResponseEntitySupport.success(new PcUserReceiverInfoVO());
     }
 
     @Override
     public ResponseEntity<Object> removeConsignee(String consigneeUuid) {
-        return null;
+        return ResponseEntitySupport.success();
     }
 
     @Override
     public ResponseEntity<Object> editConsignee(String consigneeUuid, PcUerReceiverInfoBO body) {
-        return null;
+        return ResponseEntitySupport.success();
     }
 }
