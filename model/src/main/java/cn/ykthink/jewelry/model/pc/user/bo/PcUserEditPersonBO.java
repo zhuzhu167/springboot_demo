@@ -11,11 +11,13 @@ import lombok.Data;
  * Time: 15:03
  */
 @Data
-public class PcUserEditPerson {
+public class PcUserEditPersonBO {
     @ApiModelProperty(value = "名称", name = "name", example = "", dataType = "String", required = false)
     private String name;
+
     @ApiModelProperty(value = "手机", name = "phone", example = "", dataType = "String", required = false)
     private String phone;
+
     @ApiModelProperty(value = "邮箱", name = "email", example = "", dataType = "String", required = false)
     private String email;
 }
