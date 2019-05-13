@@ -1,4 +1,4 @@
-package cn.ykthink.jewelry.service.pc.impl;
+package cn.ykthink.jewelry.service.pc;
 
 import org.springframework.http.ResponseEntity;
 
