@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Map;
+
 /**
  * Author: YK
  * Title: PcUserMapper
@@ -20,10 +22,10 @@ public interface PcUserMapper {
     /**
      * 核对用户信息
      *
-     * @param account
+     * @param request
      * @return
      */
-    PcUserInfoTO queryAccountPwd(@Param("account") String account);
+    PcUserInfoTO queryAccountPwd(@Param("request") Map<String,Object> request);
 
     /**
      * 用户注册
@@ -49,4 +51,11 @@ public interface PcUserMapper {
      */
     Integer updatePersonMessage(UserInfoPO userInfoPO);
 
+    /**
+     * 更新用户密码
+     *
+     * @param userInfoPO
+     * @return
+     */
+    Integer updateUserPwd(UserInfoPO userInfoPO);
 }

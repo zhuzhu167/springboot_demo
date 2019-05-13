@@ -21,17 +21,29 @@ Time: 15:23
         <set>
             email=#{email},
             phone=#{phone},
-            username=#{username},
+            username=#{username}
         </set>
         where uuid=#{uuid}
+    </update>
+    <update id="updateUserPwd">
+        update users_info
+        set password = #{password}
+        where uuid = #{uuid}
     </update>
     <select id="queryAccountPwd" resultType="cn.ykthink.jewelry.model.pc.user.to.PcUserInfoTO">
         select uuid, password
         from users_info
-        where account = #{account}
+        <where>
+            <if test="request.account!=null and request.account!='' ">
+                account = #{request.account},
+            </if>
+            <if test="request.uuid!=null and request.uuid!=''">
+                and uuid=#{request.uuid}
+            </if>
+        </where>
     </select>
     <select id="selectPersonMessage" resultType="cn.ykthink.jewelry.model.pc.user.vo.PcUserPersonInfoVO">
-        select account, phone, email,username
+        select account, phone, email, username
         from users_info
         where uuid = #{userUuid}
           and is_deleted = 0

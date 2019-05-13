@@ -33,31 +33,35 @@ public class PcUserServiceImpl implements PcUserService {
 
     @Override
     public ResponseEntity<Object> login(PcUserLoginBO body) {
-        PcUserInfoTO pcUserInfoTO = pcUserMapper.queryAccountPwd(body.getAccount());
+        Map<String,Object> request=new HashMap<>();
+        request.put("account",body.getAccount());
+        PcUserInfoTO pcUserInfoTO = pcUserMapper.queryAccountPwd(request);
         if (pcUserInfoTO != null && pcUserInfoTO.getPassword().equals(Md5Utils.getStringMD5(body.getPassword()))) {
-            PcUserLoginVO pcUserLoginVO=new PcUserLoginVO();
+            PcUserLoginVO pcUserLoginVO = new PcUserLoginVO();
             Map<String, Object> map = new HashMap<>();
             map.put("uuid", pcUserInfoTO.getUuid());
             String accessToken = JWTokenUtil.generateJWToken(map, (24 * 60 * 60 * 1000L));//24小时
             pcUserLoginVO.setToken(accessToken);
             return ResponseEntitySupport.success(pcUserLoginVO);
-        } else{
+        } else {
             return ResponseEntitySupport.error(HttpStatus.NOT_FOUND, "登录名或密码错误", "account or password is wrong");
         }
     }
 
     @Override
     public ResponseEntity<Object> register(PcUserRegisterBO body) {
-        PcUserInfoTO pcUserInfoTO = pcUserMapper.queryAccountPwd(body.getAccount());
-        if(pcUserInfoTO!=null){
+        Map<String,Object> request=new HashMap<>();
+        request.put("account",body.getAccount());
+        PcUserInfoTO pcUserInfoTO = pcUserMapper.queryAccountPwd(request);
+        if (pcUserInfoTO != null) {
             return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "该账号已被注册", "the account is existed");
-        }else{
-            UserInfoPO userInfoPO=new UserInfoPO();
+        } else {
+            UserInfoPO userInfoPO = new UserInfoPO();
             userInfoPO.setAccount(body.getAccount());
             userInfoPO.setPassword(Md5Utils.getStringMD5(body.getPassword()));
-            if(pcUserMapper.insertAccount(userInfoPO)>0){
-                return ResponseEntitySupport.success("注册成功","Registered successfully");
-            }else{
+            if (pcUserMapper.insertAccount(userInfoPO) > 0) {
+                return ResponseEntitySupport.success("注册成功", "Registered successfully");
+            } else {
                 return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "数据异常", "Abnormal data");
             }
         }
@@ -65,29 +69,43 @@ public class PcUserServiceImpl implements PcUserService {
 
     @Override
     public ResponseEntity<Object> person() {
-        String userUuid= JWTokenUtil.validateJWToken(JWTokenUtil.getRequestHeader("X-Access-Token"), "uuid");
-        PcUserPersonInfoVO pcUserPersonInfoVO=pcUserMapper.selectPersonMessage(userUuid);
+        String userUuid = JWTokenUtil.validateJWToken(JWTokenUtil.getRequestHeader("X-Access-Token"), "uuid");
+        PcUserPersonInfoVO pcUserPersonInfoVO = pcUserMapper.selectPersonMessage(userUuid);
         return ResponseEntitySupport.success(pcUserPersonInfoVO);
     }
 
     @Override
     public ResponseEntity<Object> editPerson(PcUserEditPersonBO body) {
-        String userUuid= JWTokenUtil.validateJWToken(JWTokenUtil.getRequestHeader("X-Access-Token"), "uuid");
-        UserInfoPO userInfoPO=new UserInfoPO();
+        String userUuid = JWTokenUtil.validateJWToken(JWTokenUtil.getRequestHeader("X-Access-Token"), "uuid");
+        UserInfoPO userInfoPO = new UserInfoPO();
         userInfoPO.setEmail(body.getEmail());
         userInfoPO.setPhone(body.getPhone());
         userInfoPO.setUsername(body.getName());
         userInfoPO.setUuid(userUuid);
-        if(pcUserMapper.updatePersonMessage(userInfoPO)>0){
+        if (pcUserMapper.updatePersonMessage(userInfoPO) > 0) {
             return ResponseEntitySupport.success();
-        }else{
+        } else {
             return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "数据异常", "Abnormal data");
         }
     }
 
     @Override
     public ResponseEntity<Object> editPwd(PcUserEditPwdBO body) {
-        return ResponseEntitySupport.success();
+        String userUuid = JWTokenUtil.validateJWToken(JWTokenUtil.getRequestHeader("X-Access-Token"), "uuid");
+        Map<String,Object> request=new HashMap<>();
+        request.put("uuid",userUuid);
+        PcUserInfoTO pcUserInfoTO = pcUserMapper.queryAccountPwd(request);
+        if (!Md5Utils.getStringMD5(body.getOldPwd()).equals(pcUserInfoTO.getPassword())) {
+            return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "旧密码错误", "Old password error");
+        }
+        UserInfoPO userInfoPO = new UserInfoPO();
+        userInfoPO.setUuid(userUuid);
+        userInfoPO.setPassword(Md5Utils.getStringMD5(body.getNewPwd()));
+        if (pcUserMapper.updateUserPwd(userInfoPO) > 0) {
+            return ResponseEntitySupport.success();
+        } else {
+            return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "数据异常", "Abnormal data");
+        }
     }
 
     @Override
