@@ -96,7 +96,7 @@ Time: 15:23
         </where>
     </select>
     <select id="selectPersonMessage" resultType="cn.ykthink.jewelry.model.pc.user.vo.PcUserPersonInfoVO">
-        select account, phone, email, username
+        select phone, email, username
         from users_info
         where uuid = #{userUuid}
           and is_deleted = 0
