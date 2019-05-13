@@ -16,13 +16,22 @@ Time: 15:23
         users_info(uuid,account,password,create_time,modified_time)values(#{uuid},#{account},#{password},DATE_FORMAT(NOW(),"%Y-%m-%d
         %H:%i:%s"),DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"))
     </insert>
+    <update id="updatePersonMessage">
+        update users_info
+        <set>
+            email=#{email},
+            phone=#{phone},
+            username=#{username},
+        </set>
+        where uuid=#{uuid}
+    </update>
     <select id="queryAccountPwd" resultType="cn.ykthink.jewelry.model.pc.user.to.PcUserInfoTO">
         select uuid, password
         from users_info
         where account = #{account}
     </select>
     <select id="selectPersonMessage" resultType="cn.ykthink.jewelry.model.pc.user.vo.PcUserPersonInfoVO">
-        select account, phone, email
+        select account, phone, email,username
         from users_info
         where uuid = #{userUuid}
           and is_deleted = 0

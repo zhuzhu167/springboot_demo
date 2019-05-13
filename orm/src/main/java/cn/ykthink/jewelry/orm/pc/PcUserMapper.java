@@ -41,5 +41,12 @@ public interface PcUserMapper {
      */
     PcUserPersonInfoVO selectPersonMessage(@Param("userUuid") String userUuid);
 
+    /**
+     * 更新用户信息
+     *
+     * @param userInfoPO
+     * @return
+     */
+    Integer updatePersonMessage(UserInfoPO userInfoPO);
 
 }

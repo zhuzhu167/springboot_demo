@@ -7,7 +7,6 @@ import cn.ykthink.jewelry.model.comm.po.UserInfoPO;
 import cn.ykthink.jewelry.model.pc.user.bo.*;
 import cn.ykthink.jewelry.model.pc.user.to.PcUserInfoTO;
 import cn.ykthink.jewelry.model.pc.user.vo.PcUserLoginVO;
-import cn.ykthink.jewelry.model.pc.user.vo.PcUserOrderVO;
 import cn.ykthink.jewelry.model.pc.user.vo.PcUserPersonInfoVO;
 import cn.ykthink.jewelry.model.pc.user.vo.PcUserReceiverInfoVO;
 import cn.ykthink.jewelry.orm.pc.PcUserMapper;
@@ -67,13 +66,23 @@ public class PcUserServiceImpl implements PcUserService {
     @Override
     public ResponseEntity<Object> person() {
         String userUuid= JWTokenUtil.validateJWToken(JWTokenUtil.getRequestHeader("X-Access-Token"), "uuid");
-        pcUserMapper.selectPersonMessage(userUuid);
-        return ResponseEntitySupport.success(pcUserMapper);
+        PcUserPersonInfoVO pcUserPersonInfoVO=pcUserMapper.selectPersonMessage(userUuid);
+        return ResponseEntitySupport.success(pcUserPersonInfoVO);
     }
 
     @Override
     public ResponseEntity<Object> editPerson(PcUserEditPersonBO body) {
-        return ResponseEntitySupport.success();
+        String userUuid= JWTokenUtil.validateJWToken(JWTokenUtil.getRequestHeader("X-Access-Token"), "uuid");
+        UserInfoPO userInfoPO=new UserInfoPO();
+        userInfoPO.setEmail(body.getEmail());
+        userInfoPO.setPhone(body.getPhone());
+        userInfoPO.setUsername(body.getName());
+        userInfoPO.setUuid(userUuid);
+        if(pcUserMapper.updatePersonMessage(userInfoPO)>0){
+            return ResponseEntitySupport.success();
+        }else{
+            return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "数据异常", "Abnormal data");
+        }
     }
 
     @Override
