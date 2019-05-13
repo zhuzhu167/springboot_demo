@@ -66,7 +66,8 @@ public class PcUserServiceImpl implements PcUserService {
     @Override
     public ResponseEntity<Object> person() {
         String userUuid= JWTokenUtil.validateJWToken(JWTokenUtil.getRequestHeader("X-Access-Token"), "uuid");
-        return ResponseEntitySupport.success(new PcUserPersonInfoVO());
+        pcUserMapper.selectPersonMessage(userUuid);
+        return ResponseEntitySupport.success(pcUserMapper);
     }
 
     @Override
