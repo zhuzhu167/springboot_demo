@@ -16,6 +16,26 @@ Time: 15:23
         users_info(uuid,account,password,create_time,modified_time)values(#{uuid},#{account},#{password},DATE_FORMAT(NOW(),"%Y-%m-%d
         %H:%i:%s"),DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"))
     </insert>
+    <insert id="insertConsignee">
+        <selectKey keyProperty="uuid" resultType="string" order="BEFORE">
+            select replace(uuid(), '-', '') as uuid from dual
+        </selectKey>
+        insert into consignee (uuid, user_uuid, receiver_name,
+        receiver_phone_number, receiver_province, receiver_city, receiver_district, receiver_address,
+        zip_code,create_time,modified_time)
+        values
+        (#{uuid},
+        #{userUuid},
+        #{receiverName},
+        #{receiverPhoneNumber},
+        #{receiverProvince},
+        #{receiverCity},
+        #{receiverDistrict},
+        #{receiverAddress},
+        #{zipCode},
+        DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"),
+        DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"))
+    </insert>
     <update id="updatePersonMessage">
         update users_info
         <set>
@@ -30,12 +50,45 @@ Time: 15:23
         set password = #{password}
         where uuid = #{uuid}
     </update>
+    <update id="removeIsDeleted">
+        update ${tableName}
+        set is_deleted = 1
+        where uuid = #{uuid}
+    </update>
+    <update id="updateConsignee">
+        update consignee
+        <set>
+            <if test="zipCode!=null">
+                zip_code=#{zipCode},
+            </if>
+            <if test="receiverAddress!=null">
+                receiver_address=#{receiverAddress},
+            </if>
+            <if test="receiverDistrict!=null">
+                receiver_district=#{receiverDistrict},
+            </if>
+            <if test="receiverCity!=null">
+                receiver_city=#{receiverCity},
+            </if>
+            <if test="receiverPhoneNumber!=null">
+                receiver_phone_number=#{receiverPhoneNumber},
+            </if>
+            <if test="receiverProvince!=null">
+                receiver_province=#{receiverProvince},
+            </if>
+            <if test="receiverName">
+                receiver_name=#{receiverName}
+            </if>
+        </set>
+        where
+        uuid=#{uuid}
+    </update>
     <select id="queryAccountPwd" resultType="cn.ykthink.jewelry.model.pc.user.to.PcUserInfoTO">
         select uuid, password
         from users_info
         <where>
             <if test="request.account!=null and request.account!='' ">
-                account = #{request.account},
+                account = #{request.account}
             </if>
             <if test="request.uuid!=null and request.uuid!=''">
                 and uuid=#{request.uuid}
@@ -46,6 +99,19 @@ Time: 15:23
         select account, phone, email, username
         from users_info
         where uuid = #{userUuid}
+          and is_deleted = 0
+    </select>
+    <select id="selectConsigneeMessage" resultType="cn.ykthink.jewelry.model.pc.user.vo.PcUserReceiverInfoVO">
+        select uuid                  as receiver_uuid,
+               receiver_name         as name,
+               receiver_province     as province,
+               receiver_city         as city,
+               receiver_district     as district,
+               receiver_address      as address,
+               receiver_phone_number as phone,
+               zip_code              as zip_code
+        from consignee
+        where user_uuid = #{userUuid}
           and is_deleted = 0
     </select>
 </mapper>

@@ -3,6 +3,7 @@ package cn.ykthink.jewelry.service.pc.impl;
 import cn.ykthink.jewelry.core.support.http.ResponseEntitySupport;
 import cn.ykthink.jewelry.core.untils.JWTokenUtil;
 import cn.ykthink.jewelry.core.untils.Md5Utils;
+import cn.ykthink.jewelry.model.comm.po.ConsigneePO;
 import cn.ykthink.jewelry.model.comm.po.UserInfoPO;
 import cn.ykthink.jewelry.model.pc.user.bo.*;
 import cn.ykthink.jewelry.model.pc.user.to.PcUserInfoTO;
@@ -11,6 +12,9 @@ import cn.ykthink.jewelry.model.pc.user.vo.PcUserPersonInfoVO;
 import cn.ykthink.jewelry.model.pc.user.vo.PcUserReceiverInfoVO;
 import cn.ykthink.jewelry.orm.pc.PcUserMapper;
 import cn.ykthink.jewelry.service.pc.PcUserService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,8 +37,8 @@ public class PcUserServiceImpl implements PcUserService {
 
     @Override
     public ResponseEntity<Object> login(PcUserLoginBO body) {
-        Map<String,Object> request=new HashMap<>();
-        request.put("account",body.getAccount());
+        Map<String, Object> request = new HashMap<>();
+        request.put("account", body.getAccount());
         PcUserInfoTO pcUserInfoTO = pcUserMapper.queryAccountPwd(request);
         if (pcUserInfoTO != null && pcUserInfoTO.getPassword().equals(Md5Utils.getStringMD5(body.getPassword()))) {
             PcUserLoginVO pcUserLoginVO = new PcUserLoginVO();
@@ -50,8 +54,8 @@ public class PcUserServiceImpl implements PcUserService {
 
     @Override
     public ResponseEntity<Object> register(PcUserRegisterBO body) {
-        Map<String,Object> request=new HashMap<>();
-        request.put("account",body.getAccount());
+        Map<String, Object> request = new HashMap<>();
+        request.put("account", body.getAccount());
         PcUserInfoTO pcUserInfoTO = pcUserMapper.queryAccountPwd(request);
         if (pcUserInfoTO != null) {
             return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "该账号已被注册", "the account is existed");
@@ -92,8 +96,8 @@ public class PcUserServiceImpl implements PcUserService {
     @Override
     public ResponseEntity<Object> editPwd(PcUserEditPwdBO body) {
         String userUuid = JWTokenUtil.validateJWToken(JWTokenUtil.getRequestHeader("X-Access-Token"), "uuid");
-        Map<String,Object> request=new HashMap<>();
-        request.put("uuid",userUuid);
+        Map<String, Object> request = new HashMap<>();
+        request.put("uuid", userUuid);
         PcUserInfoTO pcUserInfoTO = pcUserMapper.queryAccountPwd(request);
         if (!Md5Utils.getStringMD5(body.getOldPwd()).equals(pcUserInfoTO.getPassword())) {
             return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "旧密码错误", "Old password error");
@@ -110,17 +114,59 @@ public class PcUserServiceImpl implements PcUserService {
 
     @Override
     public ResponseEntity<Object> consignee(Integer pageNum, Integer pageSize) {
-        return ResponseEntitySupport.success(new PcUserReceiverInfoVO());
+        String userUuid = JWTokenUtil.validateJWToken(JWTokenUtil.getRequestHeader("X-Access-Token"), "uuid");
+        Page<Object> page = PageHelper.startPage(pageNum, pageSize);
+        JSONObject response = new JSONObject();
+        pcUserMapper.selectConsigneeMessage(userUuid);
+        response.put("total", page.getTotal());
+        response.put("response", page.getResult());
+        return ResponseEntitySupport.success(response);
     }
 
     @Override
     public ResponseEntity<Object> removeConsignee(String consigneeUuid) {
-        return ResponseEntitySupport.success();
+        if (pcUserMapper.removeIsDeleted("consignee", consigneeUuid) > 0) {
+            return ResponseEntitySupport.success();
+        } else {
+            return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "数据异常", "Abnormal data");
+        }
     }
 
     @Override
     public ResponseEntity<Object> editConsignee(String consigneeUuid, PcUerReceiverInfoBO body) {
-        return ResponseEntitySupport.success();
+        ConsigneePO consigneePO = new ConsigneePO();
+        consigneePO.setReceiverPhoneNumber(body.getPhone());
+        consigneePO.setZipCode(body.getZipCode());
+        consigneePO.setReceiverName(body.getName());
+        consigneePO.setReceiverProvince(body.getProvince());
+        consigneePO.setReceiverDistrict(body.getDistrict());
+        consigneePO.setReceiverAddress(body.getAddress());
+        consigneePO.setReceiverCity(body.getCity());
+        consigneePO.setUuid(consigneeUuid);
+        if (pcUserMapper.updateConsignee(consigneePO) > 0) {
+            return ResponseEntitySupport.success();
+        } else {
+            return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "数据异常", "Abnormal data");
+        }
+    }
+
+    @Override
+    public ResponseEntity<Object> insertConsignee(PcUserInsertConsigneeBO body) {
+        String userUuid = JWTokenUtil.validateJWToken(JWTokenUtil.getRequestHeader("X-Access-Token"), "uuid");
+        ConsigneePO consigneePO = new ConsigneePO();
+        consigneePO.setReceiverAddress(body.getAddress());
+        consigneePO.setReceiverCity(body.getCity());
+        consigneePO.setReceiverDistrict(body.getDistrict());
+        consigneePO.setReceiverProvince(body.getProvince());
+        consigneePO.setReceiverName(body.getName());
+        consigneePO.setZipCode(body.getZipCode());
+        consigneePO.setReceiverPhoneNumber(body.getPhone());
+        consigneePO.setUserUuid(userUuid);
+        if (pcUserMapper.insertConsignee(consigneePO) > 0) {
+            return ResponseEntitySupport.success();
+        } else {
+            return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "数据异常", "Abnormal data");
+        }
     }
 
 }
