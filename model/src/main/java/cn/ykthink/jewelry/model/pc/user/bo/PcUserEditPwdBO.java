@@ -11,11 +11,13 @@ import lombok.Data;
  * Time: 15:09
  */
 @Data
-public class PcUserEditPwd {
+public class PcUserEditPwdBO {
     @ApiModelProperty(value = "旧密码", name = "oldPwd", example = "", dataType = "String", required = false)
     private String oldPwd;
+
     @ApiModelProperty(value = "新密码", name = "newPwd", example = "", dataType = "String", required = false)
     private String newPwd;
+
     @ApiModelProperty(value = "验证码", name = "code", example = "", dataType = "Integer", required = false)
     private Integer code;
 }

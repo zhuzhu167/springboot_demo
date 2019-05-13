@@ -7,6 +7,7 @@ import cn.ykthink.jewelry.model.comm.po.UserInfoPO;
 import cn.ykthink.jewelry.model.pc.user.bo.*;
 import cn.ykthink.jewelry.model.pc.user.to.PcUserInfoTO;
 import cn.ykthink.jewelry.model.pc.user.vo.PcUserLoginVO;
+import cn.ykthink.jewelry.model.pc.user.vo.PcUserOrderVO;
 import cn.ykthink.jewelry.model.pc.user.vo.PcUserPersonInfoVO;
 import cn.ykthink.jewelry.model.pc.user.vo.PcUserReceiverInfoVO;
 import cn.ykthink.jewelry.orm.pc.PcUserMapper;
@@ -71,12 +72,12 @@ public class PcUserServiceImpl implements PcUserService {
     }
 
     @Override
-    public ResponseEntity<Object> editPerson(PcUserEditPerson body) {
+    public ResponseEntity<Object> editPerson(PcUserEditPersonBO body) {
         return ResponseEntitySupport.success();
     }
 
     @Override
-    public ResponseEntity<Object> editPwd(PcUserEditPwd body) {
+    public ResponseEntity<Object> editPwd(PcUserEditPwdBO body) {
         return ResponseEntitySupport.success();
     }
 
@@ -94,4 +95,5 @@ public class PcUserServiceImpl implements PcUserService {
     public ResponseEntity<Object> editConsignee(String consigneeUuid, PcUerReceiverInfoBO body) {
         return ResponseEntitySupport.success();
     }
+
 }

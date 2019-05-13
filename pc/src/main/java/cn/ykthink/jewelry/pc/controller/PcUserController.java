@@ -54,14 +54,14 @@ public class PcUserController {
     @ValidatePcPermission(validatePcPermissionEnum = ValidatePcPermissionEnum.PC_USER)
     @PutMapping("person")
     @ApiOperation(value = "修改资料", response = ResponseEntity.class)
-    public ResponseEntity<Object> editPerson(@RequestBody PcUserEditPerson body) {
+    public ResponseEntity<Object> editPerson(@RequestBody PcUserEditPersonBO body) {
         return pcUserService.editPerson(body);
     }
 
     @ValidatePcPermission(validatePcPermissionEnum = ValidatePcPermissionEnum.PC_USER)
     @PutMapping("pwd")
     @ApiOperation(value = "修改密码", response = ResponseEntity.class)
-    public ResponseEntity<Object> editPwd(@RequestBody PcUserEditPwd body) {
+    public ResponseEntity<Object> editPwd(@RequestBody PcUserEditPwdBO body) {
         return pcUserService.editPwd(body);
     }
 

@@ -41,7 +41,7 @@ public interface PcUserService {
      * @param body
      * @return
      */
-    ResponseEntity<Object> editPerson(PcUserEditPerson body);
+    ResponseEntity<Object> editPerson(PcUserEditPersonBO body);
 
     /**
      * 修改密码
@@ -49,7 +49,7 @@ public interface PcUserService {
      * @param body
      * @return
      */
-    ResponseEntity<Object> editPwd(PcUserEditPwd body);
+    ResponseEntity<Object> editPwd(PcUserEditPwdBO body);
 
     /**
      * 收货点信息
@@ -76,4 +76,5 @@ public interface PcUserService {
      * @return
      */
     ResponseEntity<Object> editConsignee(String consigneeUuid, PcUerReceiverInfoBO body);
+
 }

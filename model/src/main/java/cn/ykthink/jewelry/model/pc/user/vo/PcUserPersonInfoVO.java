@@ -14,10 +14,13 @@ import lombok.Data;
 public class PcUserPersonInfoVO {
     @ApiModelProperty(value = "用户名称", name = "username", example = "username", dataType = "String", required = true)
     private String username;
+
     @ApiModelProperty(value = "账号", name = "account", example = "account", dataType = "String", required = true)
     private String account;
+
     @ApiModelProperty(value = "手机号", name = "phone", example = "13712000001", dataType = "String", required = true)
     private String phone;
+
     @ApiModelProperty(value = "邮箱", name = "email", example = "123@yeah.net", dataType = "String", required = true)
     private String email;
 }
