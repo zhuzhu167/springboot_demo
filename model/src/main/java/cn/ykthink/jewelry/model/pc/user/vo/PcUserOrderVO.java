@@ -17,8 +17,8 @@ public class PcUserOrderVO {
     @ApiModelProperty(value = "订单uuid", name = "orderUuid", example = "12345", dataType = "String", required = true)
     private String orderUuid;
 
-    @ApiModelProperty(value = "订单商品list", name = "orderCommodityVOList", dataType = "List", required = true)
-    private List<PcUserOrderCommodityVO> orderCommodityVOList;
+    @ApiModelProperty(value = "订单商品list", name = "orderCommodityList", dataType = "List", required = true)
+    private List<PcUserOrderCommodityVO> orderCommodityList;
 
     @ApiModelProperty(value = "订单状态", name = "orderStatus", example = "1", dataType = "Integer", required = true)
     private Integer orderStatus;

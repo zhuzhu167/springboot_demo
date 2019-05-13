@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
@@ -18,7 +19,7 @@ import javax.annotation.Resource;
  * Date: 2019/5/13
  * Time: 10:53
  */
-@Controller
+@RestController
 public class PcIndexController {
     @Resource
     PcIndexService pcIndexService;
