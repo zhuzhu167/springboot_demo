@@ -19,10 +19,6 @@ public class OrderCommodityPO extends BasePO{
      */
     private String commodityUuid;
     /**
-     * 购物车uuid
-     */
-    private String cartUuid;
-    /**
      * 购物车商品uuid
      */
     private String cartCommodityUuid;

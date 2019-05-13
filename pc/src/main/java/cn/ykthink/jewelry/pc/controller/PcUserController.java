@@ -66,6 +66,14 @@ public class PcUserController {
     }
 
     @ValidatePcPermission(validatePcPermissionEnum = ValidatePcPermissionEnum.PC_USER)
+    @PostMapping("consignee")
+    @ApiOperation(value = "新增收货信息", response = ResponseEntity.class)
+    public ResponseEntity<Object> insertConsignee(@RequestBody PcUserInsertConsigneeBO body) {
+        return pcUserService.insertConsignee(body);
+    }
+
+
+    @ValidatePcPermission(validatePcPermissionEnum = ValidatePcPermissionEnum.PC_USER)
     @GetMapping("consignee")
     @ApiOperation(value = "收货信息", response = PcUserReceiverInfoVO.class)
     @ApiImplicitParams({

@@ -12,10 +12,10 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * program: jewelry
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * author: mi
  * create: 2019-05-09 17:03
  **/
-@Controller
+@RestController
 @Api(description = SystemUri.PC_ROOT_URI_NAME + "购物车")
 @RequestMapping(SystemUri.PC_ROOT_URI + "cart")
 public class PcCartController {
@@ -32,13 +32,22 @@ public class PcCartController {
 
     @ValidatePcPermission(validatePcPermissionEnum = ValidatePcPermissionEnum.PC_USER)
     @GetMapping("cart")
-    @ApiOperation(value = "购物车",response = PcUserCartVO.class)
+    @ApiOperation(value = "购物车", response = PcUserCartVO.class)
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "query", dataType = "int", name = "pageNum", value = "第几页", required = false),
             @ApiImplicitParam(paramType = "query", dataType = "int", name = "pageSize", value = "显示多少条", required = false)
     })
-    public ResponseEntity<Object> cart(@ParameterValid(type = Integer.class,msg = "pageNum不能为空",isMin = true) @RequestParam(defaultValue = "${jewelry.pages.page_index}") Integer pageNum,
-                                       @ParameterValid(type = Integer.class, msg = "pageSize不能为空", isMin = true) @RequestParam(defaultValue = "${jewelry.pages.page_size}") Integer pageSize){
-        return pcCartService.cart(pageNum,pageSize);
+    public ResponseEntity<Object> cart(@ParameterValid(type = Integer.class, msg = "pageNum不能为空", isMin = true) @RequestParam(defaultValue = "${jewelry.pages.page_index}") Integer pageNum,
+                                       @ParameterValid(type = Integer.class, msg = "pageSize不能为空", isMin = true) @RequestParam(defaultValue = "${jewelry.pages.page_size}") Integer pageSize) {
+        return pcCartService.cart(pageNum, pageSize);
     }
+
+    /**
+     * post下单
+     */
+
+    /**
+     * deleted删购商品
+     */
+
 }

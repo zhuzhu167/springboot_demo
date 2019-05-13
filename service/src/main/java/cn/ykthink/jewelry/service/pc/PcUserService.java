@@ -77,4 +77,11 @@ public interface PcUserService {
      */
     ResponseEntity<Object> editConsignee(String consigneeUuid, PcUerReceiverInfoBO body);
 
+    /**
+     * 新增收货信息
+     *
+     * @param body
+     * @return
+     */
+    ResponseEntity<Object> insertConsignee(PcUserInsertConsigneeBO body);
 }

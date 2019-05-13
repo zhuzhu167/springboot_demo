@@ -20,4 +20,5 @@ public class PcUserEditPersonBO {
 
     @ApiModelProperty(value = "邮箱", name = "email", example = "", dataType = "String", required = false)
     private String email;
+
 }

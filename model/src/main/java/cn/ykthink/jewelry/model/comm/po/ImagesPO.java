@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
  **/
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class ImagesPO extends BasePO{
+public class ImagesPO extends BasePO {
     /**
      * 图片路径
      */
@@ -23,7 +23,7 @@ public class ImagesPO extends BasePO{
     /**
      * 商品uuid
      */
-    private String commodityUuid;
+    private String commodityJewelryUuid;
     /**
      * 类目uuid
      */
