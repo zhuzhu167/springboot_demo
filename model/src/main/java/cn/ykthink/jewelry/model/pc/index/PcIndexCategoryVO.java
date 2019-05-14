@@ -14,6 +14,7 @@ import lombok.Data;
 public class PcIndexCategoryVO {
     @ApiModelProperty(value = "类目uuid", name = "categoryUuid", example = "1234", dataType = "String", required = true)
     private String categoryUuid;
+
     @ApiModelProperty(value = "类目名称", name = "categoryName", example = "1234", dataType = "String", required = true)
     private String categoryName;
 }

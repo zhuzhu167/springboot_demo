@@ -16,6 +16,6 @@ public class PcUserCartVO {
     @ApiModelProperty(value = "购物车uuid", name = "cartUuid", example = "12345", dataType = "String", required = true)
     private String cartUuid;
 
-    @ApiModelProperty(value = "购物车商品list", name = "cartCommodityVOList", dataType = "List", required = true)
-    private List<PcUserCartCommodityVO> cartCommodityVOList;
+    @ApiModelProperty(value = "购物车商品list", name = "cartCommodityList", dataType = "List", required = true)
+    private List<PcUserCartCommodityVO> cartCommodityList;
 }
