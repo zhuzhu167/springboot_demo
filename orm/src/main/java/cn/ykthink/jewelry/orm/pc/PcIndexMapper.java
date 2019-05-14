@@ -1,6 +1,8 @@
 package cn.ykthink.jewelry.orm.pc;
 
+import cn.ykthink.jewelry.model.pc.index.PcIndexCategoryVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -13,4 +15,10 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface PcIndexMapper {
+    /**
+     * 用户个人信息
+     *
+     * @return
+     */
+    PcIndexCategoryVO selectIndexCategory();
 }
