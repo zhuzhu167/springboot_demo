@@ -9,5 +9,9 @@ import org.springframework.http.ResponseEntity;
  * create: 2019-05-14 17:40
  **/
 public interface PcCommodityService {
+    /**
+     * 商品简介
+     * @return
+     */
     ResponseEntity<Object> commodityIntroduction();
 }
