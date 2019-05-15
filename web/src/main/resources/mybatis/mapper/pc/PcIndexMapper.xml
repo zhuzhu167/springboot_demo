@@ -3,7 +3,7 @@
 
 <mapper namespace="cn.ykthink.jewelry.orm.pc.PcIndexMapper">
     <select id="selectIndexCategory" resultType="cn.ykthink.jewelry.model.pc.index.PcIndexCategoryVO">
-        select uuid,category
+        select uuid as category_uuid,category as category_name
         from category
         where is_deleted = 0
     </select>

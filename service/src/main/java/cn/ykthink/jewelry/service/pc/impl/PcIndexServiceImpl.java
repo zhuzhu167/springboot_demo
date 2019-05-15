@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Author: YK
@@ -23,8 +24,8 @@ public class PcIndexServiceImpl implements PcIndexService {
     PcIndexMapper pcIndexMapper;
 
     @Override
-    public ResponseEntity<Object> category() { ;
-        PcIndexCategoryVO pcIndexCategoryVO = pcIndexMapper.selectIndexCategory();
+    public ResponseEntity<Object> category() {
+        List<PcIndexCategoryVO> pcIndexCategoryVO = pcIndexMapper.selectIndexCategory();
         return ResponseEntitySupport.success(pcIndexCategoryVO);
     }
 }
