@@ -2,6 +2,7 @@ package cn.ykthink.jewelry.pc.aspect.permission;
 
 import cn.ykthink.jewelry.core.annotation.ValidatePcPermission;
 import cn.ykthink.jewelry.core.constant.HttpResponseConstant;
+import cn.ykthink.jewelry.core.support.http.AbstractHttpSupport;
 import cn.ykthink.jewelry.core.support.http.ResponseEntitySupport;
 import cn.ykthink.jewelry.core.untils.JWTokenUtil;
 import io.jsonwebtoken.Jwts;
@@ -40,6 +41,7 @@ public class PcPermissionAspect {
         try {
             ServletRequestAttributes res = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
             HttpServletRequest request = res.getRequest();
+            HttpServletResponse response = res.getResponse();
             String token = request.getHeader("X-Access-Token");
             if (StringUtils.isBlank(token)) {
                 return ResponseEntitySupport.error(HttpStatus.PRECONDITION_FAILED, HttpResponseConstant.HTTP_MESSAGE_PRECONDITION_FAILED, "X-Access-Token Defect");
@@ -53,6 +55,12 @@ public class PcPermissionAspect {
                 }
             }catch (IllegalStateException e){
                 return ResponseEntitySupport.error(HttpStatus.UNAUTHORIZED, "无效token", "Invalid token");
+            }
+            try {
+                //进行http拦截
+                AbstractHttpSupport.intercept(request, response, joinPoint);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
             return joinPoint.proceed();
         } catch (Throwable throwable) {

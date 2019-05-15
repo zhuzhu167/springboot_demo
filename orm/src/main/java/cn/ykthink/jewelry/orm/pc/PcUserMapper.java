@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -67,7 +68,7 @@ public interface PcUserMapper {
      * @param userUuid
      * @return
      */
-    PcUserReceiverInfoVO selectConsigneeMessage(@Param("userUuid") String userUuid);
+    List<PcUserReceiverInfoVO> selectConsigneeMessage(@Param("userUuid") String userUuid);
 
     /**
      * 新增收货地址
