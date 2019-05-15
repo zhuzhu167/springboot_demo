@@ -13,5 +13,11 @@ public interface PcCommodityService {
      * 商品简介
      * @return
      */
-    ResponseEntity<Object> commodityIntroduction();
+    ResponseEntity<Object> commodityIntroduction(Integer pageNum, Integer pageSize);
+
+    /**
+     * 商品详情
+     * @return
+     */
+    ResponseEntity<Object> commodity(String commodityUuid);
 }

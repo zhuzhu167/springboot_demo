@@ -21,7 +21,7 @@ public class ImagesPO extends BasePO {
      */
     private Integer imageNumber;
     /**
-     * 商品uuid
+     * 商品钻石uuid
      */
     private String commodityJewelryUuid;
     /**

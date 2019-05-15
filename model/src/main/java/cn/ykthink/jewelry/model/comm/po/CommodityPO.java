@@ -35,10 +35,6 @@ public class CommodityPO extends BasePO{
      */
     private String commodityNo;
     /**
-     * 尺寸
-     */
-    private Integer size;
-    /**
      * 商品价格
      */
     private BigDecimal commodityPrice;

@@ -3,7 +3,7 @@
 
 <mapper namespace="cn.ykthink.jewelry.orm.pc.PcCommodityMapper">
     <resultMap id="commodityIntroductionResultMap" type="cn.ykthink.jewelry.model.pc.user.vo.PcUserCommodityIntroductionVO">
-        <id column="uuid" property="commodityUuid"/>
+        <id column="commodity_uuid" property="commodityUuid"/>
         <result column="title" property="title"/>
         <result column="subhead" property="subhead"/>
         <result column="commodity_price" property="commodityPrice"/>
@@ -14,12 +14,53 @@
     </resultMap>
     <select id="selectCommodityIntroduction" resultMap="commodityIntroductionResultMap">
         select commodity.uuid            as commodity_uuid,
-               images.image_url          as image_list,
+               images.image_url          as image_url,
                commodity.title           as title,
                commodity.subhead         as subhead,
-               commodity.commodity_price as commodityPrice
+               commodity.commodity_price as commodity_price
         from   commodity,images
         where  commodity.uuid = images.commodity_jewelry_uuid
         and    commodity.is_deleted = 0
+        and    commodity.commodity_status = 1
+        order by commodity.create_time
+    </select>
+
+    <resultMap id="commodityResultMap" type="cn.ykthink.jewelry.model.pc.user.vo.PcUserCommodityInfoVO">
+        <id column="uuid" property="commodityUuid"/>
+        <result column="commodity_no" property="commodityNo"/>
+        <result column="title" property="title"/>
+        <result column="subhead" property="subhead"/>
+        <result column="commodity_price" property="commodityPrice"/>
+        <result column="detail" property="detail"/>
+        <association property="store" javaType="cn.ykthink.jewelry.model.pc.user.vo.PcUserStoreVO">
+            <id column="uuid" property="StoreUuid"/>
+            <result column="store_total" property="storeTotal"/>
+            <result column="store_consumption" property="storeConsumption"/>
+        </association>
+        <collection property="imageList" ofType="cn.ykthink.jewelry.model.pc.user.vo.PcUserImageVO">
+            <id column="uuid" property="imageUuid"/>
+            <result column="image_url" property="imageUrl"/>
+        </collection>
+        <collection property="textureList" ofType="cn.ykthink.jewelry.model.pc.user.vo.PcUserTextureVO">
+            <id column="uuid" property="textureUuid"/>
+            <result column="texture_name" property="textureName"/>
+        </collection>
+    </resultMap>
+    <select id="selectCommodity" resultMap="commodityResultMap">
+        select commodity.uuid               as c_uuid,
+               images.image_url             as image_url,
+               commodity.commodity_no       as c_no,
+               commodity.title              as title,
+               commodity.subhead            as subhead,
+               commodity.commodity_price    as commodity_price,
+               commodity.detail             as detail,
+               texture.texture_name         as texture_name,
+               store.store_total            as store_total,
+               store.store_consumption      as store_cons
+        from   commodity,images,texture,store
+        where  commodity.uuid = #{commodityUuid}
+        and    commodity.uuid = images.commodity_jewelry_uuid
+        and    commodity.texture_uuid = texture.uuid
+        and    commodity.store_uuid = store.uuid
     </select>
 </mapper>

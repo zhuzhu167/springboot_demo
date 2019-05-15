@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * program: jewelry
@@ -23,19 +24,16 @@ public class PcUserCommodityInfoVO {
     private String subhead;
 
     @ApiModelProperty(value = "价格", name = "commodityPrice", example = "1314", dataType = "BigDecimal", required = true)
-    private BigDecimal price;
+    private BigDecimal commodityPrice;
 
-    @ApiModelProperty(value = "材质", name = "texture", example = "gold", dataType = "String", required = true)
-    private String texture;
+    @ApiModelProperty(value = "材质list", name = "textureList", example = "", dataType = "List", required = true)
+    private List<PcUserTextureVO> textureList;
 
-    @ApiModelProperty(value = "库存", name = "storeTotal", example = "20", dataType = "Integer", required = true)
-    private Integer storeTotal;
+    @ApiModelProperty(value = "库存", name = "store", example = "", dataType = "PcUserStoreVO", required = true)
+    private PcUserStoreVO store;
 
-    @ApiModelProperty(value = "尺寸", name = "size", example = "8", dataType = "Integer", required = true)
-    private Integer size;
-
-    @ApiModelProperty(value = "图片", name = "imageUrl", example = "www.xxx.com/abcde.jpg", dataType = "String", required = true)
-    private String imageUrl;
+    @ApiModelProperty(value = "图片list", name = "imageList", example = "", dataType = "List", required = true)
+    private List<PcUserImageVO> imageList;
 
     @ApiModelProperty(value = "商品编号", name = "commodityNo", example = "007", dataType = "String", required = true)
     private String commodityNo;
