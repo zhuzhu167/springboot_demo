@@ -3,6 +3,8 @@ package cn.ykthink.jewelry.model.pc.user.bo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * Author: YK
  * Title: PcUserEditPwd
@@ -12,9 +14,10 @@ import lombok.Data;
  */
 @Data
 public class PcUserEditPwdBO {
+    @NotBlank
     @ApiModelProperty(value = "旧密码", name = "oldPwd", example = "", dataType = "String", required = false)
     private String oldPwd;
-
+    @NotBlank
     @ApiModelProperty(value = "新密码", name = "newPwd", example = "", dataType = "String", required = false)
     private String newPwd;
 

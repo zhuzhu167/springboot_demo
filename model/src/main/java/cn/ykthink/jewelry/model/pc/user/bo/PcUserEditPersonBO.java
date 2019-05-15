@@ -3,6 +3,8 @@ package cn.ykthink.jewelry.model.pc.user.bo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * Author: YK
  * Title: PcUserEditPerson
@@ -12,12 +14,13 @@ import lombok.Data;
  */
 @Data
 public class PcUserEditPersonBO {
+    @NotBlank
     @ApiModelProperty(value = "名称", name = "name", example = "", dataType = "String", required = false)
     private String name;
-
+    @NotBlank
     @ApiModelProperty(value = "手机", name = "phone", example = "", dataType = "String", required = false)
     private String phone;
-
+    @NotBlank
     @ApiModelProperty(value = "邮箱", name = "email", example = "", dataType = "String", required = false)
     private String email;
 
