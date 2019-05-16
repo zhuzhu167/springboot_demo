@@ -116,8 +116,8 @@ public class PcUserServiceImpl implements PcUserService {
     public ResponseEntity<Object> consignee(Integer pageNum, Integer pageSize) {
         String userUuid = JWTokenUtil.validateJWToken(JWTokenUtil.getRequestHeader("X-Access-Token"), "uuid");
         Page<Object> page = PageHelper.startPage(pageNum, pageSize);
-        JSONObject response = new JSONObject();
         pcUserMapper.selectConsigneeMessage(userUuid);
+        JSONObject response = new JSONObject();
         response.put("total", page.getTotal());
         response.put("response", page.getResult());
         return ResponseEntitySupport.success(response);

@@ -11,8 +11,6 @@ import lombok.Data;
  **/
 @Data
 public class PcUserStoreVO {
-    @ApiModelProperty(value = "库存uuid", name = "storeUuid", example = "1234", dataType = "String", required = true)
-    private String storeUuid;
 
     @ApiModelProperty(value = "库存总量", name = "storeTotal", example = "1000", dataType = "Integer", required = true)
     private String storeTotal;

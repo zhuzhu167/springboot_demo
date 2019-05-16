@@ -11,8 +11,6 @@ import lombok.Data;
  **/
 @Data
 public class PcUserImageVO {
-    @ApiModelProperty(value = "图片uuid", name = "image_uuid", example = "1234", dataType = "String", required = true)
-    private String imageUuid;
 
     @ApiModelProperty(value = "图片路径", name = "imageUrl", example = "1234", dataType = "String", required = true)
     private String imageUrl;

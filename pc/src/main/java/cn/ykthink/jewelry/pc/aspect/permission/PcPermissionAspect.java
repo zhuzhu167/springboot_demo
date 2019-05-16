@@ -39,33 +39,32 @@ public class PcPermissionAspect {
     @Around("@annotation(validatePcPermission)")
     public Object around(ProceedingJoinPoint joinPoint, ValidatePcPermission validatePcPermission) {
         try {
-            ServletRequestAttributes res = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-            HttpServletRequest request = res.getRequest();
-            HttpServletResponse response = res.getResponse();
-            String token = request.getHeader("X-Access-Token");
-            if (StringUtils.isBlank(token)) {
-                return ResponseEntitySupport.error(HttpStatus.PRECONDITION_FAILED, HttpResponseConstant.HTTP_MESSAGE_PRECONDITION_FAILED, "X-Access-Token Defect");
-            }
-            //使用JwtToken校验 用前两部分加密之后与第三部分判断
-            //判断token是否过期
-            try{
-                String uuid = JWTokenUtil.validateJWToken(token,"uuid");
-                if (StringUtils.isBlank(uuid)) {
-                    return ResponseEntitySupport.error(HttpStatus.UNAUTHORIZED, "无效的用户", "Invalid token");
-                }
-            }catch (IllegalStateException e){
-                return ResponseEntitySupport.error(HttpStatus.UNAUTHORIZED, "无效token", "Invalid token");
-            }
-            try {
-                //进行http拦截
-                AbstractHttpSupport.intercept(request, response, joinPoint);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-            return joinPoint.proceed();
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-            return ResponseEntitySupport.error(HttpStatus.INTERNAL_SERVER_ERROR, HttpResponseConstant.HTTP_MESSAGE_INTERNAL_SERVER_ERROR, "网络繁忙");
+        ServletRequestAttributes res = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = res.getRequest();
+        HttpServletResponse response = res.getResponse();
+        String token = request.getHeader("X-Access-Token");
+        if (StringUtils.isBlank(token)) {
+            return ResponseEntitySupport.error(HttpStatus.PRECONDITION_FAILED, HttpResponseConstant.HTTP_MESSAGE_PRECONDITION_FAILED, "X-Access-Token Defect");
         }
+        //判断token是否过期
+        try {
+            String uuid = JWTokenUtil.validateJWToken(token, "uuid");
+            if (StringUtils.isBlank(uuid)) {
+                return ResponseEntitySupport.error(HttpStatus.UNAUTHORIZED, "无效的用户", "Invalid token");
+            }
+        } catch (IllegalStateException e) {
+            return ResponseEntitySupport.error(HttpStatus.UNAUTHORIZED, "无效token", "Invalid token");
+        }
+        try {
+            //进行http预处理
+            AbstractHttpSupport.intercept(request, response, joinPoint);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return joinPoint.proceed();
+    } catch (Throwable throwable) {
+        throwable.printStackTrace();
+        return ResponseEntitySupport.error(HttpStatus.INTERNAL_SERVER_ERROR, HttpResponseConstant.HTTP_MESSAGE_INTERNAL_SERVER_ERROR, "网络繁忙");
     }
+}
 }
