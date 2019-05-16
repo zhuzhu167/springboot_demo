@@ -47,16 +47,16 @@
         </collection>
     </resultMap>
     <select id="selectCommodity" resultMap="commodityResultMap">
-        select commodity.uuid               as c_uuid,
+        select commodity.uuid               as uuid,
                images.image_url             as image_url,
-               commodity.commodity_no       as c_no,
+               commodity.commodity_no       as commodity_no,
                commodity.title              as title,
                commodity.subhead            as subhead,
                commodity.commodity_price    as commodity_price,
                commodity.detail             as detail,
                texture.texture_name         as texture_name,
                store.store_total            as store_total,
-               store.store_consumption      as store_cons
+               store.store_consumption      as store_consumption
         from   commodity,images,texture,store
         where  commodity.uuid = #{commodityUuid}
         and    commodity.uuid = images.commodity_jewelry_uuid
