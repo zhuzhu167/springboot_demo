@@ -9,7 +9,6 @@
         <result column="subhead" property="subhead"/>
         <result column="commodity_price" property="commodityPrice"/>
         <collection property="imageList" ofType="cn.ykthink.jewelry.model.pc.user.vo.PcUserImageVO">
-            <id column="uuid" property="imageUuid"/>
             <result column="image_url" property="imageUrl"/>
         </collection>
     </resultMap>
@@ -58,13 +57,13 @@
                store.store_total         as store_total,
                store.store_consumption   as store_consumption,
                texture.uuid              as textureUuid
-        from commodity,
-             images,
-             texture,
-             store
-        where commodity.uuid = #{commodityUuid}
-          and commodity.uuid = images.commodity_jewelry_uuid
-          and commodity.texture_uuid = texture.uuid
-          and commodity.store_uuid = store.uuid
+        from   commodity,
+               images,
+               texture,
+               store
+        where  commodity.uuid = #{commodityUuid}
+          and  commodity.uuid = images.commodity_jewelry_uuid
+          and  commodity.texture_uuid = texture.uuid
+          and  commodity.store_uuid = store.uuid
     </select>
 </mapper>
