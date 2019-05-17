@@ -3,6 +3,7 @@ package cn.ykthink.jewelry.service.pc.impl;
 import cn.ykthink.jewelry.core.support.http.ResponseEntitySupport;
 import cn.ykthink.jewelry.model.pc.commodity.bo.PcCommodityJewelryBO;
 import cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityInfoVO;
+import cn.ykthink.jewelry.model.pc.commodity.vo.PcJewelryInfoVO;
 import cn.ykthink.jewelry.orm.pc.PcCommodityMapper;
 import cn.ykthink.jewelry.service.pc.PcCommodityService;
 import com.github.pagehelper.Page;
@@ -41,13 +42,19 @@ public class PcCommodityServiceImpl implements PcCommodityService {
     }
 
     @Override
-    public ResponseEntity<Object> jewelryList() {
-        return null;
+    public ResponseEntity<Object> jewelryIntroduction(Integer pageNum, Integer pageSize) {
+        Page<Object> page = PageHelper.startPage(pageNum, pageSize);
+        JSONObject response = new JSONObject();
+        pcCommodityMapper.selectJewelryIntroduction();
+        response.put("total", page.getTotal());
+        response.put("response", page.getResult());
+        return ResponseEntitySupport.success(response);
     }
 
     @Override
     public ResponseEntity<Object> jewelryInfo(String jewelryUuid) {
-        return null;
+        PcJewelryInfoVO pcJewelryInfoVO = pcCommodityMapper.selectJewelry(jewelryUuid);
+        return ResponseEntitySupport.success(pcJewelryInfoVO);
     }
 
     @Override

@@ -1,13 +1,11 @@
 package cn.ykthink.jewelry.pc.controller;
 
-import cn.ykthink.jewelry.core.annotation.ValidatePcPermission;
-import cn.ykthink.jewelry.core.annotation.validateEnums.ValidatePcPermissionEnum;
 import cn.ykthink.jewelry.core.uri.SystemUri;
 import cn.ykthink.jewelry.model.pc.commodity.bo.PcCommodityJewelryBO;
 import cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityInfoVO;
 import cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityIntroductionVO;
-import cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityJewelryInfoVO;
-import cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityJewelryIntroductionVO;
+import cn.ykthink.jewelry.model.pc.commodity.vo.PcJewelryInfoVO;
+import cn.ykthink.jewelry.model.pc.commodity.vo.PcJewelryIntroductionVO;
 import cn.ykthink.jewelry.service.pc.PcCommodityService;
 import com.github.catalpaflat.valid.annotation.ParameterValid;
 import io.swagger.annotations.Api;
@@ -42,8 +40,8 @@ public class PcCommodityController {
             @ApiImplicitParam(paramType = "query", dataType = "int", name = "pageNum", value = "第几页", required = false),
             @ApiImplicitParam(paramType = "query", dataType = "int", name = "pageSize", value = "显示多少条", required = false)
     })
-    public ResponseEntity<Object> category(@ParameterValid(type = Integer.class, msg = "pageNum不能为空", isMin = true) @RequestParam(defaultValue = "${jewelry.pages.page_index}") Integer pageNum,
-                                           @ParameterValid(type = Integer.class, msg = "pageSize不能为空", isMin = true) @RequestParam(defaultValue = "${jewelry.pages.page_size}") Integer pageSize) {
+    public ResponseEntity<Object> commodityIntroduction(@ParameterValid(type = Integer.class, msg = "pageNum不能为空", isMin = true) @RequestParam(defaultValue = "${jewelry.pages.page_index}") Integer pageNum,
+                                                        @ParameterValid(type = Integer.class, msg = "pageSize不能为空", isMin = true) @RequestParam(defaultValue = "${jewelry.pages.page_size}") Integer pageSize) {
         return pcCommodityService.commodityIntroduction(pageNum, pageSize);
     }
 
@@ -62,17 +60,22 @@ public class PcCommodityController {
     /**
      * get 钻石列表
      */
-    @GetMapping("jewelry")
-    @ApiOperation(value = "钻石", response = PcCommodityJewelryIntroductionVO.class)
-    public ResponseEntity<Object> jewelryList() {
-        return pcCommodityService.jewelryList();
+    @GetMapping("jewelryIntroduction")
+    @ApiOperation(value = "钻石列表", response = PcJewelryIntroductionVO.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", dataType = "int", name = "pageNum", value = "第几页", required = false),
+            @ApiImplicitParam(paramType = "query", dataType = "int", name = "pageSize", value = "显示多少条", required = false)
+    })
+    public ResponseEntity<Object> jewelryIntroduction(@ParameterValid(type = Integer.class, msg = "pageNum不能为空", isMin = true) @RequestParam(defaultValue = "${jewelry.pages.page_index}") Integer pageNum,
+                                                      @ParameterValid(type = Integer.class, msg = "pageSize不能为空", isMin = true) @RequestParam(defaultValue = "${jewelry.pages.page_size}") Integer pageSize) {
+        return pcCommodityService.jewelryIntroduction(pageNum,pageSize);
     }
 
     /**
      * get 钻石详情
      */
     @GetMapping("jewelry/{jewelryUuid}")
-    @ApiOperation(value = "钻石详情", response = PcCommodityJewelryInfoVO.class)
+    @ApiOperation(value = "钻石详情", response = PcJewelryInfoVO.class)
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "path", dataType = "String", name = "jewelryUuid", value = "钻石uuid", required = true),
     })

@@ -14,22 +14,25 @@
             <result column="image_url" property="imageUrl"/>
         </collection>
     </resultMap>
+
     <select id="selectCommodityIntroduction" resultMap="commodityIntroductionResultMap">
         select commodity.uuid            as commodity_uuid,
                commodity.title           as title,
                commodity.subhead         as subhead,
                commodity.commodity_price as commodity_price
-        from commodity
+        from commodity,images
         where commodity.is_deleted = 0
           and commodity.commodity_status = 1
         order by commodity.commodity_no
     </select>
-    <select id="selectCommodityIntroductionImage"
+
+    <select id="selectCommodityJewelryIntroductionImage"
             resultType="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityImageVO">
         select image_url
         from images
         where commodity_jewelry_uuid = #{commodityJewelryUuid} and is_deleted=0
     </select>
+
     <resultMap id="commodityResultMap" type="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityInfoVO">
         <id column="uuid" property="commodityUuid"/>
         <result column="commodity_no" property="commodityNo"/>
@@ -46,8 +49,9 @@
             <result column="image_url" property="imageUrl"/>
         </collection>
     </resultMap>
+
     <select id="selectCommodity" resultMap="commodityResultMap">
-        select commodity.uuid            as uuid,
+        select commodity.uuid            as commodity_uuid,
                images.image_url          as image_url,
                commodity.commodity_no    as commodity_no,
                commodity.title           as title,
@@ -66,4 +70,57 @@
           and commodity.texture_uuid = texture.uuid
           and commodity.store_uuid = store.uuid
     </select>
+
+    <resultMap id="jewelryIntroductionResultMap"
+               type="cn.ykthink.jewelry.model.pc.commodity.vo.PcJewelryIntroductionVO">
+        <id column="jewelry_uuid" property="jewelryUuid"/>
+        <result column="jewelry_no" property="jewelryNo"/>
+        <result column="jewelry_price" property="jewelryPrice"/>
+        <collection property="imageList" ofType="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityImageVO"
+                    column="{commodityJewelryUuid=commodity_uuid}"
+                    select="selectCommodityJewelryIntroductionImage">
+            <result column="image_url" property="imageUrl"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectJewelryIntroduction" resultMap="jewelryIntroductionResultMap">
+        select jewelry.uuid            as commodity_uuid,
+               jewelry.jewelry_no      as title,
+               jewelry.jewelry_price   as commodity_price
+        from  jewelry,images
+        where jewelry.is_deleted = 0
+        order by jewelry.jewelry_no
+    </select>
+
+    <resultMap id="jewelryResultMap" type="cn.ykthink.jewelry.model.pc.commodity.vo.PcJewelryInfoVO">
+        <id column="uuid" property="jewelryUuid"/>
+        <result column="jewelry_no" property="jewelryNo"/>
+        <result column="shape" property="shape"/>
+        <result column="color" property="color"/>
+        <result column="clarity" property="clarity"/>
+        <result column="cut" property="cut"/>
+        <result column="polishing" property="polishing"/>
+        <result column="light" property="light"/>
+        <result column="jewelry_price" property="jewelryPrice"/>
+        <collection property="imageList" ofType="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityImageVO">
+            <result column="image_url" property="imageUrl"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectJewelry" resultMap="jewelryResultMap">
+        select jewelry.uuid     as jewelry_uuid,
+               jewelry_no       as jewelry_no,
+               shape            as shape,
+               color            as color,
+               clarity          as clarity,
+               cut              as cut,
+               polishing        as polishing,
+               light            as polishing,
+               jewelry_price    as jewelry_price,
+               image_url        as image_url
+        from jewelry,images
+        where jewelry.uuid = #{jewelryUuid}
+          and jewelry.uuid = images.commodity_jewelry_uuid
+    </select>
+
 </mapper>

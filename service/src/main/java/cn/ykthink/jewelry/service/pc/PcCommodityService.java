@@ -29,7 +29,7 @@ public interface PcCommodityService {
      *
      * @return
      */
-    ResponseEntity<Object> jewelryList();
+    ResponseEntity<Object> jewelryIntroduction(Integer pageNum, Integer pageSize);
 
     /**
      * 钻石详情

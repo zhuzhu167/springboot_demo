@@ -28,7 +28,7 @@ public class PcCommodityInfoVO {
     @ApiModelProperty(value = "价格", name = "commodityPrice", example = "1314", dataType = "BigDecimal", required = true)
     private BigDecimal commodityPrice;
 
-    @ApiModelProperty(value = "材质", name = "textureName", example = "", dataType = "String", required = true)
+    @ApiModelProperty(value = "材质", name = "textureName", example = "111", dataType = "String", required = true)
     private String textureName;
 
     @ApiModelProperty(value = "库存", name = "store", example = "", dataType = "PcUserStoreVO", required = true)
