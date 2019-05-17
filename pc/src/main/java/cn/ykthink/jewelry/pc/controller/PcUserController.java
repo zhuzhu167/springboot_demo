@@ -28,20 +28,19 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(description = SystemUri.PC_ROOT_URI_NAME + "用户")
 @RequestMapping(SystemUri.PC_ROOT_URI + "user")
-@Validated
 public class PcUserController {
     @Autowired
     PcUserService pcUserService;
 
     @PostMapping("login")
     @ApiOperation(value = "用户端登录", response = PcUserLoginVO.class)
-    public ResponseEntity<Object> login(@RequestBody  PcUserLoginBO pcUserLoginBO) {
+    public ResponseEntity<Object> login(@RequestBody  @Validated PcUserLoginBO pcUserLoginBO) {
         return pcUserService.login(pcUserLoginBO);
     }
 
     @PostMapping("register")
     @ApiOperation(value = "客户端注册", response = ResponseEntity.class)
-    public ResponseEntity<Object> register(@RequestBody PcUserRegisterBO body) {
+    public ResponseEntity<Object> register(@RequestBody @Validated PcUserRegisterBO body) {
         return pcUserService.register(body);
     }
 
@@ -62,14 +61,14 @@ public class PcUserController {
     @ValidatePcPermission(validatePcPermissionEnum = ValidatePcPermissionEnum.PC_USER)
     @PutMapping("pwd")
     @ApiOperation(value = "修改密码", response = ResponseEntity.class)
-    public ResponseEntity<Object> editPwd(@RequestBody PcUserEditPwdBO body) {
+    public ResponseEntity<Object> editPwd(@RequestBody @Validated PcUserEditPwdBO body) {
         return pcUserService.editPwd(body);
     }
 
     @ValidatePcPermission(validatePcPermissionEnum = ValidatePcPermissionEnum.PC_USER)
     @PostMapping("consignee")
     @ApiOperation(value = "新增收货信息", response = ResponseEntity.class)
-    public ResponseEntity<Object> insertConsignee(@RequestBody PcUserInsertConsigneeBO body) {
+    public ResponseEntity<Object> insertConsignee(@RequestBody @Validated PcUserInsertConsigneeBO body) {
         return pcUserService.insertConsignee(body);
     }
 
@@ -102,7 +101,7 @@ public class PcUserController {
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "path", dataType = "String", name = "consigneeUuid", value = "收货信息uuid", required = true),
     })
-    public ResponseEntity<Object> editConsignee(@PathVariable String consigneeUuid, @RequestBody PcUerReceiverInfoBO body) {
+    public ResponseEntity<Object> editConsignee(@PathVariable String consigneeUuid, @RequestBody @Validated PcUerReceiverInfoBO body) {
         return pcUserService.editConsignee(consigneeUuid,body);
     }
 }

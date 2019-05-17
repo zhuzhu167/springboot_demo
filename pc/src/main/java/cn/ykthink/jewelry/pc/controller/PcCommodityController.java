@@ -65,7 +65,7 @@ public class PcCommodityController {
      */
     @GetMapping("jewelry")
     @ApiOperation(value = "钻石", response = PcCommodityJewelryIntroductionVO.class)
-    public ResponseEntity<Object> jewelry() {
+    public ResponseEntity<Object> jewelryList() {
         return null;
     }
 
@@ -77,12 +77,16 @@ public class PcCommodityController {
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "path", dataType = "String", name = "jewelryUuid", value = "钻石uuid", required = true),
     })
-    public ResponseEntity<Object> jewelry(@PathVariable String jewelryUuid) {
+    public ResponseEntity<Object> jewelryInfo(@PathVariable String jewelryUuid) {
         return null;
     }
 
     /**
      * post 加入购物车（商品和砖石需要捆绑买）
      */
-
+    @PostMapping("commodityJewelry")
+    @ApiOperation(value = "加入购物车", response = ResponseEntity.class)
+    public ResponseEntity<Object> commodityJewelry(@PathVariable String jewelryUuid) {
+        return null;
+    }
 }
