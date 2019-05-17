@@ -82,8 +82,4 @@ public class JWTokenUtil {
         String accessToken = request.getHeader(header);
         return accessToken;
     }
-
-    public static void main(String[] args) {
-//        System.out.println("-----------"+generateToken("100006")+"-----------");
-    }
 }

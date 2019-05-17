@@ -29,13 +29,21 @@ public class CartCommodityPO extends BasePO{
      */
     private String cartJewelryUuid;
     /**
-     * 钻石编号
-     */
-    private String jewelryNo;
-    /**
      * 尺寸
      */
     private Integer size;
+    /**
+     * 商品标题
+     */
+    private String title;
+    /**
+     * 商品副标题
+     */
+    private String subhead;
+    /**
+     * 商品详情
+     */
+    private String detail;
     /**
      * 是否为订单（0-不是，1-是）
      */

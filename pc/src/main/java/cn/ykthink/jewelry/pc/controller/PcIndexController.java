@@ -31,7 +31,6 @@ public class PcIndexController {
     /**
      * get 类目列表
      */
-    @ValidatePcPermission(validatePcPermissionEnum = ValidatePcPermissionEnum.PC_USER)
     @GetMapping("category")
     @ApiOperation(value = "类目列表", response = PcIndexCategoryVO.class)
     public ResponseEntity<Object> category() {

@@ -30,7 +30,6 @@ public class PcCartController {
     @Autowired
     PcCartService pcCartService;
 
-    @ValidatePcPermission(validatePcPermissionEnum = ValidatePcPermissionEnum.PC_USER)
     @GetMapping("cart")
     @ApiOperation(value = "购物车", response = PcUserCartVO.class)
     @ApiImplicitParams({

@@ -3,6 +3,7 @@ package cn.ykthink.jewelry.pc.controller;
 import cn.ykthink.jewelry.core.annotation.ValidatePcPermission;
 import cn.ykthink.jewelry.core.annotation.validateEnums.ValidatePcPermissionEnum;
 import cn.ykthink.jewelry.core.uri.SystemUri;
+import cn.ykthink.jewelry.model.pc.commodity.bo.PcCommodityJewelryBO;
 import cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityInfoVO;
 import cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityIntroductionVO;
 import cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityJewelryInfoVO;
@@ -35,7 +36,6 @@ public class PcCommodityController {
     @Resource
     PcCommodityService pcCommodityService;
 
-    @ValidatePcPermission(validatePcPermissionEnum = ValidatePcPermissionEnum.PC_USER)
     @GetMapping("commodityIntroduction")
     @ApiOperation(value = "`商品列表", response = PcCommodityIntroductionVO.class)
     @ApiImplicitParams({
@@ -50,7 +50,6 @@ public class PcCommodityController {
     /**
      * get 商品详情
      */
-    @ValidatePcPermission(validatePcPermissionEnum = ValidatePcPermissionEnum.PC_USER)
     @GetMapping("commodity/{commodityUuid}")
     @ApiOperation(value = "商品详情", response = PcCommodityInfoVO.class)
     @ApiImplicitParams({
@@ -66,7 +65,7 @@ public class PcCommodityController {
     @GetMapping("jewelry")
     @ApiOperation(value = "钻石", response = PcCommodityJewelryIntroductionVO.class)
     public ResponseEntity<Object> jewelryList() {
-        return null;
+        return pcCommodityService.jewelryList();
     }
 
     /**
@@ -78,15 +77,15 @@ public class PcCommodityController {
             @ApiImplicitParam(paramType = "path", dataType = "String", name = "jewelryUuid", value = "钻石uuid", required = true),
     })
     public ResponseEntity<Object> jewelryInfo(@PathVariable String jewelryUuid) {
-        return null;
+        return pcCommodityService.jewelryInfo(jewelryUuid);
     }
 
     /**
-     * post 加入购物车（商品和砖石需要捆绑买）
+     * post 加入购物车（商品和钻石需要捆绑买）
      */
     @PostMapping("commodityJewelry")
     @ApiOperation(value = "加入购物车", response = ResponseEntity.class)
-    public ResponseEntity<Object> commodityJewelry(@PathVariable String jewelryUuid) {
-        return null;
+    public ResponseEntity<Object> commodityJewelry(@RequestBody PcCommodityJewelryBO body) {
+        return pcCommodityService.commodityJewelry(body);
     }
 }

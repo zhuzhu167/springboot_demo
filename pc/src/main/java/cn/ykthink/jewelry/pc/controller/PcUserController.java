@@ -1,5 +1,6 @@
 package cn.ykthink.jewelry.pc.controller;
 
+import cn.ykthink.jewelry.core.annotation.IgnoreToken;
 import cn.ykthink.jewelry.core.annotation.ValidatePcPermission;
 import cn.ykthink.jewelry.core.annotation.validateEnums.ValidatePcPermissionEnum;
 import cn.ykthink.jewelry.core.uri.SystemUri;
@@ -33,47 +34,43 @@ public class PcUserController {
     PcUserService pcUserService;
 
     @PostMapping("login")
+    @IgnoreToken
     @ApiOperation(value = "用户端登录", response = PcUserLoginVO.class)
     public ResponseEntity<Object> login(@RequestBody  @Validated PcUserLoginBO pcUserLoginBO) {
         return pcUserService.login(pcUserLoginBO);
     }
 
     @PostMapping("register")
+    @IgnoreToken
     @ApiOperation(value = "客户端注册", response = ResponseEntity.class)
     public ResponseEntity<Object> register(@RequestBody @Validated PcUserRegisterBO body) {
         return pcUserService.register(body);
     }
 
-    @ValidatePcPermission(validatePcPermissionEnum = ValidatePcPermissionEnum.PC_USER)
     @GetMapping("person")
     @ApiOperation(value = "个人信息", response = PcUserPersonInfoVO.class)
     public ResponseEntity<Object> person() {
         return pcUserService.person();
     }
 
-    @ValidatePcPermission(validatePcPermissionEnum = ValidatePcPermissionEnum.PC_USER)
     @PutMapping("person")
     @ApiOperation(value = "修改资料", response = ResponseEntity.class)
     public ResponseEntity<Object> editPerson(@RequestBody PcUserEditPersonBO body) {
         return pcUserService.editPerson(body);
     }
 
-    @ValidatePcPermission(validatePcPermissionEnum = ValidatePcPermissionEnum.PC_USER)
     @PutMapping("pwd")
     @ApiOperation(value = "修改密码", response = ResponseEntity.class)
     public ResponseEntity<Object> editPwd(@RequestBody @Validated PcUserEditPwdBO body) {
         return pcUserService.editPwd(body);
     }
 
-    @ValidatePcPermission(validatePcPermissionEnum = ValidatePcPermissionEnum.PC_USER)
     @PostMapping("consignee")
     @ApiOperation(value = "新增收货信息", response = ResponseEntity.class)
     public ResponseEntity<Object> insertConsignee(@RequestBody @Validated PcUserInsertConsigneeBO body) {
         return pcUserService.insertConsignee(body);
     }
 
-
-    @ValidatePcPermission(validatePcPermissionEnum = ValidatePcPermissionEnum.PC_USER)
     @GetMapping("consignee")
     @ApiOperation(value = "收货信息", response = PcUserReceiverInfoVO.class)
     @ApiImplicitParams({
@@ -85,7 +82,6 @@ public class PcUserController {
         return pcUserService.consignee(pageNum,pageSize);
     }
 
-    @ValidatePcPermission(validatePcPermissionEnum = ValidatePcPermissionEnum.PC_USER)
     @DeleteMapping("consignee/{consigneeUuid}")
     @ApiOperation(value = "删除收货信息", response = ResponseEntity.class)
     @ApiImplicitParams({
@@ -95,7 +91,6 @@ public class PcUserController {
         return pcUserService.removeConsignee(consigneeUuid);
     }
 
-    @ValidatePcPermission(validatePcPermissionEnum = ValidatePcPermissionEnum.PC_USER)
     @PutMapping("consignee/{consigneeUuid}")
     @ApiOperation(value = "修改收货信息", response = ResponseEntity.class)
     @ApiImplicitParams({

@@ -27,7 +27,6 @@ public class PcOrderController {
     @Autowired
     PcOrderService pcOrderService;
 
-    @ValidatePcPermission(validatePcPermissionEnum = ValidatePcPermissionEnum.PC_USER)
     @GetMapping("order")
     @ApiOperation(value = "订单", response = PcUserOrderVO.class)//补充订单砖石信息
     @ApiImplicitParams({
