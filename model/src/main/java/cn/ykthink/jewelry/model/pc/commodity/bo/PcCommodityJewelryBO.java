@@ -11,5 +11,7 @@ import lombok.Data;
  */
 @Data
 public class PcCommodityJewelryBO {
-
+    private String commodityUuid;
+    private String jewelryUuid;
+    private Integer size;
 }

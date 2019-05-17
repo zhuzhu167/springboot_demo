@@ -70,7 +70,7 @@ public class PcCommodityController {
     }
 
     /**
-     * get 砖石详情
+     * get 钻石详情
      */
     @GetMapping("jewelry/{jewelryUuid}")
     @ApiOperation(value = "钻石详情", response = PcCommodityJewelryInfoVO.class)

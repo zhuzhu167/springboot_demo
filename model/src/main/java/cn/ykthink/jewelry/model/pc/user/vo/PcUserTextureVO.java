@@ -11,9 +11,6 @@ import lombok.Data;
  **/
 @Data
 public class PcUserTextureVO {
-    @ApiModelProperty(value = "材质uuid", name = "textureUuid", example = "1234", dataType = "String", required = true)
-    private String textureUuid;
-
     @ApiModelProperty(value = "材质名称", name = "textureName", example = "name", dataType = "String", required = true)
     private String textureName;
 }
