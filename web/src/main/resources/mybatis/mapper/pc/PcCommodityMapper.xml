@@ -28,7 +28,7 @@
             resultType="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityImageVO">
         select image_url
         from images
-        where commodity_jewelry_uuid = #{commodityJewelryUuid}
+        where commodity_jewelry_uuid = #{commodityJewelryUuid} and is_deleted=0
     </select>
     <resultMap id="commodityResultMap" type="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityInfoVO">
         <id column="uuid" property="commodityUuid"/>
