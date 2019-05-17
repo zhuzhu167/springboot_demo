@@ -1,7 +1,7 @@
 package cn.ykthink.jewelry.orm.pc;
 
-import cn.ykthink.jewelry.model.pc.user.vo.PcUserCommodityInfoVO;
-import cn.ykthink.jewelry.model.pc.user.vo.PcUserCommodityIntroductionVO;
+import cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityInfoVO;
+import cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityIntroductionVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -21,12 +21,12 @@ public interface PcCommodityMapper {
      * 商品列表
      * @return
      */
-    List<PcUserCommodityIntroductionVO> selectCommodityIntroduction();
+    List<PcCommodityIntroductionVO> selectCommodityIntroduction();
 
     /**
      * 商品详情
      * @param commodityUuid
      * @return
      */
-    PcUserCommodityInfoVO selectCommodity(@Param("commodityUuid") String commodityUuid);
+    PcCommodityInfoVO selectCommodity(@Param("commodityUuid") String commodityUuid);
 }

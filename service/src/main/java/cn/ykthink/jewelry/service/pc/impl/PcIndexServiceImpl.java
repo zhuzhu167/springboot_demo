@@ -1,8 +1,7 @@
 package cn.ykthink.jewelry.service.pc.impl;
 
 import cn.ykthink.jewelry.core.support.http.ResponseEntitySupport;
-import cn.ykthink.jewelry.core.untils.JWTokenUtil;
-import cn.ykthink.jewelry.model.pc.index.PcIndexCategoryVO;
+import cn.ykthink.jewelry.model.pc.index.vo.PcIndexCategoryVO;
 import cn.ykthink.jewelry.orm.pc.PcIndexMapper;
 import cn.ykthink.jewelry.service.pc.PcIndexService;
 import org.springframework.http.ResponseEntity;

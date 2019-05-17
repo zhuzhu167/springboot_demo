@@ -14,11 +14,11 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class StorePO extends BasePO{
     /**
-     * 库存总量
+     * 历史库存总量
      */
     private Integer storeTotal;
     /**
-     * 库存消耗量
+     * 库存剩余量
      */
     private Integer storeConsumption;
 }

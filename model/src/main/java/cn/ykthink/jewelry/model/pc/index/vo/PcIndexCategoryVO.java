@@ -1,4 +1,4 @@
-package cn.ykthink.jewelry.model.pc.index;
+package cn.ykthink.jewelry.model.pc.index.vo;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

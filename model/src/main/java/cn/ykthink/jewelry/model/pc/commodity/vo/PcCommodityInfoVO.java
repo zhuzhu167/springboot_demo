@@ -1,5 +1,7 @@
-package cn.ykthink.jewelry.model.pc.user.vo;
+package cn.ykthink.jewelry.model.pc.commodity.vo;
 
+import cn.ykthink.jewelry.model.pc.user.vo.PcUserStoreVO;
+import cn.ykthink.jewelry.model.pc.user.vo.PcUserTextureVO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -13,7 +15,7 @@ import java.util.List;
  * create: 2019-05-09 15:24
  **/
 @Data
-public class PcUserCommodityInfoVO {
+public class PcCommodityInfoVO {
     @ApiModelProperty(value = "商品uuid", name = "commodityUuid", example = "asd123", dataType = "String", required = true)
     private String commodityUuid;
 
@@ -33,7 +35,7 @@ public class PcUserCommodityInfoVO {
     private PcUserStoreVO store;
 
     @ApiModelProperty(value = "图片list", name = "imageList", example = "", dataType = "List", required = true)
-    private List<PcUserImageVO> imageList;
+    private List<PcCommodityImageVO> imageList;
 
     @ApiModelProperty(value = "商品编号", name = "commodityNo", example = "007", dataType = "String", required = true)
     private String commodityNo;

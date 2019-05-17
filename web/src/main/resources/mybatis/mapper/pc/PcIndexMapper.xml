@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="cn.ykthink.jewelry.orm.pc.PcIndexMapper">
-    <select id="selectIndexCategory" resultType="cn.ykthink.jewelry.model.pc.index.PcIndexCategoryVO">
+    <select id="selectIndexCategory" resultType="cn.ykthink.jewelry.model.pc.index.vo.PcIndexCategoryVO">
         select uuid as category_uuid,category as category_name
         from category
         where is_deleted = 0

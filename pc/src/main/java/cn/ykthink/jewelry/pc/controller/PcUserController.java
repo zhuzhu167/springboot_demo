@@ -28,19 +28,20 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(description = SystemUri.PC_ROOT_URI_NAME + "用户")
 @RequestMapping(SystemUri.PC_ROOT_URI + "user")
+@Validated
 public class PcUserController {
     @Autowired
     PcUserService pcUserService;
 
     @PostMapping("login")
     @ApiOperation(value = "用户端登录", response = PcUserLoginVO.class)
-    public ResponseEntity<Object> login(@RequestBody @Validated PcUserLoginBO pcUserLoginBO) {
+    public ResponseEntity<Object> login(@RequestBody  PcUserLoginBO pcUserLoginBO) {
         return pcUserService.login(pcUserLoginBO);
     }
 
     @PostMapping("register")
     @ApiOperation(value = "客户端注册", response = ResponseEntity.class)
-    public ResponseEntity<Object> register(@RequestBody @Validated PcUserRegisterBO body) {
+    public ResponseEntity<Object> register(@RequestBody PcUserRegisterBO body) {
         return pcUserService.register(body);
     }
 

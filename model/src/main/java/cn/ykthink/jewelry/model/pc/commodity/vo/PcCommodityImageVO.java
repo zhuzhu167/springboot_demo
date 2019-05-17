@@ -1,4 +1,4 @@
-package cn.ykthink.jewelry.model.pc.user.vo;
+package cn.ykthink.jewelry.model.pc.commodity.vo;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -10,7 +10,7 @@ import lombok.Data;
  * create: 2019-05-15 16:48
  **/
 @Data
-public class PcUserImageVO {
+public class PcCommodityImageVO {
 
     @ApiModelProperty(value = "图片路径", name = "imageUrl", example = "1234", dataType = "String", required = true)
     private String imageUrl;

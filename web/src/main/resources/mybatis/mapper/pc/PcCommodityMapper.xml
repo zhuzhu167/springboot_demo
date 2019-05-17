@@ -3,12 +3,12 @@
 
 <mapper namespace="cn.ykthink.jewelry.orm.pc.PcCommodityMapper">
     <resultMap id="commodityIntroductionResultMap"
-               type="cn.ykthink.jewelry.model.pc.user.vo.PcUserCommodityIntroductionVO">
+               type="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityIntroductionVO">
         <id column="commodity_uuid" property="commodityUuid"/>
         <result column="title" property="title"/>
         <result column="subhead" property="subhead"/>
         <result column="commodity_price" property="commodityPrice"/>
-        <collection property="imageList" ofType="cn.ykthink.jewelry.model.pc.user.vo.PcUserImageVO">
+        <collection property="imageList" ofType="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityImageVO">
             <result column="image_url" property="imageUrl"/>
         </collection>
     </resultMap>
@@ -26,7 +26,7 @@
         order by commodity.create_time
     </select>
 
-    <resultMap id="commodityResultMap" type="cn.ykthink.jewelry.model.pc.user.vo.PcUserCommodityInfoVO">
+    <resultMap id="commodityResultMap" type="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityInfoVO">
         <id column="uuid" property="commodityUuid"/>
         <result column="commodity_no" property="commodityNo"/>
         <result column="title" property="title"/>
@@ -37,7 +37,7 @@
             <result column="store_total" property="storeTotal"/>
             <result column="store_consumption" property="storeConsumption"/>
         </association>
-        <collection property="imageList" ofType="cn.ykthink.jewelry.model.pc.user.vo.PcUserImageVO">
+        <collection property="imageList" ofType="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityImageVO">
             <result column="image_url" property="imageUrl"/>
         </collection>
         <collection property="textureList" ofType="cn.ykthink.jewelry.model.pc.user.vo.PcUserTextureVO">

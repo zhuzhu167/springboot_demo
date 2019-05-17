@@ -1,8 +1,7 @@
 package cn.ykthink.jewelry.orm.pc;
 
-import cn.ykthink.jewelry.model.pc.index.PcIndexCategoryVO;
+import cn.ykthink.jewelry.model.pc.index.vo.PcIndexCategoryVO;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
