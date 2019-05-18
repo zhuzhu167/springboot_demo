@@ -1,4 +1,4 @@
-FROM registry-vpc.cn-shenzhen.aliyuncs.com/ykthink/spring-boot
+FROM registry.cn-shenzhen.aliyuncs.com/ykthink/spring-boot
 COPY app.jar /app/app.jar
 ENV JAVA_OPTS=""
 EXPOSE 8080
