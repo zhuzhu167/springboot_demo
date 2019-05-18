@@ -85,8 +85,8 @@
 
     <select id="selectJewelryIntroduction" resultMap="jewelryIntroductionResultMap">
         select jewelry.uuid            as jewelry_uuid,
-               jewelry.jewelry_no      as title,
-               jewelry.jewelry_price   as commodity_price
+               jewelry.jewelry_no      as jewelry_no,
+               jewelry.jewelry_price   as jewelry_price
         from  jewelry
         where jewelry.is_deleted = 0
         order by jewelry.jewelry_no
