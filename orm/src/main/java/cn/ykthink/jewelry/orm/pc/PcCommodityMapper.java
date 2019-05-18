@@ -55,5 +55,5 @@ public interface PcCommodityMapper {
     /**
      * 商品加入购物车
      */
-    Integer insertCommdity(CartCommodityPO cartCommodityPO);
+    Integer insertCommodity(CartCommodityPO cartCommodityPO);
 }

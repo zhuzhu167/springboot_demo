@@ -1,5 +1,6 @@
 package cn.ykthink.jewelry.pc.controller;
 
+import cn.ykthink.jewelry.core.annotation.IgnoreToken;
 import cn.ykthink.jewelry.core.annotation.ValidatePcPermission;
 import cn.ykthink.jewelry.core.annotation.validateEnums.ValidatePcPermissionEnum;
 import cn.ykthink.jewelry.core.uri.SystemUri;
@@ -31,6 +32,7 @@ public class PcIndexController {
     /**
      * get 类目列表
      */
+    @IgnoreToken
     @GetMapping("category")
     @ApiOperation(value = "类目列表", response = PcIndexCategoryVO.class)
     public ResponseEntity<Object> category() {

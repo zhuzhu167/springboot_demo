@@ -15,6 +15,8 @@ import java.util.List;
  */
 @Data
 public class PcJewelryInfoVO {
+    @ApiModelProperty(value = "钻石uuid", name = "jewelryUuid", example = "a123", dataType = "String", required = true)
+    private String jewelryUuid;
     @ApiModelProperty(value = "钻石编号", name = "jewelryNo", example = "a123", dataType = "String", required = true)
     private String jewelryNo;
 

@@ -10,7 +10,7 @@
         <result column="commodity_price" property="commodityPrice"/>
         <collection property="imageList" ofType="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityImageVO"
                     column="{commodityJewelryUuid=commodity_uuid}"
-                    select="selectCommodityIntroductionImage">
+                    select="selectCommodityJewelryIntroductionImage">
             <result column="image_url" property="imageUrl"/>
         </collection>
     </resultMap>
