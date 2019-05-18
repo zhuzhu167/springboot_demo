@@ -127,9 +127,10 @@
         <selectKey keyProperty="uuid" resultType="string" order="BEFORE">
             select replace(uuid(), '-', '') as uuid from dual
         </selectKey>
-        insert into cart_jewelry(jewelry_uuid,jewelry_no,shape,color,clarity,cut,polishing,light,user_uuid,create_time,modified_time)
+        insert into cart_jewelry(uuid,jewelry_uuid,jewelry_no,shape,color,clarity,cut,polishing,light,user_uuid,create_time,modified_time)
         values
         (
+        #{uuid},
         #{jewelryUuid},
         #{jewelryNo},
         #{shape},
@@ -152,6 +153,7 @@
         title,subhead,detail,create_time,modified_time)
         values
         (
+        #{uuid},
         #{commodityUuid},
         #{cartJewelryUuid},
         #{size},
