@@ -84,7 +84,7 @@
     </resultMap>
 
     <select id="selectJewelryIntroduction" resultMap="jewelryIntroductionResultMap">
-        select jewelry.uuid            as commodity_uuid,
+        select jewelry.uuid            as jewelry_uuid,
                jewelry.jewelry_no      as title,
                jewelry.jewelry_price   as commodity_price
         from  jewelry
