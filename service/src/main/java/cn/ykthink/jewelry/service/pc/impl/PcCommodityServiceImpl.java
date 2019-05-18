@@ -15,6 +15,7 @@ import net.sf.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -62,6 +63,7 @@ public class PcCommodityServiceImpl implements PcCommodityService {
     }
 
     @Override
+    @Transactional
     public ResponseEntity<Object> commodityJewelry(PcCommodityJewelryBO body) {
         String userUuid = JWTokenUtil.validateJWToken(JWTokenUtil.getRequestHeader("X-Access-Token"), "uuid");
 

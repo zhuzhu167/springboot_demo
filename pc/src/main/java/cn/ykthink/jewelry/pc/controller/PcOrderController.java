@@ -1,7 +1,5 @@
 package cn.ykthink.jewelry.pc.controller;
 
-import cn.ykthink.jewelry.core.annotation.ValidatePcPermission;
-import cn.ykthink.jewelry.core.annotation.validateEnums.ValidatePcPermissionEnum;
 import cn.ykthink.jewelry.core.uri.SystemUri;
 import cn.ykthink.jewelry.model.pc.user.vo.PcUserOrderVO;
 import cn.ykthink.jewelry.service.pc.PcOrderService;
@@ -12,7 +10,10 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * program: jewelry

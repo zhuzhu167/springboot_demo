@@ -20,7 +20,7 @@
                commodity.title           as title,
                commodity.subhead         as subhead,
                commodity.commodity_price as commodity_price
-        from commodity,images
+        from commodity
         where commodity.is_deleted = 0
           and commodity.commodity_status = 1
         order by commodity.commodity_no
