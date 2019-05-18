@@ -93,7 +93,7 @@ public class PcCommodityServiceImpl implements PcCommodityService {
         cartCommodityPO.setUserUuid(userUuid);
         cartCommodityPO.setCartJewelryUuid(cartJewelryPO.getUuid());
 
-        Integer insertCommodityFlag = pcCommodityMapper.insertCommdity(cartCommodityPO);
+        Integer insertCommodityFlag = pcCommodityMapper.insertCommodity(cartCommodityPO);
 
         if (insertCommodityFlag > 0 && insertJewelryFlag > 0){
             return  ResponseEntitySupport.success();
