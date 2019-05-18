@@ -13,15 +13,11 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class CartCommodityPO extends BasePO{
     /**
-     * 订单uuid
-     */
-    private String orderUuid;
-    /**
      * 商品uuid
      */
     private String commodityUuid;
     /**
-     *
+     *用户uuid
      */
     private String userUuid;
     /**

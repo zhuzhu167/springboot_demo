@@ -71,6 +71,7 @@ public class PcCommodityServiceImpl implements PcCommodityService {
         PcJewelryInfoVO pcJewelryInfoVO = pcCommodityMapper.selectJewelry(body.getJewelryUuid());
         PcCommodityInfoVO pcCommodityInfoVO = pcCommodityMapper.selectCommodity(body.getCommodityUuid());
 
+        cartJewelryPO.setJewelryUuid(body.getJewelryUuid());
         cartJewelryPO.setJewelryNo(pcJewelryInfoVO.getJewelryNo());
         cartJewelryPO.setClarity(pcJewelryInfoVO.getClarity());
         cartJewelryPO.setColor(pcJewelryInfoVO.getColor());
@@ -78,7 +79,6 @@ public class PcCommodityServiceImpl implements PcCommodityService {
         cartJewelryPO.setLight(pcJewelryInfoVO.getLight());
         cartJewelryPO.setPolishing(pcJewelryInfoVO.getPolishing());
         cartJewelryPO.setShape(pcJewelryInfoVO.getShape());
-        cartJewelryPO.setJewelryUuid(body.getJewelryUuid());
         cartJewelryPO.setUserUuid(userUuid);
 
         Integer insertJewelryFlag = pcCommodityMapper.insertJewelry(cartJewelryPO);

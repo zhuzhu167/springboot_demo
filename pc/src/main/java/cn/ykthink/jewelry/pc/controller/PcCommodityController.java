@@ -91,6 +91,7 @@ public class PcCommodityController {
     /**
      * post 加入购物车（商品和钻石需要捆绑买）
      */
+    @IgnoreToken
     @PostMapping("commodityJewelry")
     @ApiOperation(value = "加入购物车", response = ResponseEntity.class)
     public ResponseEntity<Object> commodityJewelry(@RequestBody PcCommodityJewelryBO body) {
