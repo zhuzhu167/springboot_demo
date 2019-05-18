@@ -44,4 +44,8 @@ public class CartJewelryPO extends BasePO{
      * 荧光
      */
     private String light;
+    /**
+     * 用户uuid
+     */
+    private String userUuid;
 }

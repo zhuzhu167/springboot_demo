@@ -1,5 +1,6 @@
 package cn.ykthink.jewelry.pc.controller;
 
+import cn.ykthink.jewelry.core.annotation.IgnoreToken;
 import cn.ykthink.jewelry.core.uri.SystemUri;
 import cn.ykthink.jewelry.model.pc.commodity.bo.PcCommodityJewelryBO;
 import cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityInfoVO;
@@ -34,6 +35,7 @@ public class PcCommodityController {
     @Resource
     PcCommodityService pcCommodityService;
 
+    @IgnoreToken
     @GetMapping("commodityIntroduction")
     @ApiOperation(value = "`商品列表", response = PcCommodityIntroductionVO.class)
     @ApiImplicitParams({
@@ -48,6 +50,7 @@ public class PcCommodityController {
     /**
      * get 商品详情
      */
+    @IgnoreToken
     @GetMapping("commodity/{commodityUuid}")
     @ApiOperation(value = "商品详情", response = PcCommodityInfoVO.class)
     @ApiImplicitParams({
@@ -60,6 +63,7 @@ public class PcCommodityController {
     /**
      * get 钻石列表
      */
+    @IgnoreToken
     @GetMapping("jewelryIntroduction")
     @ApiOperation(value = "钻石列表", response = PcJewelryIntroductionVO.class)
     @ApiImplicitParams({
@@ -74,6 +78,7 @@ public class PcCommodityController {
     /**
      * get 钻石详情
      */
+    @IgnoreToken
     @GetMapping("jewelry/{jewelryUuid}")
     @ApiOperation(value = "钻石详情", response = PcJewelryInfoVO.class)
     @ApiImplicitParams({

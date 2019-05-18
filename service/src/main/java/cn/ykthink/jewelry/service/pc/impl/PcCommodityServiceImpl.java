@@ -1,6 +1,9 @@
 package cn.ykthink.jewelry.service.pc.impl;
 
 import cn.ykthink.jewelry.core.support.http.ResponseEntitySupport;
+import cn.ykthink.jewelry.core.untils.JWTokenUtil;
+import cn.ykthink.jewelry.model.comm.po.CartCommodityPO;
+import cn.ykthink.jewelry.model.comm.po.CartJewelryPO;
 import cn.ykthink.jewelry.model.pc.commodity.bo.PcCommodityJewelryBO;
 import cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityInfoVO;
 import cn.ykthink.jewelry.model.pc.commodity.vo.PcJewelryInfoVO;
@@ -9,6 +12,7 @@ import cn.ykthink.jewelry.service.pc.PcCommodityService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import net.sf.json.JSONObject;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -59,7 +63,44 @@ public class PcCommodityServiceImpl implements PcCommodityService {
 
     @Override
     public ResponseEntity<Object> commodityJewelry(PcCommodityJewelryBO body) {
-        return null;
+        String userUuid = JWTokenUtil.validateJWToken(JWTokenUtil.getRequestHeader("X-Access-Token"), "uuid");
+
+        CartJewelryPO cartJewelryPO = new CartJewelryPO();
+        CartCommodityPO cartCommodityPO = new CartCommodityPO();
+
+        PcJewelryInfoVO pcJewelryInfoVO = pcCommodityMapper.selectJewelry(body.getJewelryUuid());
+        PcCommodityInfoVO pcCommodityInfoVO = pcCommodityMapper.selectCommodity(body.getCommodityUuid());
+
+        cartJewelryPO.setJewelryNo(pcJewelryInfoVO.getJewelryNo());
+        cartJewelryPO.setClarity(pcJewelryInfoVO.getClarity());
+        cartJewelryPO.setColor(pcJewelryInfoVO.getColor());
+        cartJewelryPO.setCut(pcJewelryInfoVO.getCut());
+        cartJewelryPO.setLight(pcJewelryInfoVO.getLight());
+        cartJewelryPO.setPolishing(pcJewelryInfoVO.getPolishing());
+        cartJewelryPO.setShape(pcJewelryInfoVO.getShape());
+        cartJewelryPO.setJewelryUuid(body.getJewelryUuid());
+        cartJewelryPO.setUserUuid(userUuid);
+
+        Integer insertJewelryFlag = pcCommodityMapper.insertJewelry(cartJewelryPO);
+
+        cartCommodityPO.setCommodityNo(pcCommodityInfoVO.getCommodityNo());
+        cartCommodityPO.setDetail(pcCommodityInfoVO.getDetail());
+        cartCommodityPO.setTitle(pcCommodityInfoVO.getTitle());
+        cartCommodityPO.setSubhead(pcCommodityInfoVO.getSubhead());
+        cartCommodityPO.setTextureName(pcCommodityInfoVO.getTextureName());
+        cartCommodityPO.setSize(body.getSize());
+        cartCommodityPO.setCommodityUuid(body.getCommodityUuid());
+        cartCommodityPO.setUserUuid(userUuid);
+        cartCommodityPO.setCartJewelryUuid(cartJewelryPO.getUuid());
+
+        Integer insertCommodityFlag = pcCommodityMapper.insertCommdity(cartCommodityPO);
+
+        if (insertCommodityFlag > 0 && insertJewelryFlag > 0){
+            return  ResponseEntitySupport.success();
+        } else {
+            return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "数据异常", "Abnormal data");
+        }
+
     }
 
 

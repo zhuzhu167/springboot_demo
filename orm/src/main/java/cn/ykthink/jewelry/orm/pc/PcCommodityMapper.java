@@ -1,5 +1,7 @@
 package cn.ykthink.jewelry.orm.pc;
 
+import cn.ykthink.jewelry.model.comm.po.CartCommodityPO;
+import cn.ykthink.jewelry.model.comm.po.CartJewelryPO;
 import cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityInfoVO;
 import cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityIntroductionVO;
 import cn.ykthink.jewelry.model.pc.commodity.vo.PcJewelryInfoVO;
@@ -44,4 +46,14 @@ public interface PcCommodityMapper {
      * @return*
      */
     PcJewelryInfoVO selectJewelry(@Param("jewelryUuid") String jewelryUuid);
+
+    /**
+     * 钻石加入购物车
+     */
+    Integer insertJewelry(CartJewelryPO cartJewelryPO);
+
+    /**
+     * 商品加入购物车
+     */
+    Integer insertCommdity(CartCommodityPO cartCommodityPO);
 }

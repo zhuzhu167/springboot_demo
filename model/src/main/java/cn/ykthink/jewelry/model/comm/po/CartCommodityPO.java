@@ -21,9 +21,17 @@ public class CartCommodityPO extends BasePO{
      */
     private String commodityUuid;
     /**
-     * 材质uuid
+     *
+     */
+    private String userUuid;
+    /**
+     * 材质名称
      */
     private String textureName;
+    /**
+     * 商品编号
+     */
+    private String commodityNo;
     /**
      * 购物车钻石uuid
      */
