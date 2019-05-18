@@ -66,13 +66,11 @@ public class PcCommodityServiceImpl implements PcCommodityService {
     @Transactional
     public ResponseEntity<Object> commodityJewelry(PcCommodityJewelryBO body) {
         String userUuid = JWTokenUtil.validateJWToken(JWTokenUtil.getRequestHeader("X-Access-Token"), "uuid");
-
         CartJewelryPO cartJewelryPO = new CartJewelryPO();
         CartCommodityPO cartCommodityPO = new CartCommodityPO();
 
         PcJewelryInfoVO pcJewelryInfoVO = pcCommodityMapper.selectJewelry(body.getJewelryUuid());
         PcCommodityInfoVO pcCommodityInfoVO = pcCommodityMapper.selectCommodity(body.getCommodityUuid());
-
         cartJewelryPO.setJewelryUuid(body.getJewelryUuid());
         cartJewelryPO.setJewelryNo(pcJewelryInfoVO.getJewelryNo());
         cartJewelryPO.setClarity(pcJewelryInfoVO.getClarity());
@@ -84,7 +82,6 @@ public class PcCommodityServiceImpl implements PcCommodityService {
         cartJewelryPO.setUserUuid(userUuid);
 
         Integer insertJewelryFlag = pcCommodityMapper.insertJewelry(cartJewelryPO);
-
         cartCommodityPO.setCommodityNo(pcCommodityInfoVO.getCommodityNo());
         cartCommodityPO.setDetail(pcCommodityInfoVO.getDetail());
         cartCommodityPO.setTitle(pcCommodityInfoVO.getTitle());
