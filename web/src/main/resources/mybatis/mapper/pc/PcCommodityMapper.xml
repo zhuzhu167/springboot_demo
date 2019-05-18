@@ -123,4 +123,10 @@
           and jewelry.uuid = images.commodity_jewelry_uuid
     </select>
 
+    <insert id="insertJewelry">
+        <selectKey keyProperty="uuid" resultType="string" order="BEFORE">
+            select replace(uuid(), '-', '') as uuid from dual
+        </selectKey>
+        insert into cart_jewelry()
+    </insert>
 </mapper>
