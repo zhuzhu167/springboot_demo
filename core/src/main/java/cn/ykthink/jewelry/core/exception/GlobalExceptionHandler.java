@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(Throwable.class)
     @ResponseBody
-    public ResponseEntity<Object> GlobalException(Throwable throwable) {
+    public ResponseEntity<Object> handleException(Throwable throwable) {
         log.error("异常报告", throwable);
         return ResponseEntitySupport.error(HttpStatus.INTERNAL_SERVER_ERROR, HttpResponseConstant.HTTP_MESSAGE_INTERNAL_SERVER_ERROR, "网络繁忙");
     }
@@ -54,7 +54,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ParseException.class)
     @ResponseBody
-    public ResponseEntity<Object> parseException(ParseException e) {
+    public ResponseEntity<Object> handleParseException(ParseException e) {
         log.error("格式转换异常：", e);
         return ResponseEntitySupport.error(HttpStatus.INTERNAL_SERVER_ERROR, HttpResponseConstant.HTTP_MESSAGE_INTERNAL_SERVER_ERROR, "网络繁忙");
     }
