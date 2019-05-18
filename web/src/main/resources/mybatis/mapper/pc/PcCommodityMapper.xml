@@ -30,7 +30,7 @@
             resultType="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityImageVO">
         select image_url
         from images
-        where commodity_jewelry_uuid = #{commodityJewelryUuid} and is_deleted=0
+        where commodity_jewelry_uuid = #{commodityJewelryUuid} and is_deleted = 0
     </select>
 
     <resultMap id="commodityResultMap" type="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityInfoVO">
@@ -77,7 +77,7 @@
         <result column="jewelry_no" property="jewelryNo"/>
         <result column="jewelry_price" property="jewelryPrice"/>
         <collection property="imageList" ofType="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityImageVO"
-                    column="{commodityJewelryUuid=commodity_uuid}"
+                    column="{commodityJewelryUuid=jewelry_uuid}"
                     select="selectCommodityJewelryIntroductionImage">
             <result column="image_url" property="imageUrl"/>
         </collection>
@@ -87,7 +87,7 @@
         select jewelry.uuid            as commodity_uuid,
                jewelry.jewelry_no      as title,
                jewelry.jewelry_price   as commodity_price
-        from  jewelry,images
+        from  jewelry
         where jewelry.is_deleted = 0
         order by jewelry.jewelry_no
     </select>

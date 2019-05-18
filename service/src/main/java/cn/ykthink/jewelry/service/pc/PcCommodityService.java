@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
  **/
 public interface PcCommodityService {
     /**
-     * 商品简介
+     * 商品列表
      *
      * @return
      */
