@@ -61,14 +61,11 @@
                texture.texture_name      as texture_name,
                store.store_total         as store_total,
                store.store_consumption   as store_consumption
-        from commodity,
-             images,
-             texture,
-             store
+        from commodity left join images on commodity.uuid = images.commodity_jewelry_uuid
+                       left join texture on commodity.texture_uuid = texture.uuid
+                       left join store on commodity.store_uuid = store.uuid
         where commodity.uuid = #{commodityUuid}
-          and commodity.uuid = images.commodity_jewelry_uuid
-          and commodity.texture_uuid = texture.uuid
-          and commodity.store_uuid = store.uuid
+
     </select>
 
     <resultMap id="jewelryIntroductionResultMap"
@@ -118,9 +115,8 @@
                light            as polishing,
                jewelry_price    as jewelry_price,
                image_url        as image_url
-        from jewelry,images
+        from jewelry left join images on jewelry.uuid = images.commodity_jewelry_uuid
         where jewelry.uuid = #{jewelryUuid}
-          and jewelry.uuid = images.commodity_jewelry_uuid
     </select>
 
     <insert id="insertJewelry">
