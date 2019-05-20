@@ -30,11 +30,12 @@
             resultType="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityImageVO">
         select image_url
         from images
-        where commodity_jewelry_uuid = #{commodityJewelryUuid} and is_deleted = 0
+        where commodity_jewelry_uuid = #{commodityJewelryUuid}
+          and is_deleted = 0
     </select>
 
     <resultMap id="commodityResultMap" type="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityInfoVO">
-        <id column="uuid" property="commodityUuid"/>
+        <id column="commodity_uuid" property="commodityUuid"/>
         <result column="commodity_no" property="commodityNo"/>
         <result column="title" property="title"/>
         <result column="subhead" property="subhead"/>
@@ -45,14 +46,15 @@
             <result column="store_total" property="storeTotal"/>
             <result column="store_consumption" property="storeConsumption"/>
         </association>
-        <collection property="imageList" ofType="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityImageVO">
+        <collection property="imageList" ofType="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityImageVO"
+                    column="{commodityJewelryUuid=commodity_uuid}"
+                    select="selectCommodityJewelryIntroductionImage">
             <result column="image_url" property="imageUrl"/>
         </collection>
     </resultMap>
 
     <select id="selectCommodity" resultMap="commodityResultMap">
         select commodity.uuid            as commodity_uuid,
-               images.image_url          as image_url,
                commodity.commodity_no    as commodity_no,
                commodity.title           as title,
                commodity.subhead         as subhead,
@@ -61,9 +63,9 @@
                texture.texture_name      as texture_name,
                store.store_total         as store_total,
                store.store_consumption   as store_consumption
-        from commodity left join images on commodity.uuid = images.commodity_jewelry_uuid
-                       left join texture on commodity.texture_uuid = texture.uuid
-                       left join store on commodity.store_uuid = store.uuid
+        from commodity
+                 left join texture on commodity.texture_uuid = texture.uuid
+                 left join store on commodity.store_uuid = store.uuid
         where commodity.uuid = #{commodityUuid}
 
     </select>
@@ -81,10 +83,8 @@
     </resultMap>
 
     <select id="selectJewelryIntroduction" resultMap="jewelryIntroductionResultMap">
-        select jewelry.uuid            as jewelry_uuid,
-               jewelry.jewelry_no      as jewelry_no,
-               jewelry.jewelry_price   as jewelry_price
-        from  jewelry
+        select jewelry.uuid as jewelry_uuid, jewelry.jewelry_no as jewelry_no, jewelry.jewelry_price as jewelry_price
+        from jewelry
         where jewelry.is_deleted = 0
         order by jewelry.jewelry_no
     </select>
@@ -105,17 +105,18 @@
     </resultMap>
 
     <select id="selectJewelry" resultMap="jewelryResultMap">
-        select jewelry.uuid     as jewelry_uuid,
-               jewelry_no       as jewelry_no,
-               shape            as shape,
-               color            as color,
-               clarity          as clarity,
-               cut              as cut,
-               polishing        as polishing,
-               light            as polishing,
-               jewelry_price    as jewelry_price,
-               image_url        as image_url
-        from jewelry left join images on jewelry.uuid = images.commodity_jewelry_uuid
+        select jewelry.uuid  as jewelry_uuid,
+               jewelry_no    as jewelry_no,
+               shape         as shape,
+               color         as color,
+               clarity       as clarity,
+               cut           as cut,
+               polishing     as polishing,
+               light         as polishing,
+               jewelry_price as jewelry_price,
+               image_url     as image_url
+        from jewelry
+                 left join images on jewelry.uuid = images.commodity_jewelry_uuid
         where jewelry.uuid = #{jewelryUuid}
     </select>
 
@@ -123,7 +124,8 @@
         <selectKey keyProperty="uuid" resultType="string" order="BEFORE">
             select replace(uuid(), '-', '') as uuid from dual
         </selectKey>
-        insert into cart_jewelry(uuid,jewelry_uuid,jewelry_no,shape,color,clarity,cut,polishing,light,user_uuid,create_time,modified_time)
+        insert into
+        cart_jewelry(uuid,jewelry_uuid,jewelry_no,shape,color,clarity,cut,polishing,light,user_uuid,create_time,modified_time)
         values
         (
         #{uuid},
