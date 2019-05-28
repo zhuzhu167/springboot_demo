@@ -19,5 +19,5 @@ public interface PcCartMapper {
     /**
      * 购物车信息
      */
-    List<PcUserCartVO> selectCart(@Param("userUuid")String userUuid);
+    List<PcUserCartVO> selectCart(@Param("userUuid") String userUuid);
 }
