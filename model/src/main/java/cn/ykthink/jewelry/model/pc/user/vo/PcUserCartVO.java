@@ -15,9 +15,6 @@ import java.util.List;
  **/
 @Data
 public class PcUserCartVO {
-    @ApiModelProperty(value = "购物车uuid", name = "cartUuid", example = "1234", dataType = "String", required = true)
-    private String cartUuid;
-
     @ApiModelProperty(value = "商品购物车uuid", name = "cartCommodityUuid", example = "1234", dataType = "String", required = true)
     private String cartCommodityUuid;
 
