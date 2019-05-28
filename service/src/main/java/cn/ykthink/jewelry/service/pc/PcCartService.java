@@ -16,5 +16,5 @@ public interface PcCartService {
      * @param pageSize
      * @return
      */
-    ResponseEntity<Object> cart(Integer pageNum, Integer pageSize, String cartCommodityUuid);
+    ResponseEntity<Object> cart(Integer pageNum, Integer pageSize);
 }

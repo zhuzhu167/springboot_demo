@@ -48,4 +48,5 @@ public class CartJewelryPO extends BasePO{
      * 用户uuid
      */
     private String userUuid;
+
 }

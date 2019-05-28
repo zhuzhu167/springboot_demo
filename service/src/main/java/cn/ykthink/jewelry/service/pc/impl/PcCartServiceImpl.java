@@ -1,6 +1,7 @@
 package cn.ykthink.jewelry.service.pc.impl;
 
 import cn.ykthink.jewelry.core.support.http.ResponseEntitySupport;
+import cn.ykthink.jewelry.core.untils.JWTokenUtil;
 import cn.ykthink.jewelry.model.pc.user.vo.PcUserCartVO;
 import cn.ykthink.jewelry.orm.pc.PcCartMapper;
 import cn.ykthink.jewelry.service.pc.PcCartService;
@@ -24,10 +25,11 @@ public class PcCartServiceImpl implements PcCartService {
     PcCartMapper pcCartMapper;
 
     @Override
-    public ResponseEntity<Object> cart(Integer pageNum, Integer pageSize, String cartCommodityUuid) {
+    public ResponseEntity<Object> cart(Integer pageNum, Integer pageSize) {
+        String userUuid = JWTokenUtil.validateJWToken(JWTokenUtil.getRequestHeader("X-Access-Token"), "uuid");
         Page<Object> page = PageHelper.startPage(pageNum, pageSize);
         JSONObject response = new JSONObject();
-        pcCartMapper.selectCart(cartCommodityUuid);
+        pcCartMapper.selectCart(userUuid);
         response.put("total", page.getTotal());
         response.put("response", page.getResult());
         return ResponseEntitySupport.success(response);

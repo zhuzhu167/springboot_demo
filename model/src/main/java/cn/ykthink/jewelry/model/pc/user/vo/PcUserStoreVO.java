@@ -12,9 +12,9 @@ import lombok.Data;
 @Data
 public class PcUserStoreVO {
 
-    @ApiModelProperty(value = "库存总量", name = "storeTotal", example = "1000", dataType = "Integer", required = true)
+    @ApiModelProperty(value = "历史库存总量", name = "storeTotal", example = "1000", dataType = "Integer", required = true)
     private String storeTotal;
 
-    @ApiModelProperty(value = "库存消耗量", name = "storeConsumption", example = "10", dataType = "Integer", required = true)
+    @ApiModelProperty(value = "库存剩余量", name = "storeConsumption", example = "10", dataType = "Integer", required = true)
     private String storeConsumption;
 }

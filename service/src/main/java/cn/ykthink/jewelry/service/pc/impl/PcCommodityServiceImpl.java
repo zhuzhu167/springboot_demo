@@ -81,6 +81,7 @@ public class PcCommodityServiceImpl implements PcCommodityService {
         cartJewelryPO.setShape(pcJewelryInfoVO.getShape());
         cartJewelryPO.setUserUuid(userUuid);
 
+
         Integer insertJewelryFlag = pcCommodityMapper.insertJewelry(cartJewelryPO);
         cartCommodityPO.setCommodityNo(pcCommodityInfoVO.getCommodityNo());
         cartCommodityPO.setDetail(pcCommodityInfoVO.getDetail());

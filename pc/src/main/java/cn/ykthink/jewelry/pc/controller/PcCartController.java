@@ -29,17 +29,15 @@ public class PcCartController {
     PcCartService pcCartService;
 
     @IgnoreToken
-    @GetMapping("cart/{cartCommodityUuid}")
+    @GetMapping("cart")
     @ApiOperation(value = "购物车", response = PcUserCartVO.class)
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "path", dataType = "String", name = "cartCommodityUuid", value = "购物车商品uuid", required = true),
             @ApiImplicitParam(paramType = "query", dataType = "int", name = "pageNum", value = "第几页", required = false),
             @ApiImplicitParam(paramType = "query", dataType = "int", name = "pageSize", value = "显示多少条", required = false)
     })
     public ResponseEntity<Object> cart(@ParameterValid(type = Integer.class, msg = "pageNum不能为空", isMin = true) @RequestParam(defaultValue = "${jewelry.pages.page_index}") Integer pageNum,
-                                       @ParameterValid(type = Integer.class, msg = "pageSize不能为空", isMin = true) @RequestParam(defaultValue = "${jewelry.pages.page_size}") Integer pageSize,
-                                       @PathVariable String cartCommodityUuid) {
-        return pcCartService.cart(pageNum, pageSize,cartCommodityUuid);
+                                       @ParameterValid(type = Integer.class, msg = "pageSize不能为空", isMin = true) @RequestParam(defaultValue = "${jewelry.pages.page_size}") Integer pageSize) {
+        return pcCartService.cart(pageNum, pageSize);
     }
 
     /**
