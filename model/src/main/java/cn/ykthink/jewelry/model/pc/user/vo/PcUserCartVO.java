@@ -5,6 +5,7 @@ import cn.ykthink.jewelry.model.pc.commodity.vo.PcJewelryInfoVO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -26,4 +27,7 @@ public class PcUserCartVO {
 
     @ApiModelProperty(value = "购物车钻石list", name = "cartJewelryList", dataType = "List", required = true)
     private List<PcJewelryInfoVO> cartJewelryList;
+
+    @ApiModelProperty(value = "商品钻石总价", name = "price", dataType = "BigDecimal", required = true)
+    private BigDecimal price;
 }
