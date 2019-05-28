@@ -1,5 +1,7 @@
 package cn.ykthink.jewelry.model.pc.user.vo;
 
+import cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityInfoVO;
+import cn.ykthink.jewelry.model.pc.commodity.vo.PcJewelryInfoVO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -13,9 +15,15 @@ import java.util.List;
  **/
 @Data
 public class PcUserCartVO {
-    @ApiModelProperty(value = "购物车uuid", name = "cartUuid", example = "12345", dataType = "String", required = true)
-    private String cartUuid;
+    @ApiModelProperty(value = "商品购物车uuid", name = "cartCommodityUuid", example = "1234", dataType = "String", required = true)
+    private String cartCommodityUuid;
+
+    @ApiModelProperty(value = "钻石购物车uuid", name = "cartJewelryUuid", example = "1234", dataType = "String", required = true)
+    private String cartJewelryUuid;
 
     @ApiModelProperty(value = "购物车商品list", name = "cartCommodityList", dataType = "List", required = true)
-    private List<PcUserCartCommodityVO> cartCommodityList;
+    private List<PcCommodityInfoVO> cartCommodityList;
+
+    @ApiModelProperty(value = "购物车钻石list", name = "cartJewelryList", dataType = "List", required = true)
+    private List<PcJewelryInfoVO> cartJewelryList;
 }
