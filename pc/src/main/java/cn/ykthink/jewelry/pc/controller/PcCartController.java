@@ -28,7 +28,7 @@ public class PcCartController {
     @Autowired
     PcCartService pcCartService;
 
-    @IgnoreToken
+
     @GetMapping("cart")
     @ApiOperation(value = "购物车", response = PcUserCartVO.class)
     @ApiImplicitParams({
