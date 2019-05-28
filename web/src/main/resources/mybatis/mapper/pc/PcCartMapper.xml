@@ -3,7 +3,8 @@
 
 <mapper namespace="cn.ykthink.jewelry.orm.pc.PcCartMapper">
     <select id="selectCart" resultMap="cartResultMap">
-        select cc.commodity_uuid,
+        select cc.uuid                 as cart_uuid,
+               cc.commodity_uuid,
                cc.cart_jewelry_uuid,
                cc.commodity_no,
                cc.title,
@@ -21,7 +22,8 @@
     </select>
 
     <resultMap id="cartResultMap" type="cn.ykthink.jewelry.model.pc.user.vo.PcUserCartVO">
-        <id column="commodity_uuid" property="cartCommodityUuid"/>
+        <id column="cart_uuid" property="cartUuid"/>
+        <result column="commodity_uuid" property="cartCommodityUuid"/>
         <result column="cart_jewelry_uuid" property="cartJewelryUuid"/>
         <collection property="cartCommodityList" ofType="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityInfoVO">
             <result column="commodity_no" property="commodityNo"/>
@@ -43,12 +45,12 @@
     </resultMap>
 
     <!--<select id="selectCartCommodity" resultType="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityInfoVO">-->
-        <!--select commodity.commodity_price as commodity_price,-->
-               <!--store.store_total         as store_total,-->
-               <!--store.store_consumption   as store_consumption-->
-        <!--from commodity-->
-                 <!--left join store on commodity.store_uuid = store.uuid-->
-        <!--where commodity_uuid = #{commodityUuid}-->
+    <!--select commodity.commodity_price as commodity_price,-->
+    <!--store.store_total         as store_total,-->
+    <!--store.store_consumption   as store_consumption-->
+    <!--from commodity-->
+    <!--left join store on commodity.store_uuid = store.uuid-->
+    <!--where commodity_uuid = #{commodityUuid}-->
     <!--</select>-->
 
     <!--<resultMap id="cartCommodityResultMap" type="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityInfoVO">-->
