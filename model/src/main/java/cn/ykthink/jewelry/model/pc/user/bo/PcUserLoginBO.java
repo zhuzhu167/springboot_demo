@@ -14,11 +14,11 @@ import javax.validation.constraints.NotBlank;
  */
 @Data
 public class PcUserLoginBO {
-    @NotBlank(message = "Account cannot be empty")
+    @NotBlank(message = "账号不能为空")
     @ApiModelProperty(value = "账号", name = "account", example = "", dataType = "String", required = true)
     private String account;
 
-    @NotBlank(message = "password cannot be empty")
+    @NotBlank(message = "密码不能为空")
     @ApiModelProperty(value = "密码", name = "password", example = "", dataType = "String", required = true)
     private String password;
 }
