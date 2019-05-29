@@ -17,6 +17,7 @@ public class PcUserEditPwdBO {
     @NotBlank(message = "旧密码不能为空")
     @ApiModelProperty(value = "旧密码", name = "oldPwd", example = "", dataType = "String", required = false)
     private String oldPwd;
+
     @NotBlank(message = "新密码不能为空")
     @ApiModelProperty(value = "新密码", name = "newPwd", example = "", dataType = "String", required = false)
     private String newPwd;
