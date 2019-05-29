@@ -1,4 +1,4 @@
-package cn.ykthink.jewelry.model.pc.user.vo;
+package cn.ykthink.jewelry.model.pc.cart.vo;
 
 import cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityInfoVO;
 import cn.ykthink.jewelry.model.pc.commodity.vo.PcJewelryInfoVO;

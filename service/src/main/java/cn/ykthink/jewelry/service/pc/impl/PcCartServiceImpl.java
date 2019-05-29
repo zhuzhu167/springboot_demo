@@ -2,7 +2,7 @@ package cn.ykthink.jewelry.service.pc.impl;
 
 import cn.ykthink.jewelry.core.support.http.ResponseEntitySupport;
 import cn.ykthink.jewelry.core.untils.JWTokenUtil;
-import cn.ykthink.jewelry.model.pc.user.vo.PcUserCartVO;
+import cn.ykthink.jewelry.model.pc.cart.vo.PcUserCartVO;
 import cn.ykthink.jewelry.orm.pc.PcCartMapper;
 import cn.ykthink.jewelry.service.pc.PcCartService;
 import com.github.pagehelper.Page;
@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * program: jewelry
@@ -29,7 +31,12 @@ public class PcCartServiceImpl implements PcCartService {
         String userUuid = JWTokenUtil.validateJWToken(JWTokenUtil.getRequestHeader("X-Access-Token"), "uuid");
         Page<Object> page = PageHelper.startPage(pageNum, pageSize);
         JSONObject response = new JSONObject();
-        pcCartMapper.selectCart(userUuid);
+        List<PcUserCartVO> pcUserCartVOList = pcCartMapper.selectCart(userUuid);
+        BigDecimal sumPrice = new BigDecimal("0");
+        for(PcUserCartVO p:pcUserCartVOList){
+            sumPrice = sumPrice.add(p.getPrice());
+        }
+        response.put("sumPrice",sumPrice);
         response.put("total", page.getTotal());
         response.put("response", page.getResult());
         return ResponseEntitySupport.success(response);

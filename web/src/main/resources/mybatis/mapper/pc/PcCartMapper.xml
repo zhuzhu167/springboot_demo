@@ -23,7 +23,7 @@
                cj.polishing,
                cj.light,
                jewelry.jewelry_price,
-               commodity.commodity_price+jewelry.jewelry_price as sum_price
+               commodity.commodity_price+jewelry.jewelry_price as price
         from cart_commodity as cc
                  left join commodity on commodity.uuid = cc.commodity_uuid
                  left join store on commodity.store_uuid = store.uuid
@@ -35,10 +35,10 @@
           and cj.is_order = 0
     </select>
 
-    <resultMap id="cartResultMap" type="cn.ykthink.jewelry.model.pc.user.vo.PcUserCartVO">
+    <resultMap id="cartResultMap" type="cn.ykthink.jewelry.model.pc.cart.vo.PcUserCartVO">
         <id column="uuid" property="cartCommodityUuid"/>
         <result column="cart_jewelry_uuid" property="cartJewelryUuid"/>
-        <result column="sum_price" property="price"/>
+        <result column="price" property="price"/>
         <collection property="cartCommodityList" ofType="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityInfoVO">
             <result column="commodity_no" property="commodityNo"/>
             <result column="title" property="title"/>

@@ -1,6 +1,6 @@
 package cn.ykthink.jewelry.orm.pc;
 
-import cn.ykthink.jewelry.model.pc.user.vo.PcUserCartVO;
+import cn.ykthink.jewelry.model.pc.cart.vo.PcUserCartVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
