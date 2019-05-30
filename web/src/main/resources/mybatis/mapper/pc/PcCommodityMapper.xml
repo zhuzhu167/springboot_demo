@@ -67,7 +67,7 @@
                  left join texture on commodity.texture_uuid = texture.uuid
                  left join store on commodity.store_uuid = store.uuid
         where commodity.uuid = #{commodityUuid}
-
+          and commodity.is_deleted = 0
     </select>
 
     <resultMap id="jewelryIntroductionResultMap"
@@ -118,6 +118,7 @@
         from jewelry
                  left join images on jewelry.uuid = images.commodity_jewelry_uuid
         where jewelry.uuid = #{jewelryUuid}
+          and jewelry.is_deleted = 0
     </select>
 
     <insert id="insertJewelry">

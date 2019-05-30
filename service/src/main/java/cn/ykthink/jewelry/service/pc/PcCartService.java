@@ -17,4 +17,9 @@ public interface PcCartService {
      * @return
      */
     ResponseEntity<Object> cart(Integer pageNum, Integer pageSize);
+
+    /**
+     * 删除购物车商品
+     */
+    ResponseEntity<Object> removeCart(String cartCommodityUuid);
 }

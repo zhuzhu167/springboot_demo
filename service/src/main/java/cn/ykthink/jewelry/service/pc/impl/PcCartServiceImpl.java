@@ -8,6 +8,7 @@ import cn.ykthink.jewelry.service.pc.PcCartService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import net.sf.json.JSONObject;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -34,11 +35,21 @@ public class PcCartServiceImpl implements PcCartService {
         List<PcUserCartVO> pcUserCartVOList = pcCartMapper.selectCart(userUuid);
         BigDecimal sumPrice = new BigDecimal("0");
         for(PcUserCartVO p:pcUserCartVOList){
+            //获取购物车总价
             sumPrice = sumPrice.add(p.getPrice());
         }
         response.put("sumPrice",sumPrice);
         response.put("total", page.getTotal());
         response.put("response", page.getResult());
         return ResponseEntitySupport.success(response);
+    }
+
+    @Override
+    public ResponseEntity<Object> removeCart(String cartCommodityUuid) {
+        if (pcCartMapper.removeIsDeleted(cartCommodityUuid)>1){
+            return ResponseEntitySupport.success();
+        } else {
+            return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "数据异常", "Abnormal data");
+        }
     }
 }

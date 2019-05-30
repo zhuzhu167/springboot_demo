@@ -33,6 +33,8 @@
           and cj.jewelry_uuid = jewelry.uuid
           and cc.is_order = 0
           and cj.is_order = 0
+          and cc.is_deleted = 0
+          and cj.is_deleted = 0
     </select>
 
     <resultMap id="cartResultMap" type="cn.ykthink.jewelry.model.pc.cart.vo.PcUserCartVO">
@@ -80,4 +82,14 @@
         where commodity_jewelry_uuid = #{commodityJewelryUuid}
           and is_deleted = 0
     </select>
+
+    <update id="removeIsDeleted">
+        update cart_commodity as cc,cart_jewelry as cj
+        <set>
+            cc.is_deleted = 1,
+            cj.is_deleted = 1
+        </set>
+        where cc.uuid = #{cartCommodityUuid}
+          and cc.cart_jewelry_uuid = cj.uuid
+    </update>
 </mapper>

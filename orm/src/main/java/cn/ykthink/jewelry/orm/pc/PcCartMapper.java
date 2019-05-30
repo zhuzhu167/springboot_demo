@@ -20,4 +20,9 @@ public interface PcCartMapper {
      * 购物车信息
      */
     List<PcUserCartVO> selectCart(@Param("userUuid") String userUuid);
+
+    /**
+     * 删除购物车
+     */
+    Integer removeIsDeleted(@Param("cartCommodityUuid") String cartCommodityUuid);
 }
