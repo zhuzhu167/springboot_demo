@@ -40,7 +40,7 @@ public class PcCartController {
      * deleted删购商品
      */
     @DeleteMapping("cart/{cartCommodityUuid}")
-    @ApiOperation(value = "删除购物车", response = PcUserCartVO.class)
+    @ApiOperation(value = "删除购物车", response = ResponseEntity.class)
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "path", dataType = "String", name = "cartCommodityUuid", value = "商品购物车uuid", required = true)
     })
@@ -51,7 +51,12 @@ public class PcCartController {
     /**
      * post下单
      */
-
-
-
+    @PostMapping("cart")
+    @ApiOperation(value = "购买", response = ResponseEntity.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "path", dataType = "String", name = "cartCommodityUuid", value = "商品购物车uuid", required = true)
+    })
+    public ResponseEntity<Object> payCart(@PathVariable String cartCommodityUuid) {
+        return pcCartService.payCart();
+    }
 }

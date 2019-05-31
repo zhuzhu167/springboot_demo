@@ -25,4 +25,8 @@ public interface PcCartMapper {
      * 删除购物车
      */
     Integer removeIsDeleted(@Param("cartCommodityUuid") String cartCommodityUuid);
+
+    /**
+     * 购买
+     */
 }

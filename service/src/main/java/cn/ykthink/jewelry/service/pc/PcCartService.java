@@ -20,6 +20,13 @@ public interface PcCartService {
 
     /**
      * 删除购物车商品
+     * @param cartCommodityUuid
+     * @return
      */
     ResponseEntity<Object> removeCart(String cartCommodityUuid);
+
+    /**
+     * 购买
+     */
+    ResponseEntity<Object> payCart();
 }

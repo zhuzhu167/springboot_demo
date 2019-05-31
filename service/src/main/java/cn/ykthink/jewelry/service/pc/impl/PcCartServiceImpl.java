@@ -52,4 +52,9 @@ public class PcCartServiceImpl implements PcCartService {
             return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "数据异常", "Abnormal data");
         }
     }
+
+    @Override
+    public ResponseEntity<Object> payCart() {
+        return null;
+    }
 }
