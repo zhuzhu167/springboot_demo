@@ -84,12 +84,127 @@
     </select>
 
     <update id="removeIsDeleted">
-        update cart_commodity as cc,cart_jewelry as cj
+        update cart_commodity as cc,
+               cart_jewelry as cj
         <set>
             cc.is_deleted = 1,
             cj.is_deleted = 1
         </set>
         where cc.uuid = #{cartCommodityUuid}
           and cc.cart_jewelry_uuid = cj.uuid
+    </update>
+
+    <select id="selectConsigneeMessage" resultType="cn.ykthink.jewelry.model.pc.user.vo.PcUserReceiverInfoVO">
+        select uuid                  as receiver_uuid,
+               receiver_name         as name,
+               receiver_province     as province,
+               receiver_city         as city,
+               receiver_district     as district,
+               receiver_address      as address,
+               receiver_phone_number as phone,
+               zip_code              as zip_code
+        from consignee
+        where user_uuid = #{userUuid}
+          and is_deleted = 0
+    </select>
+
+    <update id="updateCart">
+        update cart_commodity as cc,
+               cart_jewelry as cj
+        <set>
+            cc.is_order = 1,
+            cj.is_order = 1
+        </set>
+        where cc.uuid = #{cartCommodityUuid}
+          and cc.cart_jewelry_uuid = cj.uuid
+          and cc.is_deleted = 0
+          and cj.is_deleted = 0
+    </update>
+
+    <insert id="insertOrder">
+        <selectKey keyProperty="uuid" resultType="string" order="BEFORE">
+            select replace(uuid(), '-', '') as uuid from dual
+        </selectKey>
+        insert into
+        `order`(
+        uuid,
+        user_uuid,
+        consignee_uuid,
+        order_no,
+        order_describe,
+        pay_price,
+        pay_date,
+        logistics_name,
+        logistics_number,
+        create_time,
+        modified_time
+        )
+        values(
+        #{uuid},
+        #{user_uuid},
+        #{consignee_uuid},
+        #{order_no},
+        #{order_describe},
+        #{pay_price},
+        #{pay_date},
+        #{logistics_name},
+        #{logistics_number},
+        DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"),
+        DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s")
+        )
+    </insert>
+
+    <insert id="insertOrderCommodity">
+        <selectKey keyProperty="uuid" resultType="string" order="BEFORE">
+            select replace(uuid(), '-', '') as uuid from dual
+        </selectKey>
+        insert into
+        order_commodity(
+        uuid,
+        cart_commodity_uuid,
+        order_uuid,
+        order_jewelry_uuid,
+        commodity_price,
+        create_time,
+        modified_time
+        )
+        values(
+        #{uuid},
+        #{cart_commodity_uuid},
+        #{order_uuid},
+        #{order_jewelry_uuid},
+        #{commodity_price},
+        DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"),
+        DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s")
+        )
+    </insert>
+
+    <insert id="insertOrderJewelry">
+        <selectKey keyProperty="uuid" resultType="string" order="BEFORE">
+            select replace(uuid(), '-', '') as uuid from dual
+        </selectKey>
+        insert into
+        order_jewelry(
+        uuid,
+        order_uuid,
+        cart_jewelry_uuid,
+        jewelry_price,
+        create_time,
+        modified_time
+        )
+        values(
+        #{uuid},
+        #{order_uuid},
+        #{cart_jewelry_uuid},
+        #{jewelry_price},
+        DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"),
+        DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s")
+        )
+    </insert>
+
+    <update id="updateOrder">
+        update `order` as o
+        set order_status = 1
+        where o.uuid = #{orderUuid}
     </update>
 </mapper>

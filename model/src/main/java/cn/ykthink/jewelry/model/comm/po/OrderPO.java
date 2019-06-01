@@ -19,9 +19,9 @@ public class OrderPO extends BasePO{
      */
     private String userUuid;
     /**
-     * 收获人uuid
+     * 收货人uuid
      */
-    private String receiverUuid;
+    private String consigneeUuid;
     /**
      * 订单状态
      */

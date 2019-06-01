@@ -2,8 +2,11 @@ package cn.ykthink.jewelry.service.pc.impl;
 
 import cn.ykthink.jewelry.core.support.http.ResponseEntitySupport;
 import cn.ykthink.jewelry.core.untils.JWTokenUtil;
+import cn.ykthink.jewelry.model.pc.cart.bo.PcUserPayCartBO;
 import cn.ykthink.jewelry.model.pc.cart.vo.PcUserCartVO;
+import cn.ykthink.jewelry.model.pc.user.vo.PcUserReceiverInfoVO;
 import cn.ykthink.jewelry.orm.pc.PcCartMapper;
+import cn.ykthink.jewelry.orm.pc.PcUserMapper;
 import cn.ykthink.jewelry.service.pc.PcCartService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -54,7 +57,12 @@ public class PcCartServiceImpl implements PcCartService {
     }
 
     @Override
-    public ResponseEntity<Object> payCart() {
+    public ResponseEntity<Object> payCart(PcUserPayCartBO body) {
+        String userUuid = JWTokenUtil.validateJWToken(JWTokenUtil.getRequestHeader("X-Access-Token"), "uuid");
+        List<PcUserReceiverInfoVO> consigneeMessage = pcCartMapper.selectConsigneeMessage(userUuid);
+        if (consigneeMessage.get(0) != null){
+
+        }
         return null;
     }
 }

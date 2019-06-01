@@ -1,5 +1,6 @@
 package cn.ykthink.jewelry.service.pc;
 
+import cn.ykthink.jewelry.model.pc.cart.bo.PcUserPayCartBO;
 import org.springframework.http.ResponseEntity;
 
 /**
@@ -28,5 +29,5 @@ public interface PcCartService {
     /**
      * 购买
      */
-    ResponseEntity<Object> payCart();
+    ResponseEntity<Object> payCart(PcUserPayCartBO body);
 }

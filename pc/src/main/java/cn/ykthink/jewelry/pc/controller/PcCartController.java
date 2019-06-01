@@ -1,6 +1,7 @@
 package cn.ykthink.jewelry.pc.controller;
 
 import cn.ykthink.jewelry.core.uri.SystemUri;
+import cn.ykthink.jewelry.model.pc.cart.bo.PcUserPayCartBO;
 import cn.ykthink.jewelry.model.pc.cart.vo.PcUserCartVO;
 import cn.ykthink.jewelry.service.pc.PcCartService;
 import com.github.catalpaflat.valid.annotation.ParameterValid;
@@ -10,6 +11,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -53,10 +55,7 @@ public class PcCartController {
      */
     @PostMapping("cart")
     @ApiOperation(value = "购买", response = ResponseEntity.class)
-    @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "path", dataType = "String", name = "cartCommodityUuid", value = "商品购物车uuid", required = true)
-    })
-    public ResponseEntity<Object> payCart(@PathVariable String cartCommodityUuid) {
-        return pcCartService.payCart();
+    public ResponseEntity<Object> payCart(@RequestBody @Validated PcUserPayCartBO body) {
+        return pcCartService.payCart(body);
     }
 }
