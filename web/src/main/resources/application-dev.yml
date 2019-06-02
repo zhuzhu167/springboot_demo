@@ -1,7 +1,7 @@
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://39.108.132.170:3306/jewelry?serverTimezone=UTC&useSSL=false&characterEncoding=utf8
+    url: jdbc:mysql://mysql:3306/jewelry?serverTimezone=UTC&useSSL=false&characterEncoding=utf8
     username: root
     password: fyk159753
     driver-class-name: com.mysql.jdbc.Driver
@@ -30,7 +30,7 @@ spring:
   #redis配置 redis-01 localhost redis-stage redis
   redis:
     database: 1
-    host: 39.108.132.170
+    host: redis
     port: 6379
     password: fyk159753
     timeout: 1000ms
