@@ -29,3 +29,7 @@ jewelry:
   pages:
     page_index: 1
     page_size: 10
+  tx:
+    appId: 1400217435
+    appKey: 8a0a933fcad0c10d437c7748f7370f29
+    countryCode: 86

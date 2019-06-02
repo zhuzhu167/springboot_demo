@@ -3,6 +3,7 @@ package cn.ykthink.jewelry.pc.controller;
 import cn.ykthink.jewelry.core.annotation.IgnoreToken;
 import cn.ykthink.jewelry.core.annotation.ValidatePcPermission;
 import cn.ykthink.jewelry.core.annotation.validateEnums.ValidatePcPermissionEnum;
+import cn.ykthink.jewelry.core.support.http.ResponseEntitySupport;
 import cn.ykthink.jewelry.core.uri.SystemUri;
 import cn.ykthink.jewelry.model.pc.user.bo.*;
 import cn.ykthink.jewelry.model.pc.user.vo.PcUserLoginVO;
@@ -36,7 +37,7 @@ public class PcUserController {
     @PostMapping("login")
     @IgnoreToken
     @ApiOperation(value = "用户端登录", response = PcUserLoginVO.class)
-    public ResponseEntity<Object> login(@RequestBody  @Validated PcUserLoginBO pcUserLoginBO) {
+    public ResponseEntity<Object> login(@RequestBody @Validated PcUserLoginBO pcUserLoginBO) {
         return pcUserService.login(pcUserLoginBO);
     }
 
@@ -79,7 +80,7 @@ public class PcUserController {
     })
     public ResponseEntity<Object> consignee(@ParameterValid(type = Integer.class, msg = "pageNum不能为空", isMin = true) @RequestParam(defaultValue = "${jewelry.pages.page_index}") Integer pageNum,
                                             @ParameterValid(type = Integer.class, msg = "pageSize不能为空", isMin = true) @RequestParam(defaultValue = "${jewelry.pages.page_size}") Integer pageSize) {
-        return pcUserService.consignee(pageNum,pageSize);
+        return pcUserService.consignee(pageNum, pageSize);
     }
 
     @DeleteMapping("consignee/{consigneeUuid}")
@@ -97,6 +98,13 @@ public class PcUserController {
             @ApiImplicitParam(paramType = "path", dataType = "String", name = "consigneeUuid", value = "收货信息uuid", required = true),
     })
     public ResponseEntity<Object> editConsignee(@PathVariable String consigneeUuid, @RequestBody @Validated PcUerReceiverInfoBO body) {
-        return pcUserService.editConsignee(consigneeUuid,body);
+        return pcUserService.editConsignee(consigneeUuid, body);
+    }
+
+    @PostMapping("registerCode")
+    @IgnoreToken
+    @ApiOperation(value = "短信验证吗", response = ResponseEntity.class)
+    public ResponseEntity<Object> register(@RequestBody @Validated PcUserRegisterCodeBO body) {
+        return pcUserService.registerCode(body);
     }
 }
