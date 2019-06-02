@@ -54,7 +54,7 @@ public class PcCartController {
      * post下单
      */
     @PostMapping("cart")
-    @ApiOperation(value = "购买", response = ResponseEntity.class)
+    @ApiOperation(value = "下单", response = ResponseEntity.class)
     public ResponseEntity<Object> orderCart(@RequestBody @Validated PcUserPayCartBO body) {
         return pcCartService.orderCart(body);
     }

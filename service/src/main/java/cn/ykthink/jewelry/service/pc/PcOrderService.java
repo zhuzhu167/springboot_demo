@@ -17,4 +17,11 @@ public interface PcOrderService {
      * @return
      */
     ResponseEntity<Object> order(Integer pageNum, Integer pageSize);
+
+    /**
+     * 付款
+     * @param orderUuid
+     * @return
+     */
+    ResponseEntity<Object> pay(String orderUuid);
 }

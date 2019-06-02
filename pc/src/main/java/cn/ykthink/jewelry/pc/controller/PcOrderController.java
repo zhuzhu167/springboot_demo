@@ -10,10 +10,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * program: jewelry
@@ -35,9 +32,17 @@ public class PcOrderController {
             @ApiImplicitParam(paramType = "query", dataType = "int", name = "pageSize", value = "显示多少条", required = false)
     })
     public ResponseEntity<Object> order(@ParameterValid(type = Integer.class, msg = "pageNum不能为空", isMin = true) @RequestParam(defaultValue = "${jewelry.pages.page_index}") Integer pageNum,
-                                         @ParameterValid(type = Integer.class, msg = "pageSize不能为空", isMin = true) @RequestParam(defaultValue = "${jewelry.pages.page_size}") Integer pageSize) {
-        return pcOrderService.order(pageNum,pageSize);
+                                        @ParameterValid(type = Integer.class, msg = "pageSize不能为空", isMin = true) @RequestParam(defaultValue = "${jewelry.pages.page_size}") Integer pageSize) {
+        return pcOrderService.order(pageNum, pageSize);
     }
 
-
+    @PutMapping("pay/{orderUuid}")
+    @ApiOperation(value = "付款操作", response = ResponseEntity.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "path", dataType = "String", name = "orderUuid", value = "订单uuid", required = true)
+    })
+    public ResponseEntity<Object> pay(@PathVariable String orderUuid) {
+        return pcOrderService.pay(orderUuid);
+    }
 }
+
