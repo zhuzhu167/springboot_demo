@@ -82,6 +82,7 @@ Time: 15:23
         </set>
         where
         uuid=#{uuid}
+        and is_deleted=0
     </update>
     <select id="queryAccountPwd" resultType="cn.ykthink.jewelry.model.pc.user.to.PcUserInfoTO">
         select uuid, password
