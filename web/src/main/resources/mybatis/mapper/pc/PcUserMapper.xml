@@ -40,7 +40,6 @@ Time: 15:23
         update users_info
         <set>
             email=#{email},
-            phone=#{phone},
             username=#{username}
         </set>
         where uuid=#{uuid}
