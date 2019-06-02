@@ -46,14 +46,6 @@ public interface PcCartMapper {
     PcCartReceiverInfoTO selectConsigneeMessage(@Param("uuid") String uuid);
 
     /**
-     * 设置购物车内商品为订单
-     *
-     * @param cartCommodityUuid
-     * @return
-     */
-    Integer updateCart(@Param("cartCommodityUuid") String cartCommodityUuid);
-
-    /**
      * 查询购物车总价
      *
      * @param cartCommodityUuidList

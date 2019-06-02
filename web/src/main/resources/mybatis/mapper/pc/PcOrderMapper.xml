@@ -1,11 +1,118 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.ykthink.jewelry.orm.pc.PcOrderMapper">
-
     <update id="updateOrderStatus">
         update `order`
         set order_status  = #{status},
             modified_time = DATE_FORMAT(NOW(), "%Y-%m-%d %H:%i:%s")
         where uuid = #{uuid}
     </update>
+
+    <select id="selectOrder" resultMap="selectOrderResultMap">
+        select o.uuid                       as o_uuid,
+               o.receiver_name,
+               o.receiver_phone_number,
+               o.receiver_province,
+               o.receiver_city,
+               o.receiver_district,
+               o.receiver_address,
+               o.zip_code,
+               o.order_no,
+               o.order_describe,
+               o.pay_price,
+               o.pay_date,
+               o.logistics_name,
+               o.logistics_number,
+               oc.commodity_price,
+               oje.jewelry_price,
+               cc.commodity_uuid,
+               cc.commodity_no,
+               cc.title,
+               cc.subhead,
+               cc.detail,
+               cc.texture_name,
+               store.store_total,
+               store.store_consumption,
+               cj.jewelry_uuid,
+               cj.jewelry_no,
+               cj.shape,
+               cj.color,
+               cj.clarity,
+               cj.cut,
+               cj.polishing,
+               cj.light
+        from `order` as o
+                left join order_commodity as oc on o.uuid = oc.order_uuid
+                left join order_jewelry   as oje on o.uuid = oje.order_uuid,
+             cart_commodity as cc
+                 left join commodity on commodity.uuid = cc.commodity_uuid
+                 left join store on commodity.store_uuid = store.uuid
+                 left join cart_jewelry as cj on cc.cart_jewelry_uuid = cj.uuid,
+             jewelry
+        where o.user_uuid = #{userUuid}
+          and oc.order_jewelry_uuid = oje.uuid
+          and oc.cart_commodity_uuid = cc.uuid
+          and oje.cart_jewelry_uuid = cj.uuid
+          and cj.jewelry_uuid = jewelry.uuid
+          and o.is_deleted = 0
+          and oc.is_deleted = 0
+          and oje.is_deleted = 0
+    </select>
+
+    <resultMap id="selectOrderResultMap" type="cn.ykthink.jewelry.model.pc.order.vo.PcUserOrderVO">
+        <id column="o_uuid" property="orderUuid"/>
+        <result column="receiver_name" property="receiverName"/>
+        <result column="receiver_phone_number" property="receiverPhoneNumber"/>
+        <result column="receiver_province" property="receiverProvince"/>
+        <result column="receiver_city" property="receiverCity"/>
+        <result column="receiver_district" property="receiverDistrict"/>
+        <result column="receiver_address" property="receiverAddress"/>
+        <result column="zip_code" property="zipCode"/>
+        <result column="order_no" property="orderNo"/>
+        <result column="order_describe" property="orderDescribe"/>
+        <result column="pay_price" property="payPrice"/>
+        <result column="pay_date" property="payDate"/>
+        <result column="logistics_name" property="logisticsName"/>
+        <result column="logistics_number" property="logisticsNumber"/>
+        <collection property="orderCommodityList" ofType="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityInfoVO">
+            <result column="commodity_no" property="commodityNo"/>
+            <result column="title" property="title"/>
+            <result column="subhead" property="subhead"/>
+            <result column="detail" property="detail"/>
+            <result column="texture_name" property="textureName"/>
+            <result column="commodity_price" property="commodityPrice"/>
+            <collection property="store" ofType="cn.ykthink.jewelry.model.pc.user.vo.PcUserStoreVO">
+                <result column="store_total" property="storeTotal"/>
+                <result column="store_consumption" property="storeConsumption"/>
+            </collection>
+            <collection property="imageList" ofType="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityImageVO"
+                        column="{commodityJewelryUuid=commodity_uuid}"
+                        select="selectCommodityJewelryIntroductionImage">
+                <result column="image_url" property="imageUrl"/>
+            </collection>
+        </collection>
+        <collection property="orderJewelryList" ofType="cn.ykthink.jewelry.model.pc.commodity.vo.PcJewelryInfoVO">
+            <result column="jewelry_no" property="jewelryNo"/>
+            <result column="shape" property="shape"/>
+            <result column="color" property="color"/>
+            <result column="clarity" property="clarity"/>
+            <result column="cut" property="cut"/>
+            <result column="polishing" property="polishing"/>
+            <result column="light" property="light"/>
+            <result column="jewelry_price" property="jewelryPrice"/>
+            <collection property="imageList" ofType="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityImageVO"
+                        column="{commodityJewelryUuid=jewelry_uuid}"
+                        select="selectCommodityJewelryIntroductionImage">
+                <result column="image_url" property="imageUrl"/>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <select id="selectCommodityJewelryIntroductionImage"
+            resultType="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityImageVO">
+        select image_url
+        from images
+        where commodity_jewelry_uuid = #{commodityJewelryUuid}
+          and is_deleted = 0
+    </select>
 </mapper>

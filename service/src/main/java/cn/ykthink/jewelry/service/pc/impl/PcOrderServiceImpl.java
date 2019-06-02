@@ -1,9 +1,13 @@
 package cn.ykthink.jewelry.service.pc.impl;
 
 import cn.ykthink.jewelry.core.support.http.ResponseEntitySupport;
-import cn.ykthink.jewelry.model.pc.user.vo.PcUserOrderVO;
+import cn.ykthink.jewelry.core.untils.JWTokenUtil;
+import cn.ykthink.jewelry.model.pc.order.vo.PcUserOrderVO;
 import cn.ykthink.jewelry.orm.pc.PcOrderMapper;
 import cn.ykthink.jewelry.service.pc.PcOrderService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import net.sf.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -24,7 +28,13 @@ public class PcOrderServiceImpl implements PcOrderService {
 
     @Override
     public ResponseEntity<Object> order(Integer pageNum, Integer pageSize) {
-        return ResponseEntitySupport.success(new PcUserOrderVO());
+        String userUuid = JWTokenUtil.getJWTokenUuid();
+        Page<Object> page = PageHelper.startPage(pageNum, pageSize);
+        JSONObject response = new JSONObject();
+        pcOrderMapper.selectOrder(userUuid);
+        response.put("total", page.getTotal());
+        response.put("response", page.getResult());
+        return ResponseEntitySupport.success(response);
     }
 
     @Override

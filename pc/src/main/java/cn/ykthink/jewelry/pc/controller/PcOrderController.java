@@ -1,7 +1,7 @@
 package cn.ykthink.jewelry.pc.controller;
 
 import cn.ykthink.jewelry.core.uri.SystemUri;
-import cn.ykthink.jewelry.model.pc.user.vo.PcUserOrderVO;
+import cn.ykthink.jewelry.model.pc.order.vo.PcUserOrderVO;
 import cn.ykthink.jewelry.service.pc.PcOrderService;
 import com.github.catalpaflat.valid.annotation.ParameterValid;
 import io.swagger.annotations.Api;
