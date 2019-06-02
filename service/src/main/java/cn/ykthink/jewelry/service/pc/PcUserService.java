@@ -84,4 +84,12 @@ public interface PcUserService {
      * @return
      */
     ResponseEntity<Object> insertConsignee(PcUserInsertConsigneeBO body);
+
+    /**
+     * 注册验证码
+     *
+     * @param body
+     * @return
+     */
+    ResponseEntity<Object> registerCode(PcUserRegisterCodeBO body);
 }

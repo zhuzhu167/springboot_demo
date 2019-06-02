@@ -1,6 +1,8 @@
 package cn.ykthink.jewelry.service.pc.impl;
 
 import cn.ykthink.jewelry.core.support.http.ResponseEntitySupport;
+import cn.ykthink.jewelry.core.support.redis.RedisSupport;
+import cn.ykthink.jewelry.core.support.tx.TXSmsSupport;
 import cn.ykthink.jewelry.core.untils.JWTokenUtil;
 import cn.ykthink.jewelry.core.untils.Md5Utils;
 import cn.ykthink.jewelry.model.comm.po.ConsigneePO;
@@ -9,19 +11,25 @@ import cn.ykthink.jewelry.model.pc.user.bo.*;
 import cn.ykthink.jewelry.model.pc.user.to.PcUserInfoTO;
 import cn.ykthink.jewelry.model.pc.user.vo.PcUserLoginVO;
 import cn.ykthink.jewelry.model.pc.user.vo.PcUserPersonInfoVO;
-import cn.ykthink.jewelry.model.pc.user.vo.PcUserReceiverInfoVO;
 import cn.ykthink.jewelry.orm.pc.PcUserMapper;
 import cn.ykthink.jewelry.service.pc.PcUserService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import net.sf.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
+import static cn.ykthink.jewelry.core.constant.TXSmsTemplateConstant.SMS_SIGN;
+import static cn.ykthink.jewelry.core.constant.TXSmsTemplateConstant.WX_REGISTER;
 
 /**
  * Author: YK
@@ -32,8 +40,12 @@ import java.util.Map;
  */
 @Service
 public class PcUserServiceImpl implements PcUserService {
-    @Autowired
+    @Resource
     PcUserMapper pcUserMapper;
+    @Resource
+    TXSmsSupport txSmsSupport;
+    @Resource
+    private RedisSupport redisSupport;
 
     @Override
     public ResponseEntity<Object> login(PcUserLoginBO body) {
@@ -60,15 +72,44 @@ public class PcUserServiceImpl implements PcUserService {
         if (pcUserInfoTO != null) {
             return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "该账号已被注册", "the account is existed");
         } else {
+            String code = redisSupport.get(body.getPhone() + "_register_code");
+            if (StringUtils.isBlank(code)) {
+                return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "验证码已失效请重新获取", "The verification code has expired, please re-acquire");
+            }
+            if (!code.equals(body.getCode())) {
+                return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "验证码错误", "Verification code error");
+            }
             UserInfoPO userInfoPO = new UserInfoPO();
             userInfoPO.setAccount(body.getAccount());
             userInfoPO.setPassword(Md5Utils.getStringMD5(body.getPassword()));
+            userInfoPO.setPhone(body.getPhone());
             if (pcUserMapper.insertAccount(userInfoPO) > 0) {
                 return ResponseEntitySupport.success("注册成功", "Registered successfully");
             } else {
                 return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "数据异常", "Abnormal data");
             }
         }
+    }
+
+    @Override
+    public ResponseEntity<Object> registerCode(PcUserRegisterCodeBO body) {
+        String phone = body.getPhone();
+        Map<String, Object> request = new HashMap<>();
+        request.put("phone", phone);
+        PcUserInfoTO pcUserInfoTO = pcUserMapper.queryAccountPwd(request);
+        if (pcUserInfoTO != null) {
+            return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "手机号码已被注册", "the account is existed");
+        }
+        String code = redisSupport.get(phone + "_register_code_status");
+        if (StringUtils.isNotBlank(code)) {
+            return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "已发送短信，请1分钟后再试", "SMS has been sent, please try again in 1 minute");
+        }
+        Random r = new Random();
+        Integer registerCode = r.nextInt(9999);
+        txSmsSupport.TXSendSms(WX_REGISTER, SMS_SIGN, phone, registerCode.toString(), "5");
+        redisSupport.set(phone + "_register_code", registerCode.toString(), 60 * 5);
+        redisSupport.set(phone + "_register_code_status", "1", 60);
+        return ResponseEntitySupport.success();
     }
 
     @Override
@@ -168,5 +209,4 @@ public class PcUserServiceImpl implements PcUserService {
             return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "数据异常", "Abnormal data");
         }
     }
-
 }

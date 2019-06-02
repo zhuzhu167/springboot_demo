@@ -13,7 +13,7 @@ Time: 15:23
             select replace(uuid(), '-', '') as uuid from dual
         </selectKey>
         insert into
-        users_info(uuid,account,password,create_time,modified_time)values(#{uuid},#{account},#{password},DATE_FORMAT(NOW(),"%Y-%m-%d
+        users_info(uuid,account,password,phone,create_time,modified_time)values(#{uuid},#{account},#{password},#{phone},DATE_FORMAT(NOW(),"%Y-%m-%d
         %H:%i:%s"),DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"))
     </insert>
     <insert id="insertConsignee">
@@ -90,6 +90,9 @@ Time: 15:23
         <where>
             <if test="request.account!=null and request.account!='' ">
                 account = #{request.account}
+            </if>
+            <if test="request.phone!=null and request.phone!=''">
+                phone=#{request.phone}
             </if>
             <if test="request.uuid!=null and request.uuid!=''">
                 and uuid=#{request.uuid}
