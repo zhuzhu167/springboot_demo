@@ -18,10 +18,6 @@ public class PcUserEditPersonBO {
     @ApiModelProperty(value = "名称", name = "name", example = "", dataType = "String", required = false)
     private String name;
 
-    @NotBlank(message = "手机不能为空")
-    @ApiModelProperty(value = "手机", name = "phone", example = "", dataType = "String", required = false)
-    private String phone;
-
     @NotBlank(message = "邮箱不能为空")
     @ApiModelProperty(value = "邮箱", name = "email", example = "", dataType = "String", required = false)
     private String email;

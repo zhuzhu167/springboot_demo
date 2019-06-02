@@ -124,7 +124,6 @@ public class PcUserServiceImpl implements PcUserService {
         String userUuid = JWTokenUtil.getJWTokenUuid();
         UserInfoPO userInfoPO = new UserInfoPO();
         userInfoPO.setEmail(body.getEmail());
-        userInfoPO.setPhone(body.getPhone());
         userInfoPO.setUsername(body.getName());
         userInfoPO.setUuid(userUuid);
         if (pcUserMapper.updatePersonMessage(userInfoPO) > 0) {
