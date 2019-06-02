@@ -73,14 +73,14 @@ public class PcUserServiceImpl implements PcUserService {
 
     @Override
     public ResponseEntity<Object> person() {
-        String userUuid = JWTokenUtil.validateJWToken(JWTokenUtil.getRequestHeader("X-Access-Token"), "uuid");
+        String userUuid = JWTokenUtil.getJWTokenUuid();
         PcUserPersonInfoVO pcUserPersonInfoVO = pcUserMapper.selectPersonMessage(userUuid);
         return ResponseEntitySupport.success(pcUserPersonInfoVO);
     }
 
     @Override
     public ResponseEntity<Object> editPerson(PcUserEditPersonBO body) {
-        String userUuid = JWTokenUtil.validateJWToken(JWTokenUtil.getRequestHeader("X-Access-Token"), "uuid");
+        String userUuid = JWTokenUtil.getJWTokenUuid();
         UserInfoPO userInfoPO = new UserInfoPO();
         userInfoPO.setEmail(body.getEmail());
         userInfoPO.setPhone(body.getPhone());
@@ -95,7 +95,7 @@ public class PcUserServiceImpl implements PcUserService {
 
     @Override
     public ResponseEntity<Object> editPwd(PcUserEditPwdBO body) {
-        String userUuid = JWTokenUtil.validateJWToken(JWTokenUtil.getRequestHeader("X-Access-Token"), "uuid");
+        String userUuid = JWTokenUtil.getJWTokenUuid();
         Map<String, Object> request = new HashMap<>();
         request.put("uuid", userUuid);
         PcUserInfoTO pcUserInfoTO = pcUserMapper.queryAccountPwd(request);
@@ -114,7 +114,7 @@ public class PcUserServiceImpl implements PcUserService {
 
     @Override
     public ResponseEntity<Object> consignee(Integer pageNum, Integer pageSize) {
-        String userUuid = JWTokenUtil.validateJWToken(JWTokenUtil.getRequestHeader("X-Access-Token"), "uuid");
+        String userUuid = JWTokenUtil.getJWTokenUuid();
         Page<Object> page = PageHelper.startPage(pageNum, pageSize);
         pcUserMapper.selectConsigneeMessage(userUuid);
         JSONObject response = new JSONObject();
@@ -152,7 +152,7 @@ public class PcUserServiceImpl implements PcUserService {
 
     @Override
     public ResponseEntity<Object> insertConsignee(PcUserInsertConsigneeBO body) {
-        String userUuid = JWTokenUtil.validateJWToken(JWTokenUtil.getRequestHeader("X-Access-Token"), "uuid");
+        String userUuid = JWTokenUtil.getJWTokenUuid();
         ConsigneePO consigneePO = new ConsigneePO();
         consigneePO.setReceiverAddress(body.getAddress());
         consigneePO.setReceiverCity(body.getCity());

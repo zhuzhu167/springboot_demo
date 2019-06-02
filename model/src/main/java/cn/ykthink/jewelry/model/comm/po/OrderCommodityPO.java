@@ -33,5 +33,5 @@ public class OrderCommodityPO extends BasePO{
     /**
      * 商品售价
      */
-    private BigDecimal commodityPrive;
+    private BigDecimal commodityPrice;
 }

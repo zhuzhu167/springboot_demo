@@ -12,8 +12,8 @@
                cc.detail,
                cc.texture_name,
                commodity.commodity_price,
-               store.store_total                               as store_total,
-               store.store_consumption                         as store_consumption,
+               store.store_total                                 as store_total,
+               store.store_consumption                           as store_consumption,
                cj.jewelry_uuid,
                cj.jewelry_no,
                cj.shape,
@@ -23,7 +23,7 @@
                cj.polishing,
                cj.light,
                jewelry.jewelry_price,
-               commodity.commodity_price+jewelry.jewelry_price as price
+               commodity.commodity_price + jewelry.jewelry_price as price
         from cart_commodity as cc
                  left join commodity on commodity.uuid = cc.commodity_uuid
                  left join store on commodity.store_uuid = store.uuid
@@ -85,18 +85,17 @@
 
     <update id="removeIsDeleted">
         update cart_commodity as cc,
-               cart_jewelry as cj
+        cart_jewelry as cj
         <set>
             cc.is_deleted = 1,
             cj.is_deleted = 1
         </set>
         where cc.uuid = #{cartCommodityUuid}
-          and cc.cart_jewelry_uuid = cj.uuid
+        and cc.cart_jewelry_uuid = cj.uuid
     </update>
 
-    <select id="selectConsigneeMessage" resultType="cn.ykthink.jewelry.model.pc.user.vo.PcUserReceiverInfoVO">
-        select uuid                  as receiver_uuid,
-               receiver_name         as name,
+    <select id="selectConsigneeMessage" resultType="cn.ykthink.jewelry.model.pc.cart.to.PcCartReceiverInfoTO">
+        select receiver_name         as name,
                receiver_province     as province,
                receiver_city         as city,
                receiver_district     as district,
@@ -104,21 +103,63 @@
                receiver_phone_number as phone,
                zip_code              as zip_code
         from consignee
-        where user_uuid = #{userUuid}
+        where uuid = #{uuid}
           and is_deleted = 0
+    </select>
+    <select id="selectOrderCartTotal" resultType="java.math.BigDecimal">
+        SELECT
+        sum(c.commodity_price+j.jewelry_price) as total
+        FROM
+        cart_commodity AS cc
+        left join commodity as c on cc.commodity_uuid=c.uuid,
+        cart_jewelry AS cj
+        left join jewelry as j on j.uuid=cj.jewelry_uuid
+        WHERE
+        cj.uuid = cc.cart_jewelry_uuid
+        and
+        cc.uuid IN
+        <foreach collection="cartCommodityUuidList" item="cartCommodityUuid" open="(" close=")" separator=",">
+            #{cartCommodityUuid}
+        </foreach>
+        group by cc.user_uuid
+    </select>
+    <select id="selectCartJewelryUuid" resultType="java.lang.String">
+        select cart_jewelry_uuid
+        from cart_commodity
+        where uuid = #{cartCommodityUuid}
+    </select>
+    <select id="selectJewelryPrice" resultType="java.math.BigDecimal">
+        select j.jewelry_price
+        from cart_jewelry as cj
+                 left join jewelry as j on cj.jewelry_uuid = j.uuid
+        where cj.uuid = #{cartJewelryUuid}
+    </select>
+    <select id="selectCommodityPrice" resultType="java.math.BigDecimal">
+        select c.commodity_price
+        from cart_commodity as cc
+                 left join commodity as c on c.uuid = cc.commodity_uuid
+        where cc.uuid = #{cartCommodityUuid}
+    </select>
+    <select id="checkCart" resultType="java.lang.Integer">
+        select count(uuid) from cart_commodity
+        where uuid in
+        <foreach collection="cartCommodityUuidList" item="cartCommodityUuid" open="(" close=")" separator=",">
+            #{cartCommodityUuid}
+        </foreach>
+        and (is_order=1 or is_deleted=1)
     </select>
 
     <update id="updateCart">
         update cart_commodity as cc,
-               cart_jewelry as cj
+        cart_jewelry as cj
         <set>
             cc.is_order = 1,
             cj.is_order = 1
         </set>
         where cc.uuid = #{cartCommodityUuid}
-          and cc.cart_jewelry_uuid = cj.uuid
-          and cc.is_deleted = 0
-          and cj.is_deleted = 0
+        and cc.cart_jewelry_uuid = cj.uuid
+        and cc.is_deleted = 0
+        and cj.is_deleted = 0
     </update>
 
     <insert id="insertOrder">
@@ -129,26 +170,38 @@
         `order`(
         uuid,
         user_uuid,
-        consignee_uuid,
         order_no,
         order_describe,
         pay_price,
         pay_date,
         logistics_name,
         logistics_number,
+        receiver_name,
+        receiver_phone_number,
+        receiver_province,
+        receiver_city,
+        receiver_district,
+        receiver_address,
+        zip_code,
         create_time,
         modified_time
         )
         values(
         #{uuid},
-        #{user_uuid},
-        #{consignee_uuid},
-        #{order_no},
-        #{order_describe},
-        #{pay_price},
-        #{pay_date},
-        #{logistics_name},
-        #{logistics_number},
+        #{userUuid},
+        #{orderNo},
+        #{orderDescribe},
+        #{payPrice},
+        #{payDate},
+        #{logisticsName},
+        #{logisticsNumber},
+        #{receiverName},
+        #{receiverPhoneNumber},
+        #{receiverProvince},
+        #{receiverCity},
+        #{receiverDistrict},
+        #{receiverAddress},
+        #{zipCode},
         DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"),
         DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s")
         )
@@ -170,10 +223,10 @@
         )
         values(
         #{uuid},
-        #{cart_commodity_uuid},
-        #{order_uuid},
-        #{order_jewelry_uuid},
-        #{commodity_price},
+        #{cartCommodityUuid},
+        #{orderUuid},
+        #{orderJewelryUuid},
+        #{commodityPrice},
         DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"),
         DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s")
         )
@@ -194,9 +247,9 @@
         )
         values(
         #{uuid},
-        #{order_uuid},
-        #{cart_jewelry_uuid},
-        #{jewelry_price},
+        #{orderUuid},
+        #{cartJewelryUuid},
+        #{jewelryPrice},
         DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"),
         DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s")
         )
@@ -206,5 +259,11 @@
         update `order` as o
         set order_status = 1
         where o.uuid = #{orderUuid}
+    </update>
+    <update id="updateCartStatusIsOrder">
+        update ${table}
+        set is_order      = 1,
+            modified_time = DATE_FORMAT(NOW(), "%Y-%m-%d %H:%i:%s")
+        where uuid = #{uuid}
     </update>
 </mapper>

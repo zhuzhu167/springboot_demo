@@ -21,7 +21,7 @@ public class OrderJewelryPO extends BasePO{
     /**
      * 购物车钻石uuid
      */
-    private String cart_jewelryUuid;
+    private String cartJewelryUuid;
     /**
      * 钻石售价
      */

@@ -32,9 +32,7 @@ public class JWTokenUtil {
     }
 
     /**
-
-
-    /**
+     * /**
      * 生成JWToken
      *
      * @param map
@@ -81,5 +79,14 @@ public class JWTokenUtil {
         HttpServletRequest request = res.getRequest();
         String accessToken = request.getHeader(header);
         return accessToken;
+    }
+
+    /**
+     * 获取uuid
+     *
+     * @return
+     */
+    public static String getJWTokenUuid() {
+        return JWTokenUtil.validateJWToken(JWTokenUtil.getRequestHeader("X-Access-Token"), "uuid");
     }
 }

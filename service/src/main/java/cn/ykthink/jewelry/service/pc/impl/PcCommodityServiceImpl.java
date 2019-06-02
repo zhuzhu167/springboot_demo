@@ -65,7 +65,7 @@ public class PcCommodityServiceImpl implements PcCommodityService {
     @Override
     @Transactional
     public ResponseEntity<Object> commodityJewelry(PcCommodityJewelryBO body) {
-        String userUuid = JWTokenUtil.validateJWToken(JWTokenUtil.getRequestHeader("X-Access-Token"), "uuid");
+        String userUuid = JWTokenUtil.getJWTokenUuid();
         CartJewelryPO cartJewelryPO = new CartJewelryPO();
         CartCommodityPO cartCommodityPO = new CartCommodityPO();
 

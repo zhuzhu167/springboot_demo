@@ -13,15 +13,11 @@ import java.math.BigDecimal;
  **/
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class OrderPO extends BasePO{
+public class OrderPO extends BasePO {
     /**
      * 用户uuid
      */
     private String userUuid;
-    /**
-     * 收货人uuid
-     */
-    private String consigneeUuid;
     /**
      * 订单状态
      */
@@ -33,7 +29,7 @@ public class OrderPO extends BasePO{
     /**
      * 订单备注
      */
-    private  String orderDescribe;
+    private String orderDescribe;
     /**
      * 支付金额
      */
@@ -50,4 +46,33 @@ public class OrderPO extends BasePO{
      * 物流快递单号
      */
     private String logisticsNumber;
+    /**
+     * 收货人姓名
+     */
+    private String receiverName;
+    /**
+     * 收货人手机号码
+     */
+    private String receiverPhoneNumber;
+    /**
+     * 收货人所在省份
+     */
+    private String receiverProvince;
+    /**
+     * 收货人所在城市
+     */
+    private String receiverCity;
+    /**
+     * 收货人所在区/县
+     */
+    private String receiverDistrict;
+    /**
+     * 收货人详细地址
+     */
+    private String receiverAddress;
+    /**
+     * 邮编
+     */
+    private String zipCode;
+
 }

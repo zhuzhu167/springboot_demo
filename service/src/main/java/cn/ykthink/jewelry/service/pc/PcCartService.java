@@ -27,7 +27,7 @@ public interface PcCartService {
     ResponseEntity<Object> removeCart(String cartCommodityUuid);
 
     /**
-     * 购买
+     * 下单
      */
-    ResponseEntity<Object> payCart(PcUserPayCartBO body);
+    ResponseEntity<Object> orderCart(PcUserPayCartBO body);
 }
