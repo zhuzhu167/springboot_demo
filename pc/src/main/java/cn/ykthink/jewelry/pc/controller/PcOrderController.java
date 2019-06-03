@@ -44,5 +44,14 @@ public class PcOrderController {
     public ResponseEntity<Object> pay(@PathVariable String orderUuid) {
         return pcOrderService.pay(orderUuid);
     }
+
+    @DeleteMapping("order/{orderUuid}")
+    @ApiOperation(value = "删除订单", response = ResponseEntity.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "path", dataType = "String", name = "orderUuid", value = "订单uuid", required = true)
+    })
+    public ResponseEntity<Object> removeCart(@PathVariable String orderUuid){
+        return pcOrderService.removeIsDeleted(orderUuid);
+    }
 }
 

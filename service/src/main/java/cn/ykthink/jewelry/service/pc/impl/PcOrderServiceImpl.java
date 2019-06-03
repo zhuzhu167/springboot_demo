@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * program: jewelry
@@ -47,6 +48,17 @@ public class PcOrderServiceImpl implements PcOrderService {
         } else {
             return ResponseEntitySupport.error(HttpStatus.INTERNAL_SERVER_ERROR, "数据异常", "Abnormal data");
         }
+    }
 
+    @Override
+    public ResponseEntity<Object> removeIsDeleted(String orderUuid) {
+        if (pcOrderMapper.checkOrder(orderUuid) > 0) {
+            if (pcOrderMapper.removeIsDeleted(orderUuid) > 0) {
+                return ResponseEntitySupport.success();
+            } else {
+                return ResponseEntitySupport.error(HttpStatus.INTERNAL_SERVER_ERROR, "数据异常", "Abnormal data");
+            }
+        }
+        return ResponseEntitySupport.error(HttpStatus.INTERNAL_SERVER_ERROR, "该订单尚未付款", "The order is not yet paid");
     }
 }
