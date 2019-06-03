@@ -40,11 +40,4 @@ public interface PcOrderMapper {
      */
     Integer removeIsDeleted(@Param("orderUuid")String orderUuid);
 
-    /**
-     * 检查订单是否付款
-     * @param orderUuid
-     * @return
-     */
-    Integer checkOrder(@Param("orderUuid")String orderUuid);
-
 }

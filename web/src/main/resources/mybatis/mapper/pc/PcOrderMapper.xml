@@ -133,9 +133,4 @@
           and o.uuid = #{orderUuid}
     </update>
 
-    <select id="checkOrder" resultType="java.lang.Integer">
-        select order_status
-        from `order`
-        where uuid = #{orderUuid}
-    </select>
 </mapper>
