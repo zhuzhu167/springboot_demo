@@ -37,7 +37,7 @@ public class GlobalExceptionHandler {
      * @param throwable
      * @return
      */
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Throwable.class)
     @ResponseBody
     public ResponseEntity<Object> handleException(Throwable throwable) {
@@ -51,7 +51,7 @@ public class GlobalExceptionHandler {
      * @param e
      * @return
      */
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(ParseException.class)
     @ResponseBody
     public ResponseEntity<Object> handleParseException(ParseException e) {

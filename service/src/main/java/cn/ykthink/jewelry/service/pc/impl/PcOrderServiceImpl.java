@@ -45,7 +45,7 @@ public class PcOrderServiceImpl implements PcOrderService {
         if (pcOrderMapper.updateOrderStatus(orderUuid, 1) > 0) {
             return ResponseEntitySupport.success();
         } else {
-            return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "数据异常", "Abnormal data");
+            return ResponseEntitySupport.error(HttpStatus.INTERNAL_SERVER_ERROR, "数据异常", "Abnormal data");
         }
 
     }

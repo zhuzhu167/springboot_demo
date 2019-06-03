@@ -58,7 +58,7 @@ public class PcCartServiceImpl implements PcCartService {
         if (pcCartMapper.removeIsDeleted(cartCommodityUuid) > 1) {
             return ResponseEntitySupport.success();
         } else {
-            return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "数据异常", "Abnormal data");
+            return ResponseEntitySupport.error(HttpStatus.INTERNAL_SERVER_ERROR, "数据异常", "Abnormal data");
         }
     }
 
@@ -68,7 +68,7 @@ public class PcCartServiceImpl implements PcCartService {
         String userUuid = JWTokenUtil.getJWTokenUuid();
         //检测购物车中商品是否生成过订单
         if(pcCartMapper.checkCart(body.getCartCommodityUuidList())>0){
-            return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "存在已结单购物车信息", "Existing order shopping cart information");
+            return ResponseEntitySupport.error(HttpStatus.INTERNAL_SERVER_ERROR, "存在已结单购物车信息", "Existing order shopping cart information");
         }
         OrderPO orderPO = new OrderPO();
         /**
@@ -91,7 +91,7 @@ public class PcCartServiceImpl implements PcCartService {
         //设置收货人信息
         PcCartReceiverInfoTO consigneeMessage = pcCartMapper.selectConsigneeMessage(body.getConsigneeUuid());
         if (consigneeMessage == null) {
-            return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "收货人信息异常", "Consignee information is abnormal");
+            return ResponseEntitySupport.error(HttpStatus.FORBIDDEN, "收货人信息异常", "Consignee information is abnormal");
         }
         orderPO.setReceiverName(consigneeMessage.getName());
         orderPO.setReceiverAddress(consigneeMessage.getAddress());

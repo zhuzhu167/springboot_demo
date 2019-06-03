@@ -60,7 +60,7 @@ public class PcUserServiceImpl implements PcUserService {
             pcUserLoginVO.setToken(accessToken);
             return ResponseEntitySupport.success(pcUserLoginVO);
         } else {
-            return ResponseEntitySupport.error(HttpStatus.NOT_FOUND, "登录名或密码错误", "account or password is wrong");
+            return ResponseEntitySupport.error(HttpStatus.UNAUTHORIZED, "登录名或密码错误", "account or password is wrong");
         }
     }
 
@@ -70,14 +70,14 @@ public class PcUserServiceImpl implements PcUserService {
         request.put("account", body.getAccount());
         PcUserInfoTO pcUserInfoTO = pcUserMapper.queryAccountPwd(request);
         if (pcUserInfoTO != null) {
-            return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "该账号已被注册", "the account is existed");
+            return ResponseEntitySupport.error(HttpStatus.FORBIDDEN, "该账号已被注册", "the account is existed");
         } else {
             String code = redisSupport.get(body.getPhone() + "_register_code");
             if (StringUtils.isBlank(code)) {
-                return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "验证码已失效请重新获取", "The verification code has expired, please re-acquire");
+                return ResponseEntitySupport.error(HttpStatus.FORBIDDEN, "验证码已失效请重新获取", "The verification code has expired, please re-acquire");
             }
             if (!code.equals(body.getCode())) {
-                return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "验证码错误", "Verification code error");
+                return ResponseEntitySupport.error(HttpStatus.FORBIDDEN, "验证码错误", "Verification code error");
             }
             UserInfoPO userInfoPO = new UserInfoPO();
             userInfoPO.setAccount(body.getAccount());
@@ -86,7 +86,7 @@ public class PcUserServiceImpl implements PcUserService {
             if (pcUserMapper.insertAccount(userInfoPO) > 0) {
                 return ResponseEntitySupport.success("注册成功", "Registered successfully");
             } else {
-                return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "数据异常", "Abnormal data");
+                return ResponseEntitySupport.error(HttpStatus.INTERNAL_SERVER_ERROR, "数据异常", "Abnormal data");
             }
         }
     }
@@ -98,11 +98,11 @@ public class PcUserServiceImpl implements PcUserService {
         request.put("phone", phone);
         PcUserInfoTO pcUserInfoTO = pcUserMapper.queryAccountPwd(request);
         if (pcUserInfoTO != null) {
-            return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "手机号码已被注册", "the account is existed");
+            return ResponseEntitySupport.error(HttpStatus.FORBIDDEN, "手机号码已被注册", "the account is existed");
         }
         String code = redisSupport.get(phone + "_register_code_status");
         if (StringUtils.isNotBlank(code)) {
-            return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "已发送短信，请1分钟后再试", "SMS has been sent, please try again in 1 minute");
+            return ResponseEntitySupport.error(HttpStatus.FORBIDDEN, "已发送短信，请1分钟后再试", "SMS has been sent, please try again in 1 minute");
         }
         Random r = new Random();
         Integer registerCode = r.nextInt(9999);
@@ -129,7 +129,7 @@ public class PcUserServiceImpl implements PcUserService {
         if (pcUserMapper.updatePersonMessage(userInfoPO) > 0) {
             return ResponseEntitySupport.success();
         } else {
-            return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "数据异常", "Abnormal data");
+            return ResponseEntitySupport.error(HttpStatus.INTERNAL_SERVER_ERROR, "数据异常", "Abnormal data");
         }
     }
 
@@ -140,7 +140,7 @@ public class PcUserServiceImpl implements PcUserService {
         request.put("uuid", userUuid);
         PcUserInfoTO pcUserInfoTO = pcUserMapper.queryAccountPwd(request);
         if (!Md5Utils.getStringMD5(body.getOldPwd()).equals(pcUserInfoTO.getPassword())) {
-            return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "旧密码错误", "Old password error");
+            return ResponseEntitySupport.error(HttpStatus.FORBIDDEN, "旧密码错误", "Old password error");
         }
         UserInfoPO userInfoPO = new UserInfoPO();
         userInfoPO.setUuid(userUuid);
@@ -148,7 +148,7 @@ public class PcUserServiceImpl implements PcUserService {
         if (pcUserMapper.updateUserPwd(userInfoPO) > 0) {
             return ResponseEntitySupport.success();
         } else {
-            return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "数据异常", "Abnormal data");
+            return ResponseEntitySupport.error(HttpStatus.INTERNAL_SERVER_ERROR, "数据异常", "Abnormal data");
         }
     }
 
@@ -168,7 +168,7 @@ public class PcUserServiceImpl implements PcUserService {
         if (pcUserMapper.removeIsDeleted("consignee", consigneeUuid) > 0) {
             return ResponseEntitySupport.success();
         } else {
-            return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "数据异常", "Abnormal data");
+            return ResponseEntitySupport.error(HttpStatus.INTERNAL_SERVER_ERROR, "数据异常", "Abnormal data");
         }
     }
 
@@ -186,7 +186,7 @@ public class PcUserServiceImpl implements PcUserService {
         if (pcUserMapper.updateConsignee(consigneePO) > 0) {
             return ResponseEntitySupport.success();
         } else {
-            return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "数据异常", "Abnormal data");
+            return ResponseEntitySupport.error(HttpStatus.INTERNAL_SERVER_ERROR, "数据异常", "Abnormal data");
         }
     }
 
@@ -205,7 +205,7 @@ public class PcUserServiceImpl implements PcUserService {
         if (pcUserMapper.insertConsignee(consigneePO) > 0) {
             return ResponseEntitySupport.success();
         } else {
-            return ResponseEntitySupport.error(HttpStatus.BAD_REQUEST, "数据异常", "Abnormal data");
+            return ResponseEntitySupport.error(HttpStatus.INTERNAL_SERVER_ERROR, "数据异常", "Abnormal data");
         }
     }
 }
