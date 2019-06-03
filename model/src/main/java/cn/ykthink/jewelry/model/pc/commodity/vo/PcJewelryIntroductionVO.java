@@ -1,5 +1,6 @@
 package cn.ykthink.jewelry.model.pc.commodity.vo;
 
+import cn.ykthink.jewelry.model.common.vo.CommonCommodityImageVO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -25,5 +26,5 @@ public class PcJewelryIntroductionVO {
     private BigDecimal jewelryPrice;
 
     @ApiModelProperty(value = "图片list", name = "imageUuidList", example = "", dataType = "List", required = true)
-    private List<PcCommodityImageVO> imageList;
+    private List<CommonCommodityImageVO> imageList;
 }

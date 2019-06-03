@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+Author: YK
+Title: CommonCommodityMapper
+Description: 
+Date: 2019/6/3
+Time: 23:53
+-->
+<mapper namespace="cn.ykthink.jewelry.orm.common.CommonCommodityMapper">
+    <resultMap id="commodityIntroductionResultMap"
+               type="cn.ykthink.jewelry.model.common.vo.CommonCommodityListVO">
+        <id column="commodity_uuid" property="commodityUuid"/>
+        <result column="title" property="title"/>
+        <result column="subhead" property="subhead"/>
+        <result column="commodity_price" property="commodityPrice"/>
+        <collection property="imageList" ofType="cn.ykthink.jewelry.model.common.vo.CommonCommodityImageVO"
+                    column="{commodityJewelryUuid=commodity_uuid}"
+                    select="selectCommodityJewelryIntroductionImage">
+            <result column="image_url" property="imageUrl"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectCommodityIntroduction" resultMap="commodityIntroductionResultMap">
+        select commodity.uuid as commodity_uuid,
+        commodity.title as title,
+        commodity.subhead as subhead,
+        commodity.commodity_price as commodity_price
+        from commodity
+        where commodity.is_deleted = 0
+        and commodity.commodity_status = 1
+        <if test="categoryUuid!=null and categoryUuid!=''">
+            and commodity.category_uuid=#{categoryUuid}
+        </if>
+        order by commodity.commodity_no
+    </select>
+
+    <select id="selectCommodityJewelryIntroductionImage"
+            resultType="cn.ykthink.jewelry.model.common.vo.CommonCommodityImageVO">
+        select image_url
+        from images
+        where commodity_jewelry_uuid = #{commodityJewelryUuid}
+          and is_deleted = 0
+    </select>
+
+</mapper>
+ 

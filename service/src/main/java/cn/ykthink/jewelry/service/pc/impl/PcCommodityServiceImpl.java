@@ -2,10 +2,10 @@ package cn.ykthink.jewelry.service.pc.impl;
 
 import cn.ykthink.jewelry.core.support.http.ResponseEntitySupport;
 import cn.ykthink.jewelry.core.untils.JWTokenUtil;
-import cn.ykthink.jewelry.model.comm.po.CartCommodityPO;
-import cn.ykthink.jewelry.model.comm.po.CartJewelryPO;
+import cn.ykthink.jewelry.model.common.po.CartCommodityPO;
+import cn.ykthink.jewelry.model.common.po.CartJewelryPO;
 import cn.ykthink.jewelry.model.pc.commodity.bo.PcCommodityJewelryBO;
-import cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityInfoVO;
+import cn.ykthink.jewelry.model.common.vo.CommonCommodityInfoVO;
 import cn.ykthink.jewelry.model.pc.commodity.vo.PcJewelryInfoVO;
 import cn.ykthink.jewelry.orm.pc.PcCommodityMapper;
 import cn.ykthink.jewelry.service.pc.PcCommodityService;
@@ -30,20 +30,11 @@ public class PcCommodityServiceImpl implements PcCommodityService {
     @Resource
     PcCommodityMapper pcCommodityMapper;
 
-    @Override
-    public ResponseEntity<Object> commodityIntroduction(Integer pageNum, Integer pageSize) {
-        Page<Object> page = PageHelper.startPage(pageNum, pageSize);
-        JSONObject response = new JSONObject();
-        pcCommodityMapper.selectCommodityIntroduction();
-        response.put("total", page.getTotal());
-        response.put("response", page.getResult());
-        return ResponseEntitySupport.success(response);
-    }
 
     @Override
     public ResponseEntity<Object> commodity(String commodityUuid) {
-        PcCommodityInfoVO pcCommodityInfoVO = pcCommodityMapper.selectCommodity(commodityUuid);
-        return ResponseEntitySupport.success(pcCommodityInfoVO);
+        CommonCommodityInfoVO commonCommodityInfoVO = pcCommodityMapper.selectCommodity(commodityUuid);
+        return ResponseEntitySupport.success(commonCommodityInfoVO);
     }
 
     @Override
@@ -70,7 +61,7 @@ public class PcCommodityServiceImpl implements PcCommodityService {
         CartCommodityPO cartCommodityPO = new CartCommodityPO();
 
         PcJewelryInfoVO pcJewelryInfoVO = pcCommodityMapper.selectJewelry(body.getJewelryUuid());
-        PcCommodityInfoVO pcCommodityInfoVO = pcCommodityMapper.selectCommodity(body.getCommodityUuid());
+        CommonCommodityInfoVO commonCommodityInfoVO = pcCommodityMapper.selectCommodity(body.getCommodityUuid());
 
         cartJewelryPO.setJewelryUuid(body.getJewelryUuid());
         cartJewelryPO.setJewelryNo(pcJewelryInfoVO.getJewelryNo());
@@ -84,11 +75,11 @@ public class PcCommodityServiceImpl implements PcCommodityService {
 
 
         Integer insertJewelryFlag = pcCommodityMapper.insertJewelry(cartJewelryPO);
-        cartCommodityPO.setCommodityNo(pcCommodityInfoVO.getCommodityNo());
-        cartCommodityPO.setDetail(pcCommodityInfoVO.getDetail());
-        cartCommodityPO.setTitle(pcCommodityInfoVO.getTitle());
-        cartCommodityPO.setSubhead(pcCommodityInfoVO.getSubhead());
-        cartCommodityPO.setTextureName(pcCommodityInfoVO.getTextureName());
+        cartCommodityPO.setCommodityNo(commonCommodityInfoVO.getCommodityNo());
+        cartCommodityPO.setDetail(commonCommodityInfoVO.getDetail());
+        cartCommodityPO.setTitle(commonCommodityInfoVO.getTitle());
+        cartCommodityPO.setSubhead(commonCommodityInfoVO.getSubhead());
+        cartCommodityPO.setTextureName(commonCommodityInfoVO.getTextureName());
         cartCommodityPO.setSize(body.getSize());
         cartCommodityPO.setCommodityUuid(body.getCommodityUuid());
         cartCommodityPO.setUserUuid(userUuid);

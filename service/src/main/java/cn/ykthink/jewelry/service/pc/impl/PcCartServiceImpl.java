@@ -2,9 +2,9 @@ package cn.ykthink.jewelry.service.pc.impl;
 
 import cn.ykthink.jewelry.core.support.http.ResponseEntitySupport;
 import cn.ykthink.jewelry.core.untils.JWTokenUtil;
-import cn.ykthink.jewelry.model.comm.po.OrderCommodityPO;
-import cn.ykthink.jewelry.model.comm.po.OrderJewelryPO;
-import cn.ykthink.jewelry.model.comm.po.OrderPO;
+import cn.ykthink.jewelry.model.common.po.OrderCommodityPO;
+import cn.ykthink.jewelry.model.common.po.OrderJewelryPO;
+import cn.ykthink.jewelry.model.common.po.OrderPO;
 import cn.ykthink.jewelry.model.pc.cart.bo.PcUserPayCartBO;
 import cn.ykthink.jewelry.model.pc.cart.to.PcCartReceiverInfoTO;
 import cn.ykthink.jewelry.model.pc.cart.vo.PcUserCartVO;

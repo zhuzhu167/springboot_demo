@@ -10,12 +10,6 @@ import org.springframework.http.ResponseEntity;
  * create: 2019-05-14 17:40
  **/
 public interface PcCommodityService {
-    /**
-     * 商品列表
-     *
-     * @return
-     */
-    ResponseEntity<Object> commodityIntroduction(Integer pageNum, Integer pageSize);
 
     /**
      * 商品详情

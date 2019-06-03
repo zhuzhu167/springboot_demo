@@ -44,7 +44,7 @@ public class JWTokenAspect {
         try {
             String token = request.getHeader("X-Access-Token");
             if (StringUtils.isBlank(token)) {
-                return ResponseEntitySupport.error(HttpStatus.PRECONDITION_FAILED, HttpResponseConstant.HTTP_MESSAGE_PRECONDITION_FAILED, "X-Access-Token Defect");
+                return ResponseEntitySupport.error(HttpStatus.UNAUTHORIZED, HttpResponseConstant.HTTP_MESSAGE_PRECONDITION_FAILED, "X-Access-Token Defect");
             }
             //判断token是否过期
             try {

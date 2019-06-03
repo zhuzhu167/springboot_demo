@@ -1,6 +1,6 @@
 package cn.ykthink.jewelry.model.pc.cart.vo;
 
-import cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityInfoVO;
+import cn.ykthink.jewelry.model.common.vo.CommonCommodityInfoVO;
 import cn.ykthink.jewelry.model.pc.commodity.vo.PcJewelryInfoVO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -23,7 +23,7 @@ public class PcUserCartVO {
     private String cartJewelryUuid;
 
     @ApiModelProperty(value = "购物车商品list", name = "cartCommodityList", dataType = "List", required = true)
-    private List<PcCommodityInfoVO> cartCommodityList;
+    private List<CommonCommodityInfoVO> cartCommodityList;
 
     @ApiModelProperty(value = "购物车钻石list", name = "cartJewelryList", dataType = "List", required = true)
     private List<PcJewelryInfoVO> cartJewelryList;

@@ -1,7 +1,7 @@
 package cn.ykthink.jewelry.orm.pc;
 
-import cn.ykthink.jewelry.model.comm.po.ConsigneePO;
-import cn.ykthink.jewelry.model.comm.po.UserInfoPO;
+import cn.ykthink.jewelry.model.common.po.ConsigneePO;
+import cn.ykthink.jewelry.model.common.po.UserInfoPO;
 import cn.ykthink.jewelry.model.pc.user.to.PcUserInfoTO;
 import cn.ykthink.jewelry.model.pc.user.vo.PcUserPersonInfoVO;
 import cn.ykthink.jewelry.model.pc.user.vo.PcUserReceiverInfoVO;

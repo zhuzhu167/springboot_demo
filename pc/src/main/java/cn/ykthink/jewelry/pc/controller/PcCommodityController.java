@@ -3,10 +3,11 @@ package cn.ykthink.jewelry.pc.controller;
 import cn.ykthink.jewelry.core.annotation.IgnoreToken;
 import cn.ykthink.jewelry.core.uri.SystemUri;
 import cn.ykthink.jewelry.model.pc.commodity.bo.PcCommodityJewelryBO;
-import cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityInfoVO;
-import cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityIntroductionVO;
+import cn.ykthink.jewelry.model.common.vo.CommonCommodityInfoVO;
+import cn.ykthink.jewelry.model.common.vo.CommonCommodityListVO;
 import cn.ykthink.jewelry.model.pc.commodity.vo.PcJewelryInfoVO;
 import cn.ykthink.jewelry.model.pc.commodity.vo.PcJewelryIntroductionVO;
+import cn.ykthink.jewelry.service.common.CommonCommodityService;
 import cn.ykthink.jewelry.service.pc.PcCommodityService;
 import com.github.catalpaflat.valid.annotation.ParameterValid;
 import io.swagger.annotations.Api;
@@ -30,22 +31,29 @@ import javax.annotation.Resource;
 @RequestMapping(SystemUri.PC_ROOT_URI + "commodity")
 @RestController
 public class PcCommodityController {
-    /**
-     * get 商品列表
-     */
+
     @Resource
     PcCommodityService pcCommodityService;
 
+    @Resource
+    CommonCommodityService commonCommodityService;
+
+    /**
+     * get 商品列表
+     */
     @IgnoreToken
     @GetMapping("commodityIntroduction")
-    @ApiOperation(value = "商品列表", response = PcCommodityIntroductionVO.class)
+    @ApiOperation(value = "商品列表", response = CommonCommodityListVO.class)
     @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", dataType = "int", name = "categoryUuid", value = "类目uuid", required = false),
             @ApiImplicitParam(paramType = "query", dataType = "int", name = "pageNum", value = "第几页", required = false),
             @ApiImplicitParam(paramType = "query", dataType = "int", name = "pageSize", value = "显示多少条", required = false)
     })
-    public ResponseEntity<Object> commodityIntroduction(@ParameterValid(type = Integer.class, msg = "pageNum不能为空", isMin = true) @RequestParam(defaultValue = "${jewelry.pages.page_index}") Integer pageNum,
-                                                        @ParameterValid(type = Integer.class, msg = "pageSize不能为空", isMin = true) @RequestParam(defaultValue = "${jewelry.pages.page_size}") Integer pageSize) {
-        return pcCommodityService.commodityIntroduction(pageNum, pageSize);
+    public ResponseEntity<Object> commodityIntroduction(
+            @RequestParam(required = false) String categoryUuid,
+            @ParameterValid(type = Integer.class, msg = "pageNum不能为空", isMin = true) @RequestParam(defaultValue = "${jewelry.pages.page_index}") Integer pageNum,
+            @ParameterValid(type = Integer.class, msg = "pageSize不能为空", isMin = true) @RequestParam(defaultValue = "${jewelry.pages.page_size}") Integer pageSize) {
+        return commonCommodityService.commodityList(categoryUuid,pageNum, pageSize);
     }
 
     /**
@@ -53,7 +61,7 @@ public class PcCommodityController {
      */
     @IgnoreToken
     @GetMapping("commodity/{commodityUuid}")
-    @ApiOperation(value = "商品详情", response = PcCommodityInfoVO.class)
+    @ApiOperation(value = "商品详情", response = CommonCommodityInfoVO.class)
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "path", dataType = "String", name = "commodityUuid", value = "商品uuid", required = true),
     })

@@ -15,7 +15,7 @@ spring:
 #mybatis配置
 mybatis:
   type-aliases-package: cn.ykthink.jewelry.model
-  mapper-locations: classpath:mybatis/mapper/pc/*.xml
+  mapper-locations: classpath:mybatis/mapper/pc/*.xml,classpath:mybatis/mapper/cms/*.xml,classpath:mybatis/mapper/common/*.xml
   configLocation: classpath:mybatis/mybatis-config.xml
 #分页插件配置
 pagehelper:

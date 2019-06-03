@@ -74,7 +74,7 @@
         <result column="pay_date" property="payDate"/>
         <result column="logistics_name" property="logisticsName"/>
         <result column="logistics_number" property="logisticsNumber"/>
-        <collection property="orderCommodityList" ofType="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityInfoVO">
+        <collection property="orderCommodityList" ofType="cn.ykthink.jewelry.model.common.vo.CommonCommodityInfoVO">
             <result column="commodity_no" property="commodityNo"/>
             <result column="title" property="title"/>
             <result column="subhead" property="subhead"/>
@@ -85,7 +85,7 @@
                 <result column="store_total" property="storeTotal"/>
                 <result column="store_consumption" property="storeConsumption"/>
             </collection>
-            <collection property="imageList" ofType="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityImageVO"
+            <collection property="imageList" ofType="cn.ykthink.jewelry.model.common.vo.CommonCommodityImageVO"
                         column="{commodityJewelryUuid=commodity_uuid}"
                         select="selectCommodityJewelryIntroductionImage">
                 <result column="image_url" property="imageUrl"/>
@@ -100,7 +100,7 @@
             <result column="polishing" property="polishing"/>
             <result column="light" property="light"/>
             <result column="jewelry_price" property="jewelryPrice"/>
-            <collection property="imageList" ofType="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityImageVO"
+            <collection property="imageList" ofType="cn.ykthink.jewelry.model.common.vo.CommonCommodityImageVO"
                         column="{commodityJewelryUuid=jewelry_uuid}"
                         select="selectCommodityJewelryIntroductionImage">
                 <result column="image_url" property="imageUrl"/>
@@ -109,7 +109,7 @@
     </resultMap>
 
     <select id="selectCommodityJewelryIntroductionImage"
-            resultType="cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityImageVO">
+            resultType="cn.ykthink.jewelry.model.common.vo.CommonCommodityImageVO">
         select image_url
         from images
         where commodity_jewelry_uuid = #{commodityJewelryUuid}

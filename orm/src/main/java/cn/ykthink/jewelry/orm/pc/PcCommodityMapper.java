@@ -1,9 +1,8 @@
 package cn.ykthink.jewelry.orm.pc;
 
-import cn.ykthink.jewelry.model.comm.po.CartCommodityPO;
-import cn.ykthink.jewelry.model.comm.po.CartJewelryPO;
-import cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityInfoVO;
-import cn.ykthink.jewelry.model.pc.commodity.vo.PcCommodityIntroductionVO;
+import cn.ykthink.jewelry.model.common.po.CartCommodityPO;
+import cn.ykthink.jewelry.model.common.po.CartJewelryPO;
+import cn.ykthink.jewelry.model.common.vo.CommonCommodityInfoVO;
 import cn.ykthink.jewelry.model.pc.commodity.vo.PcJewelryInfoVO;
 import cn.ykthink.jewelry.model.pc.commodity.vo.PcJewelryIntroductionVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,18 +20,13 @@ import java.util.List;
 @Mapper
 @Repository
 public interface PcCommodityMapper {
-    /**
-     * 商品列表
-     * @return
-     */
-    List<PcCommodityIntroductionVO> selectCommodityIntroduction();
 
     /**
      * 商品详情
      * @param commodityUuid
      * @return
      */
-    PcCommodityInfoVO selectCommodity(@Param("commodityUuid") String commodityUuid);
+    CommonCommodityInfoVO selectCommodity(@Param("commodityUuid") String commodityUuid);
 
     /**
      * 钻石列表
