@@ -24,4 +24,11 @@ public interface PcOrderService {
      * @return
      */
     ResponseEntity<Object> pay(String orderUuid);
+
+    /**
+     * 删除订单
+     * @param orderUuid
+     * @return
+     */
+    ResponseEntity<Object> removeIsDeleted(String orderUuid);
 }

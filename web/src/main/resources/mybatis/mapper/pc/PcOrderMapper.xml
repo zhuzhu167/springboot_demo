@@ -17,6 +17,7 @@
                o.receiver_district,
                o.receiver_address,
                o.zip_code,
+               o.order_status,
                o.order_no,
                o.order_describe,
                o.pay_price,
@@ -68,6 +69,7 @@
         <result column="receiver_district" property="receiverDistrict"/>
         <result column="receiver_address" property="receiverAddress"/>
         <result column="zip_code" property="zipCode"/>
+        <result column="order_status" property="orderStatus"/>
         <result column="order_no" property="orderNo"/>
         <result column="order_describe" property="orderDescribe"/>
         <result column="pay_price" property="payPrice"/>
@@ -115,4 +117,20 @@
         where commodity_jewelry_uuid = #{commodityJewelryUuid}
           and is_deleted = 0
     </select>
+
+    <update id="removeIsDeleted">
+        update `order` as o,
+               order_commodity as oc,
+               order_jewelry as oje
+        <set>
+            o.is_deleted = 1,
+            oc.is_deleted = 1,
+            oje.is_deleted = 1
+        </set>
+        where o.uuid = oc.order_uuid
+          and o.uuid = oje.order_uuid
+          and oc.order_jewelry_uuid = oje.uuid
+          and o.uuid = #{orderUuid}
+    </update>
+
 </mapper>

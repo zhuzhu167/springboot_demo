@@ -55,7 +55,7 @@ public class PcCartServiceImpl implements PcCartService {
 
     @Override
     public ResponseEntity<Object> removeCart(String cartCommodityUuid) {
-        if (pcCartMapper.removeIsDeleted(cartCommodityUuid) > 1) {
+        if (pcCartMapper.removeIsDeleted(cartCommodityUuid) > 0) {
             return ResponseEntitySupport.success();
         } else {
             return ResponseEntitySupport.error(HttpStatus.INTERNAL_SERVER_ERROR, "数据异常", "Abnormal data");
