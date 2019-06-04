@@ -52,11 +52,23 @@ public class PcOrderServiceImpl implements PcOrderService {
 
     @Override
     public ResponseEntity<Object> removeIsDeleted(String orderUuid) {
-        if (pcOrderMapper.removeIsDeleted(orderUuid) > 0) {
+        if (pcOrderMapper.checkLogisticsStatus(orderUuid) > 0){
+            if (pcOrderMapper.removeIsDeleted(orderUuid) > 0) {
+                return ResponseEntitySupport.success();
+            } else {
+                return ResponseEntitySupport.error(HttpStatus.INTERNAL_SERVER_ERROR, "数据异常", "Abnormal data");
+            }
+        }else{
+            return ResponseEntitySupport.error(HttpStatus.INTERNAL_SERVER_ERROR, "订单未确认收货", "The receipt of the order is not confirmed");
+        }
+    }
+
+    @Override
+    public ResponseEntity<Object> updateLogisticsStatus(String orderUuid) {
+        if (pcOrderMapper.updateLogisticsStatus(orderUuid)> 0) {
             return ResponseEntitySupport.success();
         } else {
             return ResponseEntitySupport.error(HttpStatus.INTERNAL_SERVER_ERROR, "数据异常", "Abnormal data");
         }
     }
-
 }

@@ -76,6 +76,7 @@
         <result column="pay_date" property="payDate"/>
         <result column="logistics_name" property="logisticsName"/>
         <result column="logistics_number" property="logisticsNumber"/>
+        <result column="logistics_status" property="logisticsStatus"/>
         <collection property="orderCommodityList" ofType="cn.ykthink.jewelry.model.common.vo.CommonCommodityInfoVO">
             <result column="commodity_no" property="commodityNo"/>
             <result column="title" property="title"/>
@@ -133,4 +134,15 @@
           and o.uuid = #{orderUuid}
     </update>
 
+    <select id="checkLogisticsStatus" resultType="java.lang.Integer">
+        select logistics_status
+        from `order`
+        where uuid = #{orderUuid}
+    </select>
+
+    <update id="updateLogisticsStatus">
+        update `order`
+        set logistics_status = 1
+        where uuid = #{orderUuid}
+    </update>
 </mapper>

@@ -50,8 +50,17 @@ public class PcOrderController {
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "path", dataType = "String", name = "orderUuid", value = "订单uuid", required = true)
     })
-    public ResponseEntity<Object> removeCart(@PathVariable String orderUuid){
+    public ResponseEntity<Object> removeOrder(@PathVariable String orderUuid){
         return pcOrderService.removeIsDeleted(orderUuid);
+    }
+
+    @PutMapping("order/{orderUuid}")
+    @ApiOperation(value = "确认收货", response = ResponseEntity.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "path", dataType = "String", name = "orderUuid", value = "订单uuid", required = true)
+    })
+    public ResponseEntity<Object> updateLogisticsStatus(@PathVariable String orderUuid){
+        return pcOrderService.updateLogisticsStatus(orderUuid);
     }
 }
 

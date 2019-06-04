@@ -40,4 +40,17 @@ public interface PcOrderMapper {
      */
     Integer removeIsDeleted(@Param("orderUuid")String orderUuid);
 
+    /**
+     * 检查订单是否已收货
+     * @param orderUuid
+     * @return
+     */
+    Integer checkLogisticsStatus(@Param("orderUuid")String orderUuid);
+
+    /**
+     * 确认收货
+     * @param orderUuid
+     * @return
+     */
+    Integer updateLogisticsStatus(@Param("orderUuid")String orderUuid);
 }

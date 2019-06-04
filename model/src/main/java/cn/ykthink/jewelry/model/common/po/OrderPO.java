@@ -51,6 +51,10 @@ public class OrderPO extends BasePO {
      */
     private String receiverName;
     /**
+     * 物流状态（0-未收货，1-已收货）
+     */
+    private Integer logisticsStatus;
+    /**
      * 收货人手机号码
      */
     private String receiverPhoneNumber;

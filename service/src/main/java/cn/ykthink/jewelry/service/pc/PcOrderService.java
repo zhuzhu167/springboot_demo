@@ -31,4 +31,11 @@ public interface PcOrderService {
      * @return
      */
     ResponseEntity<Object> removeIsDeleted(String orderUuid);
+
+    /**
+     * 确认收货
+     * @param orderUuid
+     * @return
+     */
+    ResponseEntity<Object> updateLogisticsStatus(String orderUuid);
 }

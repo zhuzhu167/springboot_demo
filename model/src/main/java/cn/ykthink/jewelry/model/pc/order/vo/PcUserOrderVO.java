@@ -46,6 +46,9 @@ public class PcUserOrderVO {
     @ApiModelProperty(value = "物流快递单号", name = "logisticNumber", example = "12345", dataType = "String", required = true)
     private String logisticsNumber;
 
+    @ApiModelProperty(value = "物流快递状态", name = "logisticStatus", example = "1", dataType = "Integer", required = true)
+    private String logisticsStatus;
+
     @ApiModelProperty(value = "收货人姓名", name = "receiverName", example = "name", dataType = "String", required = true)
     private String receiverName;
 

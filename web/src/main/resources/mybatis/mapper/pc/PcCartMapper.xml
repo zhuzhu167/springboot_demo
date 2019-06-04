@@ -149,19 +149,6 @@
         and (is_order=1 or is_deleted=1)
     </select>
 
-    <update id="updateCart">
-        update cart_commodity as cc,
-        cart_jewelry as cj
-        <set>
-            cc.is_order = 1,
-            cj.is_order = 1
-        </set>
-        where cc.uuid = #{cartCommodityUuid}
-        and cc.cart_jewelry_uuid = cj.uuid
-        and cc.is_deleted = 0
-        and cj.is_deleted = 0
-    </update>
-
     <insert id="insertOrder">
         <selectKey keyProperty="uuid" resultType="string" order="BEFORE">
             select replace(uuid(), '-', '') as uuid from dual
