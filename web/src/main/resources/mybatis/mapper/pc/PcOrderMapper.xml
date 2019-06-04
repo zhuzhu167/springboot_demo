@@ -31,7 +31,14 @@
 
     <update id="updateLogisticsStatus">
         update `order`
-        set logistics_status = 1
+        set logistics_status = 1,
+            modified_time = DATE_FORMAT(NOW(), "%Y-%m-%d %H:%i:%s")
         where uuid = #{orderUuid}
     </update>
+
+    <select id="checkOrderStatus" resultType="java.lang.Integer">
+        select order_status
+        from `order`
+        where uuid = #{orderUuid}
+    </select>
 </mapper>

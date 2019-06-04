@@ -41,9 +41,17 @@ public interface PcOrderMapper {
     Integer checkLogisticsStatus(@Param("orderUuid")String orderUuid);
 
     /**
+     * 检查订单是否已付款
+     * @param orderUuid
+     * @return
+     */
+    Integer checkOrderStatus(@Param("orderUuid")String orderUuid);
+
+    /**
      * 确认收货
      * @param orderUuid
      * @return
      */
     Integer updateLogisticsStatus(@Param("orderUuid")String orderUuid);
+
 }
