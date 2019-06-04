@@ -65,6 +65,9 @@ public class PcCartServiceImpl implements PcCartService {
     @Override
     @Transactional
     public ResponseEntity<Object> orderCart(PcUserPayCartBO body) {
+        if(body.getCartCommodityUuidList().size()==0){
+            return ResponseEntitySupport.error(HttpStatus.INTERNAL_SERVER_ERROR, "购物车不能为空", "Shopping cart cannot be empty");
+        }
         String userUuid = JWTokenUtil.getJWTokenUuid();
         //检测购物车中商品是否生成过订单
         if(pcCartMapper.checkCart(body.getCartCommodityUuidList())>0){
