@@ -58,7 +58,7 @@
                 <result column="image_url" property="imageUrl"/>
             </collection>
         </collection>
-        <collection property="cartJewelryList" ofType="cn.ykthink.jewelry.model.pc.commodity.vo.PcJewelryInfoVO">
+        <collection property="cartJewelryList" ofType="cn.ykthink.jewelry.model.common.vo.CommonJewelryInfoVO">
             <result column="jewelry_no" property="jewelryNo"/>
             <result column="shape" property="shape"/>
             <result column="color" property="color"/>

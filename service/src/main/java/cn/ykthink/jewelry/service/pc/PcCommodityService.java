@@ -12,6 +12,13 @@ import org.springframework.http.ResponseEntity;
 public interface PcCommodityService {
 
     /**
+     * 商品列表
+     *
+     * @return
+     */
+    ResponseEntity<Object> commodityList(String categoryUuid, Integer pageNum, Integer pageSize);
+
+    /**
      * 商品详情
      *
      * @return
@@ -21,9 +28,11 @@ public interface PcCommodityService {
     /**
      * 钻石列表
      *
+     * @param pageNum
+     * @param pageSize
      * @return
      */
-    ResponseEntity<Object> jewelryIntroduction(Integer pageNum, Integer pageSize);
+    ResponseEntity<Object> jewelryList(Integer pageNum, Integer pageSize);
 
     /**
      * 钻石详情

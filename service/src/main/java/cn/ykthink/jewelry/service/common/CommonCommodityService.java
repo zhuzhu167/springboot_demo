@@ -1,7 +1,5 @@
 package cn.ykthink.jewelry.service.common;
 
-import org.springframework.http.ResponseEntity;
-
 /**
  * Author: YK
  * Title: CommonCommodityService
@@ -15,5 +13,29 @@ public interface CommonCommodityService {
      *
      * @return
      */
-    ResponseEntity<Object> commodityList(String categoryUuid, Integer pageNum, Integer pageSize);
+    Object commodityList(String categoryUuid, Integer pageNum, Integer pageSize);
+
+    /**
+     * 商品详情
+     *
+     * @return
+     */
+    Object commodity(String commodityUuid);
+
+    /**
+     * 钻石列表
+     *
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    Object jewelryList(Integer pageNum, Integer pageSize);
+
+    /**
+     * 钻石详情
+     *
+     * @param jewelryUuid
+     * @return
+     */
+    Object jewelryInfo(String jewelryUuid);
 }

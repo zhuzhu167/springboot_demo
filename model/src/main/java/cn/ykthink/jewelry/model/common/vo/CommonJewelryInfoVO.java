@@ -1,4 +1,4 @@
-package cn.ykthink.jewelry.model.pc.commodity.vo;
+package cn.ykthink.jewelry.model.common.vo;
 
 import cn.ykthink.jewelry.model.common.vo.CommonCommodityImageVO;
 import io.swagger.annotations.ApiModelProperty;
@@ -15,7 +15,7 @@ import java.util.List;
  * Time: 8:20
  */
 @Data
-public class PcJewelryInfoVO {
+public class CommonJewelryInfoVO {
     @ApiModelProperty(value = "钻石uuid", name = "jewelryUuid", example = "a123", dataType = "String", required = true)
     private String jewelryUuid;
 

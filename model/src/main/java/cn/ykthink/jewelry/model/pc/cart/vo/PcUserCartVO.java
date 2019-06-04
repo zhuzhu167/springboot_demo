@@ -1,7 +1,7 @@
 package cn.ykthink.jewelry.model.pc.cart.vo;
 
 import cn.ykthink.jewelry.model.common.vo.CommonCommodityInfoVO;
-import cn.ykthink.jewelry.model.pc.commodity.vo.PcJewelryInfoVO;
+import cn.ykthink.jewelry.model.common.vo.CommonJewelryInfoVO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -26,7 +26,7 @@ public class PcUserCartVO {
     private List<CommonCommodityInfoVO> cartCommodityList;
 
     @ApiModelProperty(value = "购物车钻石list", name = "cartJewelryList", dataType = "List", required = true)
-    private List<PcJewelryInfoVO> cartJewelryList;
+    private List<CommonJewelryInfoVO> cartJewelryList;
 
     @ApiModelProperty(value = "商品钻石总价", name = "price", dataType = "BigDecimal", required = true)
     private BigDecimal price;

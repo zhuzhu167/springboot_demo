@@ -6,12 +6,11 @@ import cn.ykthink.jewelry.model.common.po.CartCommodityPO;
 import cn.ykthink.jewelry.model.common.po.CartJewelryPO;
 import cn.ykthink.jewelry.model.pc.commodity.bo.PcCommodityJewelryBO;
 import cn.ykthink.jewelry.model.common.vo.CommonCommodityInfoVO;
-import cn.ykthink.jewelry.model.pc.commodity.vo.PcJewelryInfoVO;
+import cn.ykthink.jewelry.model.common.vo.CommonJewelryInfoVO;
+import cn.ykthink.jewelry.orm.common.CommonCommodityMapper;
 import cn.ykthink.jewelry.orm.pc.PcCommodityMapper;
+import cn.ykthink.jewelry.service.common.CommonCommodityService;
 import cn.ykthink.jewelry.service.pc.PcCommodityService;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
-import net.sf.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -28,29 +27,31 @@ import javax.annotation.Resource;
 @Service
 public class PcCommodityServiceImpl implements PcCommodityService {
     @Resource
+    CommonCommodityService commonCommodityService;
+    @Resource
     PcCommodityMapper pcCommodityMapper;
+    @Resource
+    CommonCommodityMapper commonCommodityMapper;
 
 
     @Override
-    public ResponseEntity<Object> commodity(String commodityUuid) {
-        CommonCommodityInfoVO commonCommodityInfoVO = pcCommodityMapper.selectCommodity(commodityUuid);
-        return ResponseEntitySupport.success(commonCommodityInfoVO);
+    public ResponseEntity<Object> commodityList(String categoryUuid, Integer pageNum, Integer pageSize) {
+        return ResponseEntitySupport.success(commonCommodityService.commodityList(categoryUuid, pageNum, pageSize));
     }
 
     @Override
-    public ResponseEntity<Object> jewelryIntroduction(Integer pageNum, Integer pageSize) {
-        Page<Object> page = PageHelper.startPage(pageNum, pageSize);
-        JSONObject response = new JSONObject();
-        pcCommodityMapper.selectJewelryIntroduction();
-        response.put("total", page.getTotal());
-        response.put("response", page.getResult());
-        return ResponseEntitySupport.success(response);
+    public ResponseEntity<Object> commodity(String commodityUuid) {
+        return ResponseEntitySupport.success(commonCommodityService.commodity(commodityUuid));
+    }
+
+    @Override
+    public ResponseEntity<Object> jewelryList(Integer pageNum, Integer pageSize) {
+        return ResponseEntitySupport.success(commonCommodityService.jewelryList(pageNum, pageSize));
     }
 
     @Override
     public ResponseEntity<Object> jewelryInfo(String jewelryUuid) {
-        PcJewelryInfoVO pcJewelryInfoVO = pcCommodityMapper.selectJewelry(jewelryUuid);
-        return ResponseEntitySupport.success(pcJewelryInfoVO);
+        return ResponseEntitySupport.success(commonCommodityService.jewelryInfo(jewelryUuid));
     }
 
     @Override
@@ -60,17 +61,17 @@ public class PcCommodityServiceImpl implements PcCommodityService {
         CartJewelryPO cartJewelryPO = new CartJewelryPO();
         CartCommodityPO cartCommodityPO = new CartCommodityPO();
 
-        PcJewelryInfoVO pcJewelryInfoVO = pcCommodityMapper.selectJewelry(body.getJewelryUuid());
-        CommonCommodityInfoVO commonCommodityInfoVO = pcCommodityMapper.selectCommodity(body.getCommodityUuid());
+        CommonJewelryInfoVO commonJewelryInfoVO = commonCommodityMapper.selectJewelry(body.getJewelryUuid());
+        CommonCommodityInfoVO commonCommodityInfoVO = commonCommodityMapper.selectCommodity(body.getCommodityUuid());
 
         cartJewelryPO.setJewelryUuid(body.getJewelryUuid());
-        cartJewelryPO.setJewelryNo(pcJewelryInfoVO.getJewelryNo());
-        cartJewelryPO.setClarity(pcJewelryInfoVO.getClarity());
-        cartJewelryPO.setColor(pcJewelryInfoVO.getColor());
-        cartJewelryPO.setCut(pcJewelryInfoVO.getCut());
-        cartJewelryPO.setLight(pcJewelryInfoVO.getLight());
-        cartJewelryPO.setPolishing(pcJewelryInfoVO.getPolishing());
-        cartJewelryPO.setShape(pcJewelryInfoVO.getShape());
+        cartJewelryPO.setJewelryNo(commonJewelryInfoVO.getJewelryNo());
+        cartJewelryPO.setClarity(commonJewelryInfoVO.getClarity());
+        cartJewelryPO.setColor(commonJewelryInfoVO.getColor());
+        cartJewelryPO.setCut(commonJewelryInfoVO.getCut());
+        cartJewelryPO.setLight(commonJewelryInfoVO.getLight());
+        cartJewelryPO.setPolishing(commonJewelryInfoVO.getPolishing());
+        cartJewelryPO.setShape(commonJewelryInfoVO.getShape());
         cartJewelryPO.setUserUuid(userUuid);
 
 
@@ -87,8 +88,8 @@ public class PcCommodityServiceImpl implements PcCommodityService {
 
         Integer insertCommodityFlag = pcCommodityMapper.insertCommodity(cartCommodityPO);
 
-        if (insertCommodityFlag > 0 && insertJewelryFlag > 0){
-            return  ResponseEntitySupport.success();
+        if (insertCommodityFlag > 0 && insertJewelryFlag > 0) {
+            return ResponseEntitySupport.success();
         } else {
             return ResponseEntitySupport.error(HttpStatus.INTERNAL_SERVER_ERROR, "数据异常", "Abnormal data");
         }

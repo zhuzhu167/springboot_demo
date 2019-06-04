@@ -13,10 +13,31 @@ public interface CmsCommodityService {
     /**
      * 商品列表
      *
-     * @param categoryUuid
+     * @return
+     */
+    ResponseEntity<Object> commodityList(String categoryUuid, Integer pageNum, Integer pageSize);
+
+    /**
+     * 商品详情
+     *
+     * @return
+     */
+    ResponseEntity<Object> commodity(String commodityUuid);
+
+    /**
+     * 钻石列表
+     *
      * @param pageNum
      * @param pageSize
      * @return
      */
-    ResponseEntity<Object> commodityList(String categoryUuid, Integer pageNum, Integer pageSize);
+    ResponseEntity<Object> jewelryList(Integer pageNum, Integer pageSize);
+
+    /**
+     * 钻石详情
+     *
+     * @param jewelryUuid
+     * @return
+     */
+    ResponseEntity<Object> jewelryInfo(String jewelryUuid);
 }
