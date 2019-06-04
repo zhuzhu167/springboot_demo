@@ -6,6 +6,7 @@ import cn.ykthink.jewelry.model.cms.commodity.vo.CmsCommodityListVO;
 import cn.ykthink.jewelry.model.common.vo.CommonCommodityInfoVO;
 import cn.ykthink.jewelry.model.common.vo.CommonJewelryListVO;
 import cn.ykthink.jewelry.model.common.vo.CommonJewelryInfoVO;
+import cn.ykthink.jewelry.model.common.vo.CommonCategoryVO;
 import cn.ykthink.jewelry.service.cms.CmsCommodityService;
 import com.github.catalpaflat.valid.annotation.ParameterValid;
 import io.swagger.annotations.Api;
@@ -30,6 +31,16 @@ import javax.annotation.Resource;
 public class CmsCommodityController {
     @Resource
     CmsCommodityService cmsCommodityService;
+
+
+    /**
+     * get 类目列表
+     */
+    @GetMapping("category")
+    @ApiOperation(value = "类目列表", response = CommonCategoryVO.class)
+    public ResponseEntity<Object> category() {
+        return cmsCommodityService.category();
+    }
 
     @GetMapping("commodityList")
     @ApiOperation(value = "商品列表", response = CmsCommodityListVO.class)

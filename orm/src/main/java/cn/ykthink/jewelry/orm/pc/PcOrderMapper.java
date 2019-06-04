@@ -27,13 +27,6 @@ public interface PcOrderMapper {
     Integer updateOrderStatus(@Param("uuid") String uuid, @Param("status") Integer status);
 
     /**
-     * 获取订单
-     * @param userUuid
-     * @return
-     */
-    List<PcUserOrderVO> selectOrder(@Param("userUuid")String userUuid);
-
-    /**
      * 删除订单
      * @param orderUuid
      * @return

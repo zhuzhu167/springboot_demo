@@ -42,4 +42,9 @@ public class CmsCommodityServiceImpl implements CmsCommodityService {
     public ResponseEntity<Object> jewelryInfo(String jewelryUuid) {
         return ResponseEntitySupport.success(commonCommodityService.jewelryInfo(jewelryUuid));
     }
+
+    @Override
+    public ResponseEntity<Object> category() {
+        return ResponseEntitySupport.success(commonCommodityService.category());
+    }
 }

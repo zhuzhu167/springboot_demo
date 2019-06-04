@@ -40,4 +40,11 @@ public interface CmsCommodityService {
      * @return
      */
     ResponseEntity<Object> jewelryInfo(String jewelryUuid);
+
+    /**
+     * 类目列表
+     *
+     * @return
+     */
+    ResponseEntity<Object> category();
 }

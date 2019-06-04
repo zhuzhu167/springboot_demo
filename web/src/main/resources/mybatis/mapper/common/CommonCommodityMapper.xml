@@ -127,5 +127,11 @@ Time: 23:53
         where jewelry.uuid = #{jewelryUuid}
           and jewelry.is_deleted = 0
     </select>
+
+    <select id="selectIndexCategory" resultType="cn.ykthink.jewelry.model.common.vo.CommonCategoryVO">
+        select uuid as category_uuid,category as category_name
+        from category
+        where is_deleted = 0
+    </select>
 </mapper>
  

@@ -1,6 +1,6 @@
 package cn.ykthink.jewelry.orm.pc;
 
-import cn.ykthink.jewelry.model.pc.index.vo.PcIndexCategoryVO;
+import cn.ykthink.jewelry.model.common.vo.CommonCategoryVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -17,9 +17,9 @@ import java.util.List;
 @Repository
 public interface PcIndexMapper {
     /**
-     * 用户个人信息
+     * 类目信息
      *
      * @return
      */
-    List<PcIndexCategoryVO> selectIndexCategory();
+    List<CommonCategoryVO> selectIndexCategory();
 }

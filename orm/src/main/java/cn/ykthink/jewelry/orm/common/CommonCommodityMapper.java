@@ -4,6 +4,7 @@ import cn.ykthink.jewelry.model.common.vo.CommonCommodityInfoVO;
 import cn.ykthink.jewelry.model.common.vo.CommonCommodityListVO;
 import cn.ykthink.jewelry.model.common.vo.CommonJewelryListVO;
 import cn.ykthink.jewelry.model.common.vo.CommonJewelryInfoVO;
+import cn.ykthink.jewelry.model.common.vo.CommonCategoryVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -48,5 +49,12 @@ public interface CommonCommodityMapper {
      * @return*
      */
     CommonJewelryInfoVO selectJewelry(@Param("jewelryUuid") String jewelryUuid);
+
+    /**
+     * 类目信息
+     *
+     * @return
+     */
+    List<CommonCategoryVO> selectIndexCategory();
 
 }

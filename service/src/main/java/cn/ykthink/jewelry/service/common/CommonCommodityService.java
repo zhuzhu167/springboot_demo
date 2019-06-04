@@ -38,4 +38,10 @@ public interface CommonCommodityService {
      * @return
      */
     Object jewelryInfo(String jewelryUuid);
+
+    /**
+     * 类目列表
+     * @return
+     */
+    Object category();
 }

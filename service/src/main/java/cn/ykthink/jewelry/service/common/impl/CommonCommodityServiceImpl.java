@@ -1,17 +1,17 @@
 package cn.ykthink.jewelry.service.common.impl;
 
-import cn.ykthink.jewelry.core.support.http.ResponseEntitySupport;
 import cn.ykthink.jewelry.model.common.vo.CommonCommodityInfoVO;
 import cn.ykthink.jewelry.model.common.vo.CommonJewelryInfoVO;
+import cn.ykthink.jewelry.model.common.vo.CommonCategoryVO;
 import cn.ykthink.jewelry.orm.common.CommonCommodityMapper;
 import cn.ykthink.jewelry.service.common.CommonCommodityService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import net.sf.json.JSONObject;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Author: YK
@@ -37,8 +37,7 @@ public class CommonCommodityServiceImpl implements CommonCommodityService {
 
     @Override
     public CommonCommodityInfoVO commodity(String commodityUuid) {
-        CommonCommodityInfoVO commonCommodityInfoVO = commonCommodityMapper.selectCommodity(commodityUuid);
-        return commonCommodityInfoVO;
+        return commonCommodityMapper.selectCommodity(commodityUuid);
     }
 
     @Override
@@ -53,7 +52,11 @@ public class CommonCommodityServiceImpl implements CommonCommodityService {
 
     @Override
     public CommonJewelryInfoVO jewelryInfo(String jewelryUuid) {
-        CommonJewelryInfoVO commonJewelryInfoVO = commonCommodityMapper.selectJewelry(jewelryUuid);
-        return commonJewelryInfoVO;
+        return commonCommodityMapper.selectJewelry(jewelryUuid);
+    }
+
+    @Override
+    public List<CommonCategoryVO> category() {
+        return commonCommodityMapper.selectIndexCategory();
     }
 }
