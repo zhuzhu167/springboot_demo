@@ -45,4 +45,8 @@ public class CommonJewelryInfoVO {
 
     @ApiModelProperty(value = "图片list", name = "imageUuidList", example = "", dataType = "List", required = true)
     private List<CommonCommodityImageVO> imageList;
+
+    @ApiModelProperty(value = "订单钻石uuid", name = "orderJewelryUuid", example = "a123", dataType = "String", required = true)
+    private String orderJewelryUuid;
+
 }

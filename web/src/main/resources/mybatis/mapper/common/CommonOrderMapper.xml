@@ -18,7 +18,9 @@
         <result column="logistics_name" property="logisticsName"/>
         <result column="logistics_number" property="logisticsNumber"/>
         <result column="logistics_status" property="logisticsStatus"/>
-        <collection property="orderCommodityList" ofType="cn.ykthink.jewelry.model.common.vo.CommonCommodityInfoVO">
+        <collection property="orderCommodityList" ofType="cn.ykthink.jewelry.model.common.vo.CommonCommodityInfoVO"
+                    column="{orderCommodityUuid=oc_uuid}"
+                    select="selectOrderCommodity">
             <result column="commodity_no" property="commodityNo"/>
             <result column="title" property="title"/>
             <result column="subhead" property="subhead"/>
@@ -35,7 +37,9 @@
                 <result column="image_url" property="imageUrl"/>
             </collection>
         </collection>
-        <collection property="orderJewelryList" ofType="cn.ykthink.jewelry.model.common.vo.CommonJewelryInfoVO">
+        <collection property="orderJewelryList" ofType="cn.ykthink.jewelry.model.common.vo.CommonJewelryInfoVO"
+                    column="{orderJewelryUuid=oje_uuid}"
+                    select="selectOrderJewelry">
             <result column="jewelry_no" property="jewelryNo"/>
             <result column="shape" property="shape"/>
             <result column="color" property="color"/>
@@ -74,40 +78,18 @@
         o.pay_date,
         o.logistics_name,
         o.logistics_number,
-        oc.commodity_price,
-        oje.jewelry_price,
+        oc.uuid as oc_uuid,
+        oje.uuid as oje_uuid,
         cc.commodity_uuid,
-        cc.commodity_no,
-        cc.title,
-        cc.subhead,
-        cc.detail,
-        cc.texture_name,
-        store.store_total,
-        store.store_consumption,
-        cj.jewelry_uuid,
-        cj.jewelry_no,
-        cj.shape,
-        cj.color,
-        cj.clarity,
-        cj.cut,
-        cj.polishing,
-        cj.light
+        cj.jewelry_uuid
         from `order` as o
-        left join order_commodity as oc on o.uuid = oc.order_uuid
-        left join order_jewelry as oje on o.uuid = oje.order_uuid,
+            left join order_commodity as oc on o.uuid = oc.order_uuid
+            left join order_jewelry as oje on o.uuid = oje.order_uuid,
         cart_commodity as cc
-        left join commodity on commodity.uuid = cc.commodity_uuid
-        left join store on commodity.store_uuid = store.uuid
-        left join cart_jewelry as cj on cc.cart_jewelry_uuid = cj.uuid,
-        jewelry
+
+        left join cart_jewelry as cj on cc.cart_jewelry_uuid = cj.uuid
         <where>
-            oc.order_jewelry_uuid = oje.uuid
-            and oc.cart_commodity_uuid = cc.uuid
-            and oje.cart_jewelry_uuid = cj.uuid
-            and cj.jewelry_uuid = jewelry.uuid
-            and o.is_deleted = 0
-            and oc.is_deleted = 0
-            and oje.is_deleted = 0
+               o.is_deleted = 0
             <if test="userUuid!=null and userUuid!=''">
                 and o.user_uuid = #{userUuid}
             </if>
@@ -116,5 +98,39 @@
             </if>
         </where>
         order by o.create_time DESC
+    </select>
+
+    <select id="selectOrderCommodity" resultType="cn.ykthink.jewelry.model.common.vo.CommonCommodityInfoVO">
+        select  oc.commodity_price,
+                cc.commodity_uuid,
+                cc.commodity_no,
+                cc.title,
+                cc.subhead,
+                cc.detail,
+                cc.texture_name,
+                store.store_total,
+                store.store_consumption
+        from   order_commodity as oc
+                 left join cart_commodity as cc on oc.cart_commodity_uuid = cc.uuid
+                 left join commodity on cc.commodity_uuid = commodity.uuid
+                 left join store on commodity.store_uuid = store.uuid
+        where oc.uuid = #{orderCommodityUuid}
+          and oc.is_deleted = 0
+    </select>
+
+    <select id="selectOrderJewelry" resultType="cn.ykthink.jewelry.model.common.vo.CommonJewelryInfoVO">
+        select oje.jewelry_price,
+               cj.jewelry_uuid,
+               cj.jewelry_no,
+               cj.shape,
+               cj.color,
+               cj.clarity,
+               cj.cut,
+               cj.polishing,
+               cj.light
+        from order_jewelry as oje
+                left join cart_jewelry as cj on oje.cart_jewelry_uuid = cj.uuid
+        where oje.uuid = #{orderJewelryUuid}
+          and oje.is_deleted = 0
     </select>
 </mapper>
