@@ -33,3 +33,8 @@ jewelry:
     appId: 1400217435
     appKey: 8a0a933fcad0c10d437c7748f7370f29
     countryCode: 86
+  qny:
+    accessKey: ojc77Gx5YGcmrVIZGOsU9FeagvKntkGkF_7qaSZP
+    secretKey: -JeHOwkXUSHsCYxhEwXwq3MJOoU86fbE_tU5UDu9
+    bucket: jewelry
+    cdnUrl: cdn-jewelry.ykthink.cn
