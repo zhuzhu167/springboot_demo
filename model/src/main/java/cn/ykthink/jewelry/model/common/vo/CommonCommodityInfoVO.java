@@ -30,9 +30,6 @@ public class CommonCommodityInfoVO {
     @ApiModelProperty(value = "材质", name = "textureName", example = "111", dataType = "String", required = true)
     private String textureName;
 
-    @ApiModelProperty(value = "库存", name = "store", example = "", dataType = "PcUserStoreVO", required = true)
-    private PcUserStoreVO store;
-
     @ApiModelProperty(value = "图片list", name = "imageList", example = "", dataType = "List", required = true)
     private List<CommonCommodityImageVO> imageList;
 

@@ -12,8 +12,6 @@
                cc.detail,
                cc.texture_name,
                commodity.commodity_price,
-               store.store_total                                 as store_total,
-               store.store_consumption                           as store_consumption,
                cj.jewelry_uuid,
                cj.jewelry_no,
                cj.shape,
@@ -26,7 +24,6 @@
                commodity.commodity_price + jewelry.jewelry_price as price
         from cart_commodity as cc
                  left join commodity on commodity.uuid = cc.commodity_uuid
-                 left join store on commodity.store_uuid = store.uuid
                  left join cart_jewelry as cj on cc.cart_jewelry_uuid = cj.uuid,
              jewelry
         where cc.user_uuid = #{userUuid}
@@ -48,10 +45,6 @@
             <result column="detail" property="detail"/>
             <result column="texture_name" property="textureName"/>
             <result column="commodity_price" property="commodityPrice"/>
-            <collection property="store" ofType="cn.ykthink.jewelry.model.pc.user.vo.PcUserStoreVO">
-                <result column="store_total" property="storeTotal"/>
-                <result column="store_consumption" property="storeConsumption"/>
-            </collection>
             <collection property="imageList" ofType="cn.ykthink.jewelry.model.common.vo.CommonCommodityImageVO"
                         column="{commodityJewelryUuid=commodity_uuid}"
                         select="selectCommodityJewelryIntroductionImage">

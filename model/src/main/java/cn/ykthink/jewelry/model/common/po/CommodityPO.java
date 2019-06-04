@@ -13,7 +13,7 @@ import java.math.BigDecimal;
  **/
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CommodityPO extends BasePO{
+public class CommodityPO extends BasePO {
     /**
      * 材质uuid
      */
@@ -29,7 +29,7 @@ public class CommodityPO extends BasePO{
     /**
      * 商品状态
      */
-    private String commodityStatus;
+    private Integer commodityStatus;
     /**
      * 商品编号
      */

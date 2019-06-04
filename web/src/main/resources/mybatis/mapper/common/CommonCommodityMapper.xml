@@ -32,6 +32,7 @@ Time: 23:53
         <if test="categoryUuid!=null and categoryUuid!=''">
             and commodity.category_uuid=#{categoryUuid}
         </if>
+        and commodity.commodity_status=1
         order by commodity.commodity_no
     </select>
 
@@ -129,7 +130,7 @@ Time: 23:53
     </select>
 
     <select id="selectIndexCategory" resultType="cn.ykthink.jewelry.model.common.vo.CommonCategoryVO">
-        select uuid as category_uuid,category as category_name
+        select uuid as category_uuid, category as category_name
         from category
         where is_deleted = 0
     </select>
