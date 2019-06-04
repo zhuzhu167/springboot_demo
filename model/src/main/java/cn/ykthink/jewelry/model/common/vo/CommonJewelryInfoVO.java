@@ -1,6 +1,5 @@
 package cn.ykthink.jewelry.model.common.vo;
 
-import cn.ykthink.jewelry.model.common.vo.CommonCommodityImageVO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

@@ -44,4 +44,7 @@ public class CommonCommodityInfoVO {
 
     @ApiModelProperty(value = "订单商品uuid", name = "orderCommodityUuid", example = "a123", dataType = "String", required = true)
     private String orderCommodityUuid;
+
+    @ApiModelProperty(value = "订单钻石list", name = "CommonJewelryInfoVO", dataType = "CommonJewelryInfoVO", required = true)
+    private CommonJewelryInfoVO orderJewelry;
 }

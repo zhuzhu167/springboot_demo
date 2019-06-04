@@ -19,40 +19,41 @@
         <result column="logistics_number" property="logisticsNumber"/>
         <result column="logistics_status" property="logisticsStatus"/>
         <collection property="orderCommodityList" ofType="cn.ykthink.jewelry.model.common.vo.CommonCommodityInfoVO"
-                    column="{orderCommodityUuid=oc_uuid}"
+                    column="{orderUuid=o_uuid}"
                     select="selectOrderCommodity">
-            <result column="commodity_no" property="commodityNo"/>
-            <result column="title" property="title"/>
-            <result column="subhead" property="subhead"/>
-            <result column="detail" property="detail"/>
-            <result column="texture_name" property="textureName"/>
-            <result column="commodity_price" property="commodityPrice"/>
-            <collection property="store" ofType="cn.ykthink.jewelry.model.pc.user.vo.PcUserStoreVO">
-                <result column="store_total" property="storeTotal"/>
-                <result column="store_consumption" property="storeConsumption"/>
-            </collection>
-            <collection property="imageList" ofType="cn.ykthink.jewelry.model.common.vo.CommonCommodityImageVO"
-                        column="{commodityJewelryUuid=commodity_uuid}"
-                        select="selectCommodityJewelryIntroductionImage">
-                <result column="image_url" property="imageUrl"/>
-            </collection>
         </collection>
-        <collection property="orderJewelryList" ofType="cn.ykthink.jewelry.model.common.vo.CommonJewelryInfoVO"
-                    column="{orderJewelryUuid=oje_uuid}"
+    </resultMap>
+    <resultMap id="selectOrderCommodityMap" type="cn.ykthink.jewelry.model.common.vo.CommonCommodityInfoVO">
+        <id column="order_commodity_uuid" property="orderCommodityUuid"/>
+        <result column="commodity_no" property="commodityNo"/>
+        <result column="title" property="title"/>
+        <result column="subhead" property="subhead"/>
+        <result column="detail" property="detail"/>
+        <result column="texture_name" property="textureName"/>
+        <result column="commodity_price" property="commodityPrice"/>
+        <result column="commodity_uuid" property="commodityUuid"/>
+        <collection property="imageList" ofType="cn.ykthink.jewelry.model.common.vo.CommonCommodityImageVO"
+                    column="{commodityJewelryUuid=commodity_uuid}"
+                    select="selectCommodityJewelryIntroductionImage">
+            <result column="image_url" property="imageUrl"/>
+        </collection>
+        <collection property="orderJewelry" ofType="cn.ykthink.jewelry.model.common.vo.CommonJewelryInfoVO"
+                    column="{orderJewelryUuid=order_jewelry_uuid}"
                     select="selectOrderJewelry">
-            <result column="jewelry_no" property="jewelryNo"/>
-            <result column="shape" property="shape"/>
-            <result column="color" property="color"/>
-            <result column="clarity" property="clarity"/>
-            <result column="cut" property="cut"/>
-            <result column="polishing" property="polishing"/>
-            <result column="light" property="light"/>
-            <result column="jewelry_price" property="jewelryPrice"/>
-            <collection property="imageList" ofType="cn.ykthink.jewelry.model.common.vo.CommonCommodityImageVO"
-                        column="{commodityJewelryUuid=jewelry_uuid}"
-                        select="selectCommodityJewelryIntroductionImage">
-                <result column="image_url" property="imageUrl"/>
-            </collection>
+        </collection>
+    </resultMap>
+    <resultMap id="selectOrderJewelryMap" type="cn.ykthink.jewelry.model.common.vo.CommonJewelryInfoVO">
+        <result column="jewelry_no" property="jewelryNo"/>
+        <result column="shape" property="shape"/>
+        <result column="color" property="color"/>
+        <result column="clarity" property="clarity"/>
+        <result column="cut" property="cut"/>
+        <result column="polishing" property="polishing"/>
+        <result column="light" property="light"/>
+        <collection property="imageList" ofType="cn.ykthink.jewelry.model.common.vo.CommonCommodityImageVO"
+                    column="{commodityJewelryUuid=jewelry_uuid}"
+                    select="selectCommodityJewelryIntroductionImage">
+            <result column="image_url" property="imageUrl"/>
         </collection>
     </resultMap>
     <select id="selectCommodityJewelryIntroductionImage"
@@ -77,19 +78,10 @@
         o.pay_price,
         o.pay_date,
         o.logistics_name,
-        o.logistics_number,
-        oc.uuid as oc_uuid,
-        oje.uuid as oje_uuid,
-        cc.commodity_uuid,
-        cj.jewelry_uuid
+        o.logistics_number
         from `order` as o
-            left join order_commodity as oc on o.uuid = oc.order_uuid
-            left join order_jewelry as oje on o.uuid = oje.order_uuid,
-        cart_commodity as cc
-            left join cart_jewelry as cj on cc.cart_jewelry_uuid = cj.uuid
         <where>
-                oc.order_jewelry_uuid = oje.uuid
-            and o.is_deleted = 0
+            o.is_deleted = 0
             <if test="userUuid!=null and userUuid!=''">
                 and o.user_uuid = #{userUuid}
             </if>
@@ -100,26 +92,23 @@
         order by o.create_time DESC
     </select>
 
-    <select id="selectOrderCommodity" resultType="cn.ykthink.jewelry.model.common.vo.CommonCommodityInfoVO">
-        select  oc.commodity_price,
-                cc.commodity_uuid,
-                cc.commodity_no,
-                cc.title,
-                cc.subhead,
-                cc.detail,
-                cc.texture_name,
-                store.store_total,
-                store.store_consumption
-        from   order_commodity as oc
+    <select id="selectOrderCommodity" resultMap="selectOrderCommodityMap">
+        select oc.commodity_price,
+               oc.uuid as order_commodity_uuid,
+               oc.order_jewelry_uuid,
+               cc.commodity_uuid,
+               cc.commodity_no,
+               cc.title,
+               cc.subhead,
+               cc.detail,
+               cc.texture_name
+        from order_commodity as oc
                  left join cart_commodity as cc on oc.cart_commodity_uuid = cc.uuid
-                 left join order_jewelry as oje on oc.order_jewelry_uuid = oje.uuid
-                 left join commodity on cc.commodity_uuid = commodity.uuid
-                 left join store on commodity.store_uuid = store.uuid
-        where oc.uuid = #{orderCommodityUuid}
+        where oc.order_uuid = #{orderUuid}
           and oc.is_deleted = 0
     </select>
 
-    <select id="selectOrderJewelry" resultType="cn.ykthink.jewelry.model.common.vo.CommonJewelryInfoVO">
+    <select id="selectOrderJewelry" resultMap="selectOrderJewelryMap">
         select oje.jewelry_price,
                cj.jewelry_uuid,
                cj.jewelry_no,
@@ -130,7 +119,7 @@
                cj.polishing,
                cj.light
         from order_jewelry as oje
-                left join cart_jewelry as cj on oje.cart_jewelry_uuid = cj.uuid
+                 left join cart_jewelry as cj on oje.cart_jewelry_uuid = cj.uuid
         where oje.uuid = #{orderJewelryUuid}
           and oje.is_deleted = 0
     </select>

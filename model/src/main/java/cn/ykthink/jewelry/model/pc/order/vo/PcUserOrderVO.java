@@ -22,9 +22,6 @@ public class PcUserOrderVO {
     @ApiModelProperty(value = "订单商品list", name = "orderCommodityList", dataType = "List", required = true)
     private List<CommonCommodityInfoVO> orderCommodityList;
 
-    @ApiModelProperty(value = "订单钻石list", name = "orderJewelryList", dataType = "List", required = true)
-    private List<CommonJewelryInfoVO> orderJewelryList;
-
     @ApiModelProperty(value = "订单状态", name = "orderStatus", example = "1", dataType = "Integer", required = true)
     private Integer orderStatus;
 
