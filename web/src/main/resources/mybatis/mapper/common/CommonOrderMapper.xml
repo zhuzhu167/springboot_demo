@@ -86,10 +86,10 @@
             left join order_commodity as oc on o.uuid = oc.order_uuid
             left join order_jewelry as oje on o.uuid = oje.order_uuid,
         cart_commodity as cc
-
-        left join cart_jewelry as cj on cc.cart_jewelry_uuid = cj.uuid
+            left join cart_jewelry as cj on cc.cart_jewelry_uuid = cj.uuid
         <where>
-               o.is_deleted = 0
+                oc.order_jewelry_uuid = oje.uuid
+            and o.is_deleted = 0
             <if test="userUuid!=null and userUuid!=''">
                 and o.user_uuid = #{userUuid}
             </if>
@@ -112,6 +112,7 @@
                 store.store_consumption
         from   order_commodity as oc
                  left join cart_commodity as cc on oc.cart_commodity_uuid = cc.uuid
+                 left join order_jewelry as oje on oc.order_jewelry_uuid = oje.uuid
                  left join commodity on cc.commodity_uuid = commodity.uuid
                  left join store on commodity.store_uuid = store.uuid
         where oc.uuid = #{orderCommodityUuid}
