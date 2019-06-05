@@ -1,9 +1,12 @@
 package cn.ykthink.jewelry.cms.controller;
 
 import cn.ykthink.jewelry.core.uri.SystemUri;
+import cn.ykthink.jewelry.model.cms.commodity.bo.CmsCategoryBO;
 import cn.ykthink.jewelry.model.cms.commodity.bo.CmsCommodityBO;
 import cn.ykthink.jewelry.model.cms.commodity.bo.CmsShelfCommodityBO;
+import cn.ykthink.jewelry.model.cms.commodity.bo.CmsTextureBO;
 import cn.ykthink.jewelry.model.cms.commodity.vo.CmsCommodityListVO;
+import cn.ykthink.jewelry.model.cms.commodity.vo.CmsTextureListVO;
 import cn.ykthink.jewelry.model.common.vo.CommonCategoryVO;
 import cn.ykthink.jewelry.model.common.vo.CommonCommodityInfoVO;
 import cn.ykthink.jewelry.model.common.vo.CommonJewelryInfoVO;
@@ -33,14 +36,64 @@ public class CmsCommodityController {
     @Resource
     CmsCommodityService cmsCommodityService;
 
+    @GetMapping("texture")
+    @ApiOperation(value = "材质列表", response = CmsTextureListVO.class)
+    public ResponseEntity<Object> texture() {
+        return null;
+    }
 
-    /**
-     * get 类目列表
-     */
+    @PostMapping("texture")
+    @ApiOperation(value = "新增材质", response = ResponseEntity.class)
+    public ResponseEntity<Object> addTexture(@RequestBody CmsTextureBO body) {
+        return null;
+    }
+
+    @DeleteMapping("texture/{textureUuid}")
+    @ApiOperation(value = "删除材质", response = ResponseEntity.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "path", dataType = "String", name = "textureUuid", value = "材质uuid", required = true),
+    })
+    public ResponseEntity<Object> removeTexture(@PathVariable String textureUuid) {
+        return null;
+    }
+
+    @PutMapping("texture/{textureUuid}")
+    @ApiOperation(value = "修改材质", response = ResponseEntity.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "path", dataType = "String", name = "textureUuid", value = "材质uuid", required = true),
+    })
+    public ResponseEntity<Object> updateTexture(@PathVariable String textureUuid, @RequestBody CmsTextureBO body) {
+        return null;
+    }
+
     @GetMapping("category")
     @ApiOperation(value = "类目列表", response = CommonCategoryVO.class)
     public ResponseEntity<Object> category() {
         return cmsCommodityService.category();
+    }
+
+    @PostMapping("category")
+    @ApiOperation(value = "新增类目", response = ResponseEntity.class)
+    public ResponseEntity<Object> addCategory(@RequestBody CmsCategoryBO body) {
+        return null;
+    }
+
+    @DeleteMapping("category/{category}")
+    @ApiOperation(value = "删除类目", response = ResponseEntity.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "path", dataType = "String", name = "category", value = "类目uuid", required = true),
+    })
+    public ResponseEntity<Object> removeCategory(@PathVariable String category) {
+        return null;
+    }
+
+    @PutMapping("category/{category}")
+    @ApiOperation(value = "修改信息类目", response = ResponseEntity.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "path", dataType = "String", name = "category", value = "类目uuid", required = true),
+    })
+    public ResponseEntity<Object> updateCategory(@PathVariable String category, @RequestBody CmsCategoryBO body) {
+        return null;
     }
 
     @GetMapping("commodityList")
@@ -57,12 +110,6 @@ public class CmsCommodityController {
         return cmsCommodityService.commodityList(categoryUuid, pageNum, pageSize);
     }
 
-    /**
-     * 商品详情
-     *
-     * @param commodityUuid
-     * @return
-     */
     @GetMapping("commodity/{commodityUuid}")
     @ApiOperation(value = "商品详情", response = CommonCommodityInfoVO.class)
     @ApiImplicitParams({
@@ -72,10 +119,6 @@ public class CmsCommodityController {
         return cmsCommodityService.commodity(commodityUuid);
     }
 
-
-    /**
-     * get 钻石列表
-     */
     @GetMapping("jewelryList")
     @ApiOperation(value = "钻石列表", response = CommonJewelryListVO.class)
     @ApiImplicitParams({
@@ -87,9 +130,6 @@ public class CmsCommodityController {
         return cmsCommodityService.jewelryList(pageNum, pageSize);
     }
 
-    /**
-     * get 钻石详情
-     */
     @GetMapping("jewelry/{jewelryUuid}")
     @ApiOperation(value = "钻石详情", response = CommonJewelryInfoVO.class)
     @ApiImplicitParams({
@@ -99,14 +139,8 @@ public class CmsCommodityController {
         return cmsCommodityService.jewelryInfo(jewelryUuid);
     }
 
-    /**
-     * 上传商品
-     *
-     * @param body
-     * @return
-     */
     @PostMapping("commodity")
-    @ApiOperation(value = "上传商品", response = ResponseEntity.class)
+    @ApiOperation(value = "新增商品", response = ResponseEntity.class)
     public ResponseEntity<Object> addCommodity(@RequestBody CmsCommodityBO body) {
         return null;
     }

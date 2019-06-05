@@ -123,7 +123,7 @@ Time: 23:53
     </select>
 
     <select id="selectIndexCategory" resultType="cn.ykthink.jewelry.model.common.vo.CommonCategoryVO">
-        select uuid as category_uuid, category as category_name
+        select uuid as category_uuid, category as category_name,category
         from category
         where is_deleted = 0
     </select>
