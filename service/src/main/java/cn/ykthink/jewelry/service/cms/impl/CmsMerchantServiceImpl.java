@@ -42,6 +42,7 @@ public class CmsMerchantServiceImpl implements CmsMerchantService {
             CmsMerchantLoginVO cmsMerchantLoginVO = new CmsMerchantLoginVO();
             Map<String, Object> map = new HashMap<>();
             map.put("uuid", cmsMerchantInfoTO.getUuid());
+            map.put("identity", "admin");
             String accessToken = JWTokenUtil.generateJWToken(map, (24 * 60 * 60 * 1000L));//24小时
             cmsMerchantLoginVO.setToken(accessToken);
             return ResponseEntitySupport.success(cmsMerchantLoginVO);

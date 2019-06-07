@@ -39,13 +39,13 @@ public class CmsCommodityController {
     @GetMapping("texture")
     @ApiOperation(value = "材质列表", response = CmsTextureListVO.class)
     public ResponseEntity<Object> texture() {
-        return null;
+        return cmsCommodityService.texture();
     }
 
     @PostMapping("texture")
     @ApiOperation(value = "新增材质", response = ResponseEntity.class)
     public ResponseEntity<Object> addTexture(@RequestBody CmsTextureBO body) {
-        return null;
+        return cmsCommodityService.addTexture(body);
     }
 
     @DeleteMapping("texture/{textureUuid}")
@@ -54,7 +54,7 @@ public class CmsCommodityController {
             @ApiImplicitParam(paramType = "path", dataType = "String", name = "textureUuid", value = "材质uuid", required = true),
     })
     public ResponseEntity<Object> removeTexture(@PathVariable String textureUuid) {
-        return null;
+        return cmsCommodityService.removeTexture(textureUuid);
     }
 
     @PutMapping("texture/{textureUuid}")
@@ -63,7 +63,7 @@ public class CmsCommodityController {
             @ApiImplicitParam(paramType = "path", dataType = "String", name = "textureUuid", value = "材质uuid", required = true),
     })
     public ResponseEntity<Object> updateTexture(@PathVariable String textureUuid, @RequestBody CmsTextureBO body) {
-        return null;
+        return cmsCommodityService.updateTexture(textureUuid,body);
     }
 
     @GetMapping("category")
@@ -75,25 +75,25 @@ public class CmsCommodityController {
     @PostMapping("category")
     @ApiOperation(value = "新增类目", response = ResponseEntity.class)
     public ResponseEntity<Object> addCategory(@RequestBody CmsCategoryBO body) {
-        return null;
+        return cmsCommodityService.addCategory(body);
     }
 
-    @DeleteMapping("category/{category}")
+    @DeleteMapping("category/{categoryUuid}")
     @ApiOperation(value = "删除类目", response = ResponseEntity.class)
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "path", dataType = "String", name = "category", value = "类目uuid", required = true),
+            @ApiImplicitParam(paramType = "path", dataType = "String", name = "categoryUuid", value = "类目uuid", required = true),
     })
-    public ResponseEntity<Object> removeCategory(@PathVariable String category) {
-        return null;
+    public ResponseEntity<Object> removeCategory(@PathVariable String categoryUuid) {
+        return cmsCommodityService.removeCategory(categoryUuid);
     }
 
-    @PutMapping("category/{category}")
+    @PutMapping("category/{categoryUuid}")
     @ApiOperation(value = "修改信息类目", response = ResponseEntity.class)
     @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "path", dataType = "String", name = "category", value = "类目uuid", required = true),
+            @ApiImplicitParam(paramType = "path", dataType = "String", name = "categoryUuid", value = "类目uuid", required = true),
     })
-    public ResponseEntity<Object> updateCategory(@PathVariable String category, @RequestBody CmsCategoryBO body) {
-        return null;
+    public ResponseEntity<Object> updateCategory(@PathVariable String categoryUuid, @RequestBody CmsCategoryBO body) {
+        return cmsCommodityService.updateCategory(categoryUuid,body);
     }
 
     @GetMapping("commodityList")

@@ -11,11 +11,15 @@ import lombok.EqualsAndHashCode;
  **/
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CategoryPO extends BasePO{
+public class CategoryPO extends BasePO {
     /**
      * 类目名称
      */
     private String category;
+    /**
+     * 文案
+     */
+    private String copywriting;
     /**
      * 排序
      */

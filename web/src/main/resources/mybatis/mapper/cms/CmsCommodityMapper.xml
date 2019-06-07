@@ -1,4 +1,60 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.ykthink.jewelry.orm.cms.CmsCommodityMapper">
+    <insert id="insertCategory">
+        <selectKey keyProperty="uuid" resultType="string" order="BEFORE">
+            select replace(uuid(), '-', '') as uuid from dual
+        </selectKey>
+        insert into category (uuid,copywriting,category,sort,create_time,modified_time)values
+        (#{uuid},#{copywriting},#{category},#{sort}, DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"),
+        DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"))
+    </insert>
+    <insert id="addTexture">
+        <selectKey keyProperty="uuid" resultType="string" order="BEFORE">
+            select replace(uuid(), '-', '') as uuid from dual
+        </selectKey>
+        insert into texture(uuid,texture_name,create_time
+        ,modified_time)values
+        (#{uuid},#{textureName},DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"),DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"))
+    </insert>
+    <update id="removeCategory">
+        update category
+        set is_deleted    = 1,
+            modified_time = DATE_FORMAT(NOW(), "%Y-%m-%d %H:%i:%s")
+        where uuid = #{categoryUuid}
+    </update>
+    <update id="updateCategory">
+        update category
+        <set>
+            <if test="categoryPO.copywriting!=null and categoryPO.copywriting!=''">
+                copywriting=#{categoryPO.copywriting},
+            </if>
+            <if test="categoryPO.category!=null and categoryPO.category!=''">
+                category=#{categoryPO.category},
+            </if>
+            <if test="categoryPO.sort!=null and categoryPO.sort!=''">
+                sort=#{categoryPO.sort},
+            </if>
+            modified_time = DATE_FORMAT(NOW(), "%Y-%m-%d %H:%i:%s")
+        </set>
+        where uuid-#{categoryUuid}
+    </update>
+    <update id="removeTexture">
+        update texture
+        set is_deleted    = 1,
+            modified_time = DATE_FORMAT(NOW(), "%Y-%m-%d %H:%i:%s")
+        where uuid = #{textureUuid}
+    </update>
+    <update id="updateTexture">
+        update texture
+        set texture_name  = #{texturePO.textureName},
+            modified_time = DATE_FORMAT(NOW(), "%Y-%m-%d %H:%i:%s")
+        where uuid = #{textureUuid}
+    </update>
+    <select id="selectTexture" resultType="cn.ykthink.jewelry.model.cms.commodity.vo.CmsTextureListVO">
+        select uuid, texture_name
+        from texture
+        where is_deleted = 0
+        order by create_time
+    </select>
 </mapper>

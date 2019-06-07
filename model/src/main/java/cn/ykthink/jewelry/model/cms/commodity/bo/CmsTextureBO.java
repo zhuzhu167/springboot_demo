@@ -3,6 +3,8 @@ package cn.ykthink.jewelry.model.cms.commodity.bo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * Author: YK
  * Title: CmsTextureBO
@@ -12,6 +14,7 @@ import lombok.Data;
  */
 @Data
 public class CmsTextureBO {
+    @NotBlank
     @ApiModelProperty(value = "材质名称", name = "texture", example = "a123", dataType = "String", required = true)
     private String textureName;
 }

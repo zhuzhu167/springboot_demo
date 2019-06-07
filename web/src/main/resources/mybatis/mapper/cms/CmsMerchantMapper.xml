@@ -8,8 +8,6 @@ Date: 2019/6/3
 Time: 23:09
 -->
 <mapper namespace="cn.ykthink.jewelry.orm.cms.CmsMerchantMapper">
-
-
     <select id="queryAccountPwd" resultType="cn.ykthink.jewelry.model.cms.merchant.to.CmsMerchantInfoTO">
         select uuid, password
         from users_info

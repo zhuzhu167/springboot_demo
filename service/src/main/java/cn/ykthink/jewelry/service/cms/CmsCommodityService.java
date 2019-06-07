@@ -1,5 +1,7 @@
 package cn.ykthink.jewelry.service.cms;
 
+import cn.ykthink.jewelry.model.cms.commodity.bo.CmsCategoryBO;
+import cn.ykthink.jewelry.model.cms.commodity.bo.CmsTextureBO;
 import org.springframework.http.ResponseEntity;
 
 /**
@@ -47,4 +49,61 @@ public interface CmsCommodityService {
      * @return
      */
     ResponseEntity<Object> category();
+
+    /**
+     * 新增类目
+     *
+     * @param body
+     * @return
+     */
+    ResponseEntity<Object> addCategory(CmsCategoryBO body);
+
+    /**
+     * 删除类目
+     *
+     * @param categoryUuid
+     * @return
+     */
+    ResponseEntity<Object> removeCategory(String categoryUuid);
+
+    /**
+     * 修改类目信息
+     *
+     * @param categoryUuid
+     * @param body
+     * @return
+     */
+    ResponseEntity<Object> updateCategory(String categoryUuid, CmsCategoryBO body);
+
+    /**
+     * 获取材质类别
+     *
+     * @return
+     */
+    ResponseEntity<Object> texture();
+
+    /**
+     * 新增材质
+     *
+     * @param body
+     * @return
+     */
+    ResponseEntity<Object> addTexture(CmsTextureBO body);
+
+    /**
+     * 删除材质
+     *
+     * @param textureUuid
+     * @return
+     */
+    ResponseEntity<Object> removeTexture(String textureUuid);
+
+    /**
+     * 修改材质信息
+     *
+     * @param textureUuid
+     * @param body
+     * @return
+     */
+    ResponseEntity<Object> updateTexture(String textureUuid, CmsTextureBO body);
 }
