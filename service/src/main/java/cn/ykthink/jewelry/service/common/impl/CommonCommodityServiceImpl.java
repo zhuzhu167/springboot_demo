@@ -26,10 +26,10 @@ public class CommonCommodityServiceImpl implements CommonCommodityService {
     CommonCommodityMapper commonCommodityMapper;
 
     @Override
-    public JSONObject commodityList(String categoryUuid, Integer pageNum, Integer pageSize) {
+    public JSONObject commodityList(String categoryUuid,Integer commodityStatus, Integer pageNum, Integer pageSize) {
         Page<Object> page = PageHelper.startPage(pageNum, pageSize);
         JSONObject response = new JSONObject();
-        commonCommodityMapper.selectCommodityIntroduction(categoryUuid);
+        commonCommodityMapper.selectCommodityIntroduction(categoryUuid,commodityStatus);
         response.put("total", page.getTotal());
         response.put("response", page.getResult());
         return response;

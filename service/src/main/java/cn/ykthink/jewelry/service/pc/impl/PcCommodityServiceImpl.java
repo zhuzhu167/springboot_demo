@@ -36,7 +36,7 @@ public class PcCommodityServiceImpl implements PcCommodityService {
 
     @Override
     public ResponseEntity<Object> commodityList(String categoryUuid, Integer pageNum, Integer pageSize) {
-        return ResponseEntitySupport.success(commonCommodityService.commodityList(categoryUuid, pageNum, pageSize));
+        return ResponseEntitySupport.success(commonCommodityService.commodityList(categoryUuid, 1, pageNum, pageSize));
     }
 
     @Override

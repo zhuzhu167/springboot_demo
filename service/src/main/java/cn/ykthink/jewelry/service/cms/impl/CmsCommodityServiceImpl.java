@@ -30,7 +30,7 @@ public class CmsCommodityServiceImpl implements CmsCommodityService {
 
     @Override
     public ResponseEntity<Object> commodityList(String categoryUuid, Integer pageNum, Integer pageSize) {
-        return ResponseEntitySupport.success(commonCommodityService.commodityList(categoryUuid, pageNum, pageSize));
+        return ResponseEntitySupport.success(commonCommodityService.commodityList(categoryUuid,null, pageNum, pageSize));
     }
 
     @Override

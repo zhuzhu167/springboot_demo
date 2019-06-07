@@ -12,6 +12,7 @@ Time: 23:53
                type="cn.ykthink.jewelry.model.common.vo.CommonCommodityListVO">
         <id column="commodity_uuid" property="commodityUuid"/>
         <result column="title" property="title"/>
+        <result column="commodity_no" property="commodityNo"/>
         <result column="subhead" property="subhead"/>
         <result column="commodity_price" property="commodityPrice"/>
         <collection property="imageList" ofType="cn.ykthink.jewelry.model.common.vo.CommonCommodityImageVO"
@@ -25,14 +26,18 @@ Time: 23:53
         select commodity.uuid as commodity_uuid,
         commodity.title as title,
         commodity.subhead as subhead,
-        commodity.commodity_price as commodity_price
+        commodity.commodity_price as commodity_price,
+        commodity.commodity_no
         from commodity
-        where commodity.is_deleted = 0
-        and commodity.commodity_status = 1
-        <if test="categoryUuid!=null and categoryUuid!=''">
-            and commodity.category_uuid=#{categoryUuid}
-        </if>
-        and commodity.commodity_status=1
+        <where>
+            commodity.is_deleted = 0
+            <if test="commodityStatus!=null">
+                and commodity.commodity_status=#{commodityStatus}
+            </if>
+            <if test="categoryUuid!=null and categoryUuid!=''">
+                and commodity.category_uuid=#{categoryUuid}
+            </if>
+        </where>
         order by commodity.commodity_no
     </select>
 
@@ -123,7 +128,7 @@ Time: 23:53
     </select>
 
     <select id="selectIndexCategory" resultType="cn.ykthink.jewelry.model.common.vo.CommonCategoryVO">
-        select uuid as category_uuid, category as category_name,category
+        select uuid as category_uuid, category as category_name, category
         from category
         where is_deleted = 0
     </select>

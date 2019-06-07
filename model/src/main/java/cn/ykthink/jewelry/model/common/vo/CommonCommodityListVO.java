@@ -16,6 +16,9 @@ public class CommonCommodityListVO {
     @ApiModelProperty(value = "商品uuid", name = "commodityUuid", example = "asd123", dataType = "String", required = true)
     private String commodityUuid;
 
+    @ApiModelProperty(value = "商品编号", name = "commodityNo", example = "asd123", dataType = "String", required = true)
+    private String commodityNo;
+
     @ApiModelProperty(value = "图片list", name = "imageUuidList", example = "", dataType = "List", required = true)
     private List<CommonCommodityImageVO> imageList;
 

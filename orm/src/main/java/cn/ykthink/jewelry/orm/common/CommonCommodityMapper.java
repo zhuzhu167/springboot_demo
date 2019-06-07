@@ -25,7 +25,7 @@ public interface CommonCommodityMapper {
      * 商品列表
      * @return
      */
-    List<CommonCommodityListVO> selectCommodityIntroduction(@Param("categoryUuid") String categoryUuid);
+    List<CommonCommodityListVO> selectCommodityIntroduction(@Param("categoryUuid") String categoryUuid,@Param("commodityStatus")Integer commodityStatus);
 
 
     /**

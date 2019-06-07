@@ -13,7 +13,7 @@ public interface CommonCommodityService {
      *
      * @return
      */
-    Object commodityList(String categoryUuid, Integer pageNum, Integer pageSize);
+    Object commodityList(String categoryUuid,Integer commodityStatus, Integer pageNum, Integer pageSize);
 
     /**
      * 商品详情
