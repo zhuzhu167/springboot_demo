@@ -1,10 +1,7 @@
 package cn.ykthink.jewelry.cms.controller;
 
 import cn.ykthink.jewelry.core.uri.SystemUri;
-import cn.ykthink.jewelry.model.cms.commodity.bo.CmsCategoryBO;
-import cn.ykthink.jewelry.model.cms.commodity.bo.CmsCommodityBO;
-import cn.ykthink.jewelry.model.cms.commodity.bo.CmsShelfCommodityBO;
-import cn.ykthink.jewelry.model.cms.commodity.bo.CmsTextureBO;
+import cn.ykthink.jewelry.model.cms.commodity.bo.*;
 import cn.ykthink.jewelry.model.cms.commodity.vo.CmsCommodityListVO;
 import cn.ykthink.jewelry.model.cms.commodity.vo.CmsTextureListVO;
 import cn.ykthink.jewelry.model.common.vo.CommonCategoryVO;
@@ -63,7 +60,7 @@ public class CmsCommodityController {
             @ApiImplicitParam(paramType = "path", dataType = "String", name = "textureUuid", value = "材质uuid", required = true),
     })
     public ResponseEntity<Object> updateTexture(@PathVariable String textureUuid, @RequestBody CmsTextureBO body) {
-        return cmsCommodityService.updateTexture(textureUuid,body);
+        return cmsCommodityService.updateTexture(textureUuid, body);
     }
 
     @GetMapping("category")
@@ -93,8 +90,53 @@ public class CmsCommodityController {
             @ApiImplicitParam(paramType = "path", dataType = "String", name = "categoryUuid", value = "类目uuid", required = true),
     })
     public ResponseEntity<Object> updateCategory(@PathVariable String categoryUuid, @RequestBody CmsCategoryBO body) {
-        return cmsCommodityService.updateCategory(categoryUuid,body);
+        return cmsCommodityService.updateCategory(categoryUuid, body);
     }
+
+    @GetMapping("jewelryList")
+    @ApiOperation(value = "钻石列表", response = CommonJewelryListVO.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", dataType = "int", name = "pageNum", value = "第几页", required = false),
+            @ApiImplicitParam(paramType = "query", dataType = "int", name = "pageSize", value = "显示多少条", required = false)
+    })
+    public ResponseEntity<Object> jewelryList(@ParameterValid(type = Integer.class, msg = "pageNum不能为空", isMin = true) @RequestParam(defaultValue = "${jewelry.pages.page_index}") Integer pageNum,
+                                              @ParameterValid(type = Integer.class, msg = "pageSize不能为空", isMin = true) @RequestParam(defaultValue = "${jewelry.pages.page_size}") Integer pageSize) {
+        return cmsCommodityService.jewelryList(pageNum, pageSize);
+    }
+
+    @GetMapping("jewelry/{jewelryUuid}")
+    @ApiOperation(value = "钻石详情", response = CommonJewelryInfoVO.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "path", dataType = "String", name = "jewelryUuid", value = "钻石uuid", required = true),
+    })
+    public ResponseEntity<Object> jewelryInfo(@PathVariable String jewelryUuid) {
+        return cmsCommodityService.jewelryInfo(jewelryUuid);
+    }
+
+    @PostMapping("jewelry")
+    @ApiOperation(value = "新增商品", response = ResponseEntity.class)
+    public ResponseEntity<Object> addJewelry(@RequestBody CmsJewelryBO  body) {
+        return null;
+    }
+
+    @PutMapping("jewelry/{jewelryUuid}")
+    @ApiOperation(value = "修改钻石信息", response = ResponseEntity.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "path", dataType = "String", name = "jewelryUuid", value = "钻石uuid", required = true),
+    })
+    public ResponseEntity<Object> modifyJewelry(@PathVariable String jewelryUuid, @RequestBody CmsJewelryBO  body) {
+        return null;
+    }
+
+    @DeleteMapping("jewelry/{jewelryUuid}")
+    @ApiOperation(value = "删除钻石", response = ResponseEntity.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "path", dataType = "String", name = "jewelryUuid", value = "钻石uuid", required = true),
+    })
+    public ResponseEntity<Object> removeJewelry(@PathVariable String jewelryUuid) {
+        return null;
+    }
+
 
     @GetMapping("commodityList")
     @ApiOperation(value = "商品列表", response = CmsCommodityListVO.class)
@@ -117,26 +159,6 @@ public class CmsCommodityController {
     })
     public ResponseEntity<Object> commodity(@PathVariable String commodityUuid) {
         return cmsCommodityService.commodity(commodityUuid);
-    }
-
-    @GetMapping("jewelryList")
-    @ApiOperation(value = "钻石列表", response = CommonJewelryListVO.class)
-    @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "query", dataType = "int", name = "pageNum", value = "第几页", required = false),
-            @ApiImplicitParam(paramType = "query", dataType = "int", name = "pageSize", value = "显示多少条", required = false)
-    })
-    public ResponseEntity<Object> jewelryList(@ParameterValid(type = Integer.class, msg = "pageNum不能为空", isMin = true) @RequestParam(defaultValue = "${jewelry.pages.page_index}") Integer pageNum,
-                                              @ParameterValid(type = Integer.class, msg = "pageSize不能为空", isMin = true) @RequestParam(defaultValue = "${jewelry.pages.page_size}") Integer pageSize) {
-        return cmsCommodityService.jewelryList(pageNum, pageSize);
-    }
-
-    @GetMapping("jewelry/{jewelryUuid}")
-    @ApiOperation(value = "钻石详情", response = CommonJewelryInfoVO.class)
-    @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "path", dataType = "String", name = "jewelryUuid", value = "钻石uuid", required = true),
-    })
-    public ResponseEntity<Object> jewelryInfo(@PathVariable String jewelryUuid) {
-        return cmsCommodityService.jewelryInfo(jewelryUuid);
     }
 
     @PostMapping("commodity")
@@ -168,7 +190,7 @@ public class CmsCommodityController {
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "path", dataType = "String", name = "commodityUuid", value = "商品uuid", required = true),
     })
-    public ResponseEntity<Object> modifyCommodity(@PathVariable String commodityUuid, @RequestBody CmsShelfCommodityBO body) {
+    public ResponseEntity<Object> modifyCommodity(@PathVariable String commodityUuid, @RequestBody CmsCommodityBO body) {
         return null;
     }
 
