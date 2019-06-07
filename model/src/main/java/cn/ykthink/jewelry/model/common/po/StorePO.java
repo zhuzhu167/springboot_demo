@@ -11,11 +11,7 @@ import lombok.EqualsAndHashCode;
  **/
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class StorePO extends BasePO{
-    /**
-     * 历史库存总量
-     */
-    private Integer storeTotal;
+public class StorePO extends BasePO {
     /**
      * 库存剩余量
      */

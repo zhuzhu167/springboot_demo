@@ -114,9 +114,9 @@ public class CmsCommodityController {
     }
 
     @PostMapping("jewelry")
-    @ApiOperation(value = "新增商品", response = ResponseEntity.class)
-    public ResponseEntity<Object> addJewelry(@RequestBody CmsJewelryBO  body) {
-        return null;
+    @ApiOperation(value = "新增钻石", response = ResponseEntity.class)
+    public ResponseEntity<Object> addJewelry(@RequestBody CmsJewelryBO body) {
+        return cmsCommodityService.addJewelry(body);
     }
 
     @PutMapping("jewelry/{jewelryUuid}")
@@ -124,8 +124,8 @@ public class CmsCommodityController {
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "path", dataType = "String", name = "jewelryUuid", value = "钻石uuid", required = true),
     })
-    public ResponseEntity<Object> modifyJewelry(@PathVariable String jewelryUuid, @RequestBody CmsJewelryBO  body) {
-        return null;
+    public ResponseEntity<Object> modifyJewelry(@PathVariable String jewelryUuid, @RequestBody CmsJewelryBO body) {
+        return cmsCommodityService.modifyJewelry(jewelryUuid,body);
     }
 
     @DeleteMapping("jewelry/{jewelryUuid}")
@@ -134,7 +134,7 @@ public class CmsCommodityController {
             @ApiImplicitParam(paramType = "path", dataType = "String", name = "jewelryUuid", value = "钻石uuid", required = true),
     })
     public ResponseEntity<Object> removeJewelry(@PathVariable String jewelryUuid) {
-        return null;
+        return cmsCommodityService.removeJewelry(jewelryUuid);
     }
 
 
@@ -164,7 +164,7 @@ public class CmsCommodityController {
     @PostMapping("commodity")
     @ApiOperation(value = "新增商品", response = ResponseEntity.class)
     public ResponseEntity<Object> addCommodity(@RequestBody CmsCommodityBO body) {
-        return null;
+        return cmsCommodityService.addCommodity(body);
     }
 
     @PutMapping("commodityStatus/{commodityUuid}")
@@ -173,7 +173,7 @@ public class CmsCommodityController {
             @ApiImplicitParam(paramType = "path", dataType = "String", name = "commodityUuid", value = "商品uuid", required = true),
     })
     public ResponseEntity<Object> shelfCommodity(@PathVariable String commodityUuid, @RequestBody CmsShelfCommodityBO body) {
-        return null;
+        return cmsCommodityService.shelfCommodity(commodityUuid,body);
     }
 
     @DeleteMapping("commodity/{commodityUuid}")
@@ -182,7 +182,7 @@ public class CmsCommodityController {
             @ApiImplicitParam(paramType = "path", dataType = "String", name = "commodityUuid", value = "商品uuid", required = true),
     })
     public ResponseEntity<Object> removeCommodity(@PathVariable String commodityUuid) {
-        return null;
+        return cmsCommodityService.removeCommodity(commodityUuid);
     }
 
     @PutMapping("commodity/{commodityUuid}")
@@ -191,7 +191,7 @@ public class CmsCommodityController {
             @ApiImplicitParam(paramType = "path", dataType = "String", name = "commodityUuid", value = "商品uuid", required = true),
     })
     public ResponseEntity<Object> modifyCommodity(@PathVariable String commodityUuid, @RequestBody CmsCommodityBO body) {
-        return null;
+        return cmsCommodityService.modifyCommodity(commodityUuid,body);
     }
 
 }

@@ -17,12 +17,40 @@
         ,modified_time)values
         (#{uuid},#{textureName},DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"),DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"))
     </insert>
-    <update id="removeCategory">
-        update category
-        set is_deleted    = 1,
-            modified_time = DATE_FORMAT(NOW(), "%Y-%m-%d %H:%i:%s")
-        where uuid = #{categoryUuid}
-    </update>
+    <insert id="addJewelry">
+        <selectKey keyProperty="uuid" resultType="string" order="BEFORE">
+            select replace(uuid(), '-', '') as uuid from dual
+        </selectKey>
+        insert into jewelry(uuid, jewelry_no, shape, color, clarity, cut, polishing, light, jewelry_price, create_time,
+        modified_time)values
+        (#{uuid},#{jewelryNo},#{shape},#{color},#{clarity},#{cut},#{polishing},#{light},#{jewelryPrice},DATE_FORMAT(NOW(),"%Y-%m-%d
+        %H:%i:%s"),DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"))
+
+    </insert>
+    <insert id="addImage">
+        insert into images (uuid, commodity_jewelry_uuid,image_url,image_number,create_time,modified_time)
+        values
+        <foreach collection="imageList" item="item" index="index" separator=",">
+            (replace(uuid(), '-', ''), #{commodityJewelryUuid},#{item.imageUrl},#{item.sort},DATE_FORMAT(NOW(),"%Y-%m-%d
+            %H:%i:%s"),DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"))
+        </foreach>
+    </insert>
+    <insert id="addStore">
+        <selectKey keyProperty="uuid" resultType="string" order="BEFORE">
+            select replace(uuid(), '-', '') as uuid from dual
+        </selectKey>
+        insert store (uuid, store_consumption, create_time, modified_time)values
+        (#{uuid},#{storeConsumption},DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"),DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"))
+    </insert>
+    <insert id="addCommodity">
+        <selectKey keyProperty="uuid" resultType="string" order="BEFORE">
+            select replace(uuid(), '-', '') as uuid from dual
+        </selectKey>
+        insert commodity (uuid, texture_uuid, store_uuid, category_uuid, commodity_no, commodity_price, title,
+        subhead, detail, create_time, modified_time)values
+        (#{uuid},#{textureUuid},#{storeUuid},#{categoryUuid},#{commodityNo},#{commodityPrice},#{title},#{subhead},#{detail},DATE_FORMAT(NOW(),"%Y-%m-%d
+        %H:%i:%s"),DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"))
+    </insert>
     <update id="updateCategory">
         update category
         <set>
@@ -39,17 +67,60 @@
         </set>
         where uuid-#{categoryUuid}
     </update>
-    <update id="removeTexture">
-        update texture
-        set is_deleted    = 1,
-            modified_time = DATE_FORMAT(NOW(), "%Y-%m-%d %H:%i:%s")
-        where uuid = #{textureUuid}
-    </update>
     <update id="updateTexture">
         update texture
         set texture_name  = #{texturePO.textureName},
             modified_time = DATE_FORMAT(NOW(), "%Y-%m-%d %H:%i:%s")
         where uuid = #{textureUuid}
+    </update>
+    <update id="removeIsDeleted">
+        update ${tableName}
+        set is_deleted    = 1,
+            modified_time = DATE_FORMAT(NOW(), "%Y-%m-%d %H:%i:%s")
+        where uuid = #{uuid}
+    </update>
+    <update id="modifyJewelry">
+        update jewelry
+        <set>
+            shape=#{shape}, color=#{color}, clarity=#{clarity}, cut=#{cut}, polishing=#{polishing}, light=#{light},
+            jewelry_price=#{jewelryPrice}
+        </set>
+        where uuid=#{uuid}
+    </update>
+    <update id="removeImage">
+        update images
+        set is_deleted    = 1,
+            modified_time = DATE_FORMAT(NOW(), "%Y-%m-%d %H:%i:%s")
+        where commodity_jewelry_uuid = #{commodityJewelryUuid}
+    </update>
+    <update id="restoreImage">
+        update images
+        set is_deleted = 0
+        where uuid = #{imageUuid}
+    </update>
+    <update id="shelfCommodity">
+        update commodity
+        set commodity_status = #{commodityStatus},
+            modified_time    = DATE_FORMAT(NOW(), "%Y-%m-%d %H:%i:%s")
+        where uuid = #{commodityUuid}
+    </update>
+    <update id="updateCommodity">
+        update commodity
+        set uuid            = #{uuid},
+            texture_uuid    = #{textureUuid},
+            category_uuid   = #{categoryUuid},
+            commodity_price = #{commodityPrice},
+            title           = #{title},
+            subhead         = #{subhead},
+            detail          = #{detail},
+            modified_time   = DATE_FORMAT(NOW(), "%Y-%m-%d %H:%i:%s")
+        where uuid = #{uuid}
+    </update>
+    <update id="updateStore">
+        update store
+        set store_consumption = #{store},
+            modified_time     = DATE_FORMAT(NOW(), "%Y-%m-%d %H:%i:%s")
+        where uuid in (select store_uuid as uuid from commodity where uuid = #{commodityUuid})
     </update>
     <select id="selectTexture" resultType="cn.ykthink.jewelry.model.cms.commodity.vo.CmsTextureListVO">
         select uuid, texture_name

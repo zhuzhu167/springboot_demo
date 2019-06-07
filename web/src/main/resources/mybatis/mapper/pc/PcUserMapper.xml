@@ -51,7 +51,8 @@ Time: 15:23
     </update>
     <update id="removeIsDeleted">
         update ${tableName}
-        set is_deleted = 1
+        set is_deleted    = 1,
+            modified_time = DATE_FORMAT(NOW(), "%Y-%m-%d %H:%i:%s")
         where uuid = #{uuid}
     </update>
     <update id="updateConsignee">

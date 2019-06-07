@@ -1,9 +1,9 @@
 package cn.ykthink.jewelry.orm.cms;
 
+import cn.ykthink.jewelry.model.cms.commodity.bo.CmsCommodityJewelryImageBO;
 import cn.ykthink.jewelry.model.cms.commodity.bo.CmsTextureBO;
 import cn.ykthink.jewelry.model.cms.commodity.vo.CmsTextureListVO;
-import cn.ykthink.jewelry.model.common.po.CategoryPO;
-import cn.ykthink.jewelry.model.common.po.TexturePO;
+import cn.ykthink.jewelry.model.common.po.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -29,13 +29,6 @@ public interface CmsCommodityMapper {
     Integer insertCategory(CategoryPO categoryPO);
 
     /**
-     * 删除类目
-     *
-     * @param categoryUuid
-     */
-    Integer removeCategory(String categoryUuid);
-
-    /**
      * 修改类目信息
      *
      * @param categoryUuid
@@ -59,17 +52,94 @@ public interface CmsCommodityMapper {
     Integer addTexture(TexturePO texturePO);
 
     /**
-     * 删除材质
-     *
-     * @param textureUuid
-     */
-    Integer removeTexture(String textureUuid);
-
-    /**
      * 修改材质信息
      *
      * @param textureUuid
      * @param texturePO
      */
     Integer updateTexture(@Param("textureUuid") String textureUuid, @Param("texturePO") TexturePO texturePO);
+
+    /**
+     * 新增钻石信息
+     *
+     * @param jewelryPO
+     */
+    Integer addJewelry(JewelryPO jewelryPO);
+
+
+    /**
+     * 逻辑删除
+     *
+     * @param tableName
+     * @param uuid
+     * @return
+     */
+    Integer removeIsDeleted(@Param("tableName") String tableName, @Param("uuid") String uuid);
+
+    /**
+     * 更新钻石信息
+     *
+     * @param jewelryPO
+     */
+    Integer modifyJewelry(JewelryPO jewelryPO);
+
+    /**
+     * 插入图片
+     *
+     * @param imageList
+     */
+    Integer addImage(@Param("commodityJewelryUuid") String commodityJewelryUuid, @Param("imageList") List<CmsCommodityJewelryImageBO> imageList);
+
+    /**
+     * 删除图片
+     *
+     * @param commodityJewelryUuid
+     * @return
+     */
+    Integer removeImage(@Param("commodityJewelryUuid") String commodityJewelryUuid);
+
+    /**
+     * 恢复图片
+     *
+     * @param imageUuid
+     * @return
+     */
+    Integer restoreImage(String imageUuid);
+
+    /**
+     * 上下架商品
+     *
+     * @param commodityUuid
+     * @param commodityStatus
+     */
+    Integer shelfCommodity(String commodityUuid, Integer commodityStatus);
+
+    /**
+     * 生成库存
+     *
+     * @param storePO
+     * @return
+     */
+    Integer addStore(StorePO storePO);
+
+    /**
+     * @param commodityPO
+     */
+    Integer addCommodity(CommodityPO commodityPO);
+
+    /**
+     * 更新商品信息
+     *
+     * @param commodityPO
+     * @return
+     */
+    Integer updateCommodity(CommodityPO commodityPO);
+
+    /**
+     * 更新库存
+     *
+     * @param commodityUuid
+     * @param store
+     */
+    void updateStore(@Param("commodityUuid") String commodityUuid, @Param("store") Integer store);
 }

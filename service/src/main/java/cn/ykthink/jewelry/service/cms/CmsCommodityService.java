@@ -1,7 +1,6 @@
 package cn.ykthink.jewelry.service.cms;
 
-import cn.ykthink.jewelry.model.cms.commodity.bo.CmsCategoryBO;
-import cn.ykthink.jewelry.model.cms.commodity.bo.CmsTextureBO;
+import cn.ykthink.jewelry.model.cms.commodity.bo.*;
 import org.springframework.http.ResponseEntity;
 
 /**
@@ -106,4 +105,63 @@ public interface CmsCommodityService {
      * @return
      */
     ResponseEntity<Object> updateTexture(String textureUuid, CmsTextureBO body);
+
+    /**
+     * 新增钻石
+     *
+     * @param body
+     * @return
+     */
+    ResponseEntity<Object> addJewelry(CmsJewelryBO body);
+
+    /**
+     * 修改钻石信息
+     *
+     * @param jewelryUuid
+     * @param body
+     * @return
+     */
+    ResponseEntity<Object> modifyJewelry(String jewelryUuid, CmsJewelryBO body);
+
+    /**
+     * 删除钻石
+     *
+     * @param jewelryUuid
+     * @return
+     */
+    ResponseEntity<Object> removeJewelry(String jewelryUuid);
+
+    /**
+     * 删除商品
+     *
+     * @param commodityUuid
+     * @return
+     */
+    ResponseEntity<Object> removeCommodity(String commodityUuid);
+
+    /**
+     * 上下架商品
+     *
+     * @param commodityUuid
+     * @param body
+     * @return
+     */
+    ResponseEntity<Object> shelfCommodity(String commodityUuid, CmsShelfCommodityBO body);
+
+    /**
+     * 新增商品
+     *
+     * @param body
+     * @return
+     */
+    ResponseEntity<Object> addCommodity(CmsCommodityBO body);
+
+    /**
+     * 修改商品信息
+     *
+     * @param commodityUuid
+     * @param body
+     * @return
+     */
+    ResponseEntity<Object> modifyCommodity(String commodityUuid, CmsCommodityBO body);
 }

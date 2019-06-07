@@ -1,11 +1,10 @@
 package cn.ykthink.jewelry.model.cms.commodity.bo;
 
-import cn.ykthink.jewelry.model.common.vo.CommonCommodityImageVO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.apache.ibatis.annotations.Param;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -18,15 +17,9 @@ import java.util.List;
  */
 @Data
 public class CmsJewelryBO {
-
-    @NotBlank
-    @ApiModelProperty(value = "钻石编号", name = "jewelryNo", example = "a123", dataType = "String", required = true)
-    private String jewelryNo;
-
     @NotBlank
     @ApiModelProperty(value = "形状", name = "shape", example = "a123", dataType = "String", required = true)
     private String shape;
-
     @NotBlank
     @ApiModelProperty(value = "颜色", name = "color", example = "a123", dataType = "String", required = true)
     private String color;
@@ -42,11 +35,11 @@ public class CmsJewelryBO {
     @NotBlank
     @ApiModelProperty(value = "莹光", name = "light", example = "a123", dataType = "String", required = true)
     private String light;
-    @NotBlank
-    @ApiModelProperty(value = "价格", name = "jewelryPrice", example = "a123", dataType = "jewelryPrice", required = true)
+    @NotNull
+    @ApiModelProperty(value = "价格", name = "jewelryPrice", example = "123", dataType = "BigDecimal", required = true)
     private BigDecimal jewelryPrice;
 
     @ApiModelProperty(value = "图片list", name = "imageUuidList", example = "", dataType = "List", required = true)
-    private List<CommonCommodityImageVO> imageList;
+    private List<CmsCommodityJewelryImageBO> imageList;
 
 }
