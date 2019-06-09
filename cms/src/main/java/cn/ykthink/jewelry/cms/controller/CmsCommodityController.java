@@ -15,6 +15,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -41,7 +42,7 @@ public class CmsCommodityController {
 
     @PostMapping("texture")
     @ApiOperation(value = "新增材质", response = ResponseEntity.class)
-    public ResponseEntity<Object> addTexture(@RequestBody CmsTextureBO body) {
+    public ResponseEntity<Object> addTexture(@RequestBody @Validated CmsTextureBO body) {
         return cmsCommodityService.addTexture(body);
     }
 
@@ -59,7 +60,7 @@ public class CmsCommodityController {
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "path", dataType = "String", name = "textureUuid", value = "材质uuid", required = true),
     })
-    public ResponseEntity<Object> updateTexture(@PathVariable String textureUuid, @RequestBody CmsTextureBO body) {
+    public ResponseEntity<Object> updateTexture(@PathVariable String textureUuid, @RequestBody @Validated CmsTextureBO body) {
         return cmsCommodityService.updateTexture(textureUuid, body);
     }
 
@@ -71,7 +72,7 @@ public class CmsCommodityController {
 
     @PostMapping("category")
     @ApiOperation(value = "新增类目", response = ResponseEntity.class)
-    public ResponseEntity<Object> addCategory(@RequestBody CmsCategoryBO body) {
+    public ResponseEntity<Object> addCategory(@RequestBody @Validated CmsCategoryBO body) {
         return cmsCommodityService.addCategory(body);
     }
 
@@ -89,7 +90,7 @@ public class CmsCommodityController {
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "path", dataType = "String", name = "categoryUuid", value = "类目uuid", required = true),
     })
-    public ResponseEntity<Object> updateCategory(@PathVariable String categoryUuid, @RequestBody CmsCategoryBO body) {
+    public ResponseEntity<Object> updateCategory(@PathVariable String categoryUuid, @RequestBody @Validated CmsCategoryBO body) {
         return cmsCommodityService.updateCategory(categoryUuid, body);
     }
 
@@ -115,7 +116,7 @@ public class CmsCommodityController {
 
     @PostMapping("jewelry")
     @ApiOperation(value = "新增钻石", response = ResponseEntity.class)
-    public ResponseEntity<Object> addJewelry(@RequestBody CmsJewelryBO body) {
+    public ResponseEntity<Object> addJewelry(@RequestBody @Validated CmsJewelryBO body) {
         return cmsCommodityService.addJewelry(body);
     }
 
@@ -124,7 +125,7 @@ public class CmsCommodityController {
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "path", dataType = "String", name = "jewelryUuid", value = "钻石uuid", required = true),
     })
-    public ResponseEntity<Object> modifyJewelry(@PathVariable String jewelryUuid, @RequestBody CmsJewelryBO body) {
+    public ResponseEntity<Object> modifyJewelry(@PathVariable String jewelryUuid, @RequestBody @Validated CmsJewelryBO body) {
         return cmsCommodityService.modifyJewelry(jewelryUuid,body);
     }
 
@@ -163,7 +164,7 @@ public class CmsCommodityController {
 
     @PostMapping("commodity")
     @ApiOperation(value = "新增商品", response = ResponseEntity.class)
-    public ResponseEntity<Object> addCommodity(@RequestBody CmsCommodityBO body) {
+    public ResponseEntity<Object> addCommodity(@RequestBody @Validated  CmsCommodityBO body) {
         return cmsCommodityService.addCommodity(body);
     }
 
@@ -172,7 +173,7 @@ public class CmsCommodityController {
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "path", dataType = "String", name = "commodityUuid", value = "商品uuid", required = true),
     })
-    public ResponseEntity<Object> shelfCommodity(@PathVariable String commodityUuid, @RequestBody CmsShelfCommodityBO body) {
+    public ResponseEntity<Object> shelfCommodity(@PathVariable String commodityUuid, @RequestBody  @Validated CmsShelfCommodityBO body) {
         return cmsCommodityService.shelfCommodity(commodityUuid,body);
     }
 
@@ -181,7 +182,7 @@ public class CmsCommodityController {
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "path", dataType = "String", name = "commodityUuid", value = "商品uuid", required = true),
     })
-    public ResponseEntity<Object> removeCommodity(@PathVariable String commodityUuid) {
+    public ResponseEntity<Object> removeCommodity(@PathVariable @Validated String commodityUuid) {
         return cmsCommodityService.removeCommodity(commodityUuid);
     }
 
@@ -190,7 +191,7 @@ public class CmsCommodityController {
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "path", dataType = "String", name = "commodityUuid", value = "商品uuid", required = true),
     })
-    public ResponseEntity<Object> modifyCommodity(@PathVariable String commodityUuid, @RequestBody CmsCommodityBO body) {
+    public ResponseEntity<Object> modifyCommodity(@PathVariable  String commodityUuid, @RequestBody @Validated CmsCommodityBO body) {
         return cmsCommodityService.modifyCommodity(commodityUuid,body);
     }
 
