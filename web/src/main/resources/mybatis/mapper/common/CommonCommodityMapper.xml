@@ -43,7 +43,7 @@ Time: 23:53
 
     <select id="selectCommodityJewelryIntroductionImage"
             resultType="cn.ykthink.jewelry.model.common.vo.CommonCommodityImageVO">
-        select image_url
+        select image_url,uuid as image_uuid
         from images
         where commodity_jewelry_uuid = #{commodityJewelryUuid}
           and is_deleted = 0

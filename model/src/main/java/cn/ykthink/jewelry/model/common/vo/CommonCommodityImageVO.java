@@ -11,6 +11,8 @@ import lombok.Data;
  **/
 @Data
 public class CommonCommodityImageVO {
+    @ApiModelProperty(value = "图片uuid", name = "imageUuid", example = "sdfsdf1231", dataType = "String", required = true)
+    private String imageUuid;
     @ApiModelProperty(value = "图片url", name = "imageUrl", example = "qweasdzxc", dataType = "String", required = true)
     private String imageUrl;
 }
