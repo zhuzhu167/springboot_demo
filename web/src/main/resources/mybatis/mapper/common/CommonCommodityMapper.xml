@@ -43,7 +43,7 @@ Time: 23:53
 
     <select id="selectCommodityJewelryIntroductionImage"
             resultType="cn.ykthink.jewelry.model.common.vo.CommonCommodityImageVO">
-        select image_url,uuid as image_uuid
+        select image_url, uuid as image_uuid
         from images
         where commodity_jewelry_uuid = #{commodityJewelryUuid}
           and is_deleted = 0
@@ -57,6 +57,7 @@ Time: 23:53
         <result column="commodity_price" property="commodityPrice"/>
         <result column="detail" property="detail"/>
         <result column="texture_name" property="textureName"/>
+        <result column="texture_uuid" property="textureUuid"/>
         <collection property="imageList" ofType="cn.ykthink.jewelry.model.common.vo.CommonCommodityImageVO"
                     column="{commodityJewelryUuid=commodity_uuid}"
                     select="selectCommodityJewelryIntroductionImage">
@@ -71,6 +72,7 @@ Time: 23:53
                commodity.subhead         as subhead,
                commodity.commodity_price as commodity_price,
                commodity.detail          as detail,
+               texture.uuid              as texture_uuid,
                texture.texture_name      as texture_name
         from commodity
                  left join texture on commodity.texture_uuid = texture.uuid

@@ -141,5 +141,5 @@ public interface CmsCommodityMapper {
      * @param commodityUuid
      * @param store
      */
-    void updateStore(@Param("commodityUuid") String commodityUuid, @Param("store") Integer store);
+    Integer updateStore(@Param("commodityUuid") String commodityUuid, @Param("store") Integer store);
 }

@@ -18,12 +18,12 @@
         <result column="logistics_name" property="logisticsName"/>
         <result column="logistics_number" property="logisticsNumber"/>
         <result column="logistics_status" property="logisticsStatus"/>
-        <collection property="orderCommodityList" ofType="cn.ykthink.jewelry.model.common.vo.CommonCommodityInfoVO"
+        <collection property="orderCommodityList" ofType="cn.ykthink.jewelry.model.common.vo.CommonOrderCommodityInfoVO"
                     column="{orderUuid=o_uuid}"
                     select="selectOrderCommodity">
         </collection>
     </resultMap>
-    <resultMap id="selectOrderCommodityMap" type="cn.ykthink.jewelry.model.common.vo.CommonCommodityInfoVO">
+    <resultMap id="selectOrderCommodityMap" type="cn.ykthink.jewelry.model.common.vo.CommonOrderCommodityInfoVO">
         <id column="order_commodity_uuid" property="orderCommodityUuid"/>
         <result column="commodity_no" property="commodityNo"/>
         <result column="title" property="title"/>
@@ -37,12 +37,12 @@
                     select="selectCommodityJewelryIntroductionImage">
             <result column="image_url" property="imageUrl"/>
         </collection>
-        <collection property="orderJewelry" ofType="cn.ykthink.jewelry.model.common.vo.CommonJewelryInfoVO"
+        <collection property="orderJewelry" ofType="cn.ykthink.jewelry.model.common.vo.CommonOrderJewelryInfoVO"
                     column="{orderJewelryUuid=order_jewelry_uuid}"
                     select="selectOrderJewelry">
         </collection>
     </resultMap>
-    <resultMap id="selectOrderJewelryMap" type="cn.ykthink.jewelry.model.common.vo.CommonJewelryInfoVO">
+    <resultMap id="selectOrderJewelryMap" type="cn.ykthink.jewelry.model.common.vo.CommonOrderJewelryInfoVO">
         <result column="jewelry_no" property="jewelryNo"/>
         <result column="shape" property="shape"/>
         <result column="color" property="color"/>

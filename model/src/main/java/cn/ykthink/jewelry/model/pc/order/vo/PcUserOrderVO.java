@@ -2,6 +2,7 @@ package cn.ykthink.jewelry.model.pc.order.vo;
 
 import cn.ykthink.jewelry.model.common.vo.CommonCommodityInfoVO;
 import cn.ykthink.jewelry.model.common.vo.CommonJewelryInfoVO;
+import cn.ykthink.jewelry.model.common.vo.CommonOrderCommodityInfoVO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -20,7 +21,7 @@ public class PcUserOrderVO {
     private String orderUuid;
 
     @ApiModelProperty(value = "订单商品list", name = "orderCommodityList", dataType = "List", required = true)
-    private List<CommonCommodityInfoVO> orderCommodityList;
+    private List<CommonOrderCommodityInfoVO> orderCommodityList;
 
     @ApiModelProperty(value = "订单状态", name = "orderStatus", example = "1", dataType = "Integer", required = true)
     private Integer orderStatus;

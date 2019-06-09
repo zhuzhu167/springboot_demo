@@ -8,13 +8,13 @@ import java.util.List;
 
 /**
  * Author: YK
- * Title: PcCommodityJewelryInfoVO
+ * Title: CommonOrderJewelryInfoVO
  * Description: 砖石vo
  * Date: 2019/5/17
  * Time: 8:20
  */
 @Data
-public class CommonJewelryInfoVO {
+public class CommonOrderJewelryInfoVO {
     @ApiModelProperty(value = "钻石uuid", name = "jewelryUuid", example = "a123", dataType = "String", required = true)
     private String jewelryUuid;
 
@@ -44,5 +44,8 @@ public class CommonJewelryInfoVO {
 
     @ApiModelProperty(value = "图片list", name = "imageUuidList", example = "", dataType = "List", required = true)
     private List<CommonCommodityImageVO> imageList;
+
+    @ApiModelProperty(value = "订单钻石uuid", name = "orderJewelryUuid", example = "a123", dataType = "String", required = true)
+    private String orderJewelryUuid;
 
 }

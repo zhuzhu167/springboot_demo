@@ -1,6 +1,5 @@
 package cn.ykthink.jewelry.model.common.vo;
 
-import cn.ykthink.jewelry.model.pc.user.vo.PcUserStoreVO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -8,13 +7,13 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * program: jewelry
+ * program: CommonOrderCommodityInfoVO
  * description:商品VO
  * author: mi
  * create: 2019-05-09 15:24
  **/
 @Data
-public class CommonCommodityInfoVO {
+public class CommonOrderCommodityInfoVO {
     @ApiModelProperty(value = "商品uuid", name = "commodityUuid", example = "asd123", dataType = "String", required = true)
     private String commodityUuid;
 
@@ -27,9 +26,6 @@ public class CommonCommodityInfoVO {
     @ApiModelProperty(value = "价格", name = "commodityPrice", example = "1314", dataType = "BigDecimal", required = true)
     private BigDecimal commodityPrice;
 
-    @ApiModelProperty(value = "材质uuid", name = "textureUuid", example = "111", dataType = "String", required = true)
-    private String textureUuid;
-
     @ApiModelProperty(value = "材质", name = "textureName", example = "111", dataType = "String", required = true)
     private String textureName;
 
@@ -41,4 +37,10 @@ public class CommonCommodityInfoVO {
 
     @ApiModelProperty(value = "商品详情", name = "detail", example = "qweasdzxc", dataType = "String", required = true)
     private String detail;
+
+    @ApiModelProperty(value = "订单商品uuid", name = "orderCommodityUuid", example = "a123", dataType = "String", required = true)
+    private String orderCommodityUuid;
+
+    @ApiModelProperty(value = "订单钻石list", name = "CommonJewelryInfoVO", dataType = "CommonJewelryInfoVO", required = true)
+    private CommonOrderJewelryInfoVO orderJewelry;
 }

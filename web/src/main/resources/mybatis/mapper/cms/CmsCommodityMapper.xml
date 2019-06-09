@@ -110,7 +110,6 @@
     <update id="updateCommodity">
         update commodity
         set uuid            = #{uuid},
-            texture_uuid    = #{textureUuid},
             category_uuid   = #{categoryUuid},
             commodity_price = #{commodityPrice},
             title           = #{title},

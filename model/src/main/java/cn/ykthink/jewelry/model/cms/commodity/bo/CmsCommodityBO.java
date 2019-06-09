@@ -34,7 +34,7 @@ public class CmsCommodityBO {
     @ApiModelProperty(value = "材质uuid", name = "texture_uuid", example = "123", dataType = "String", required = true)
     private String textureUuid;
     @NotBlank
-    @ApiModelProperty(value = "类目uuid", name = "category_uuid", example = "123", dataType = "String", required = true)
+    @ApiModelProperty(value = "类目uuid", name = "category_uuid", example = "123", dataType = "String", required = false)
     private String categoryUuid;
     @NotBlank
     @ApiModelProperty(value = "商品详情", name = "detail", example = "123", dataType = "String", required = true)
