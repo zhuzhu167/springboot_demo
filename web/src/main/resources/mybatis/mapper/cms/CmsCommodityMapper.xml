@@ -31,7 +31,8 @@
         insert into images (uuid, commodity_jewelry_uuid,image_url,image_number,create_time,modified_time)
         values
         <foreach collection="imageList" item="item" index="index" separator=",">
-            (replace(uuid(), '-', ''), #{commodityJewelryUuid},#{item.imageUrl},#{item.sort},DATE_FORMAT(NOW(),"%Y-%m-%d
+            (replace(uuid(), '-', ''),
+            #{commodityJewelryUuid},#{item.imageUrl},#{item.sort},DATE_FORMAT(NOW(),"%Y-%m-%d
             %H:%i:%s"),DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"))
         </foreach>
     </insert>
@@ -95,7 +96,9 @@
     </update>
     <update id="restoreImage">
         update images
-        set is_deleted = 0
+        set is_deleted    = 0,
+            image_url     = #{imageUrl},
+            modified_time = DATE_FORMAT(NOW(), "%Y-%m-%d %H:%i:%s")
         where uuid = #{imageUuid}
     </update>
     <update id="shelfCommodity">

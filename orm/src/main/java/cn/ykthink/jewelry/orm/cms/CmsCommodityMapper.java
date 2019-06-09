@@ -104,7 +104,7 @@ public interface CmsCommodityMapper {
      * @param imageUuid
      * @return
      */
-    Integer restoreImage(String imageUuid);
+    Integer restoreImage(@Param("imageUuid") String imageUuid,@Param("imageUrl")String imageUrl);
 
     /**
      * 上下架商品

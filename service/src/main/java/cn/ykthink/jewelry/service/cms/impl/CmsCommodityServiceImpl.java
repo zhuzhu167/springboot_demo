@@ -245,14 +245,18 @@ public class CmsCommodityServiceImpl implements CmsCommodityService {
     }
 
     private void updateImage(String uuid, List<CmsCommodityJewelryImageBO> ImageList) {
-        Iterator<CmsCommodityJewelryImageBO> ImageListIterator = ImageList.iterator();
-        while (ImageListIterator.hasNext()) {
-            CmsCommodityJewelryImageBO image = ImageListIterator.next();
-            if (StringUtils.isNotBlank(image.getImageUuid())) {
-                cmsCommodityMapper.restoreImage(image.getImageUuid());
-                ImageListIterator.remove();
+        if (ImageList != null && ImageList.size() > 0) {
+            Iterator<CmsCommodityJewelryImageBO> ImageListIterator = ImageList.iterator();
+            while (ImageListIterator.hasNext()) {
+                CmsCommodityJewelryImageBO image = ImageListIterator.next();
+                if (StringUtils.isNotBlank(image.getImageUuid())) {
+                    cmsCommodityMapper.restoreImage(image.getImageUuid(), image.getImageUrl());
+                    ImageListIterator.remove();
+                }
+            }
+            if (ImageList.size() > 0) {
+                cmsCommodityMapper.addImage(uuid, ImageList);
             }
         }
-        cmsCommodityMapper.addImage(uuid, ImageList);
     }
 }
