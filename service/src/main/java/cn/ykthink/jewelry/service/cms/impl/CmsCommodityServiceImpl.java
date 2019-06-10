@@ -248,7 +248,7 @@ public class CmsCommodityServiceImpl implements CmsCommodityService {
             Iterator<CmsCommodityJewelryImageBO> ImageListIterator = ImageList.iterator();
             while (ImageListIterator.hasNext()) {
                 CmsCommodityJewelryImageBO image = ImageListIterator.next();
-                if (StringUtils.isNotBlank(image.getImageUuid())) {
+                if (StringUtils.isNotBlank(image.getImageUrl())) {
                     cmsCommodityMapper.restoreImage(image.getImageUuid(), image.getImageUrl());
                     ImageListIterator.remove();
                 }
