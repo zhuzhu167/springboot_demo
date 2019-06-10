@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import javax.swing.undo.CannotUndoException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -65,12 +66,12 @@ public class PcCartServiceImpl implements PcCartService {
     @Override
     @Transactional
     public ResponseEntity<Object> orderCart(PcUserPayCartBO body) {
-        if(body.getCartCommodityUuidList().size()==0){
+        if (body.getCartCommodityUuidList().size() == 0) {
             return ResponseEntitySupport.error(HttpStatus.INTERNAL_SERVER_ERROR, "购物车不能为空", "Shopping cart cannot be empty");
         }
         String userUuid = JWTokenUtil.getJWTokenUuid();
         //检测购物车中商品是否生成过订单
-        if(pcCartMapper.checkCart(body.getCartCommodityUuidList())>0){
+        if (pcCartMapper.checkCart(body.getCartCommodityUuidList()) > 0) {
             return ResponseEntitySupport.error(HttpStatus.INTERNAL_SERVER_ERROR, "存在已结单购物车信息", "Existing order shopping cart information");
         }
         OrderPO orderPO = new OrderPO();
@@ -126,7 +127,10 @@ public class PcCartServiceImpl implements PcCartService {
             orderCommodityPO.setCommodityPrice(pcCartMapper.selectCommodityPrice(cartCommodityUuid));
             pcCartMapper.insertOrderCommodity(orderCommodityPO);
             pcCartMapper.updateCartStatusIsOrder("cart_commodity", cartCommodityUuid);
-            pcCartMapper.updateCommodityStore(cartCommodityUuid);
+            Integer storeCheck = pcCartMapper.updateCommodityStore(cartCommodityUuid);
+            if (storeCheck == 0) {
+                throw new CannotUndoException();
+            }
         }
         return ResponseEntitySupport.success();
     }

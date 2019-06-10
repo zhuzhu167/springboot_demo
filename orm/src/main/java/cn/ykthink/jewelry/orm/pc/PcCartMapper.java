@@ -105,7 +105,7 @@ public interface PcCartMapper {
     /**
      * 减少库存
      *
-     * @param commodityUuid
+     * @param cartCommodityUuid
      * @return
      */
     Integer updateCommodityStore(@Param("cartCommodityUuid") String cartCommodityUuid);
