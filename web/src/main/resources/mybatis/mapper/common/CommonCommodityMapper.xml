@@ -28,9 +28,10 @@ Time: 23:53
         commodity.subhead as subhead,
         commodity.commodity_price as commodity_price,
         commodity.commodity_no
-        from commodity
+        from commodity left join store on store.uuid=commodity.store_uuid
         <where>
             commodity.is_deleted = 0
+            and store.store_consumption > 0
             <if test="commodityStatus!=null">
                 and commodity.commodity_status=#{commodityStatus}
             </if>

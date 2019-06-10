@@ -103,6 +103,14 @@ public interface PcCartMapper {
     Integer updateCartStatusIsOrder(@Param("table") String table, @Param("uuid") String uuid);
 
     /**
+     * 减少库存
+     *
+     * @param commodityUuid
+     * @return
+     */
+    Integer updateCommodityStore(@Param("cartCommodityUuid") String cartCommodityUuid);
+
+    /**
      * 插入订单商品信息
      *
      * @param orderCommodityPO

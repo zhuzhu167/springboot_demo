@@ -126,6 +126,7 @@ public class PcCartServiceImpl implements PcCartService {
             orderCommodityPO.setCommodityPrice(pcCartMapper.selectCommodityPrice(cartCommodityUuid));
             pcCartMapper.insertOrderCommodity(orderCommodityPO);
             pcCartMapper.updateCartStatusIsOrder("cart_commodity", cartCommodityUuid);
+            pcCartMapper.updateCommodityStore(cartCommodityUuid);
         }
         return ResponseEntitySupport.success();
     }

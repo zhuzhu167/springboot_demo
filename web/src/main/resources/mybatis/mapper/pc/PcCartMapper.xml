@@ -246,4 +246,14 @@
             modified_time = DATE_FORMAT(NOW(), "%Y-%m-%d %H:%i:%s")
         where uuid = #{uuid}
     </update>
+    <update id="updateCommodityStore">
+        update store
+        set store.store_consumption = store.store_consumption - 1,
+            store.modified_time     = DATE_FORMAT(NOW(), "%Y-%m-%d %H:%i:%s")
+        where store.uuid in (select commodity.store_uuid
+                             from commodity
+                             where commodity.uuid in
+                                   (select cart_commodity.commodity_uuid from cart_commodity where cart_commodity.uuid =
+                                                                                                   #{cartCommodityUuid}))
+    </update>
 </mapper>
