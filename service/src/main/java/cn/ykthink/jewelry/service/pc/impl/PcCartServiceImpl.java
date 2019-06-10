@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import javax.swing.undo.CannotUndoException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -127,10 +126,7 @@ public class PcCartServiceImpl implements PcCartService {
             orderCommodityPO.setCommodityPrice(pcCartMapper.selectCommodityPrice(cartCommodityUuid));
             pcCartMapper.insertOrderCommodity(orderCommodityPO);
             pcCartMapper.updateCartStatusIsOrder("cart_commodity", cartCommodityUuid);
-            Integer storeCheck = pcCartMapper.updateCommodityStore(cartCommodityUuid);
-            if (storeCheck == 0) {
-                throw new CannotUndoException();
-            }
+            pcCartMapper.updateCommodityStore(cartCommodityUuid);
         }
         return ResponseEntitySupport.success();
     }

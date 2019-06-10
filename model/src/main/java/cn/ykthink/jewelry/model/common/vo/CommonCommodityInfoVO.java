@@ -18,6 +18,12 @@ public class CommonCommodityInfoVO {
     @ApiModelProperty(value = "商品uuid", name = "commodityUuid", example = "asd123", dataType = "String", required = true)
     private String commodityUuid;
 
+    @ApiModelProperty(value = "类目uuid", name = "categoryUuid", example = "asd123", dataType = "String", required = true)
+    private String categoryUuid;
+
+    @ApiModelProperty(value = "剩余库存", name = "storeConsumption", example = "120", dataType = "Integer", required = true)
+    private Integer storeConsumption;
+
     @ApiModelProperty(value = "标题", name = "title", example = "Diamond", dataType = "String", required = true)
     private String title;
 
