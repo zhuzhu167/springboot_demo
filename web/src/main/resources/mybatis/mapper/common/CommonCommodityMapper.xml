@@ -114,7 +114,7 @@ Time: 23:53
     </select>
 
     <resultMap id="jewelryResultMap" type="cn.ykthink.jewelry.model.common.vo.CommonJewelryInfoVO">
-        <id column="uuid" property="jewelryUuid"/>
+        <id column="jewelry_uuid" property="jewelryUuid"/>
         <result column="jewelry_no" property="jewelryNo"/>
         <result column="shape" property="shape"/>
         <result column="color" property="color"/>
