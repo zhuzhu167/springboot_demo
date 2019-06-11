@@ -112,7 +112,7 @@ public interface CmsCommodityMapper {
      * @param commodityUuid
      * @param commodityStatus
      */
-    Integer shelfCommodity(String commodityUuid, Integer commodityStatus);
+    Integer shelfCommodity(@Param("commodityUuid") String commodityUuid,@Param("commodityStatus") Integer commodityStatus);
 
     /**
      * 生成库存
