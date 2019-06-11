@@ -22,8 +22,17 @@ public class CommonJewelryListVO {
     @ApiModelProperty(value = "钻石编号", name = "jewelryNo", example = "a123", dataType = "String", required = true)
     private String jewelryNo;
 
-    @ApiModelProperty(value = "价格", name = "BigDecimal", example = "a123", dataType = "String", required = true)
+    @ApiModelProperty(value = "价格", name = "jewelryPrice", example = "a123", dataType = "String", required = true)
     private BigDecimal jewelryPrice;
+
+    @ApiModelProperty(value = "切工", name = "cut", example = "a123", dataType = "String", required = true)
+    private String cut;
+
+    @ApiModelProperty(value = "荧光", name = "light", example = "a123", dataType = "String", required = true)
+    private String light;
+
+    @ApiModelProperty(value = "抛光", name = "polishing", example = "a123", dataType = "String", required = true)
+    private String polishing;
 
     @ApiModelProperty(value = "图片list", name = "imageUuidList", example = "", dataType = "List", required = true)
     private List<CommonCommodityImageVO> imageList;

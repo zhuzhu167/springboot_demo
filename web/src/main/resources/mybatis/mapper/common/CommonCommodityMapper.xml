@@ -91,6 +91,9 @@ Time: 23:53
                type="cn.ykthink.jewelry.model.common.vo.CommonJewelryListVO">
         <id column="jewelry_uuid" property="jewelryUuid"/>
         <result column="jewelry_no" property="jewelryNo"/>
+        <result column="cut" property="cut"/>
+        <result column="polishing" property="polishing"/>
+        <result column="light" property="light"/>
         <result column="jewelry_price" property="jewelryPrice"/>
         <collection property="imageList" ofType="cn.ykthink.jewelry.model.common.vo.CommonCommodityImageVO"
                     column="{commodityJewelryUuid=jewelry_uuid}"
@@ -99,7 +102,12 @@ Time: 23:53
         </collection>
     </resultMap>
     <select id="selectJewelryIntroduction" resultMap="jewelryIntroductionResultMap">
-        select jewelry.uuid as jewelry_uuid, jewelry.jewelry_no as jewelry_no, jewelry.jewelry_price as jewelry_price
+        select jewelry.uuid          as jewelry_uuid,
+               jewelry.jewelry_no    as jewelry_no,
+               jewelry.jewelry_price as jewelry_price,
+               light,
+               polishing,
+               cut
         from jewelry
         where jewelry.is_deleted = 0
         order by jewelry.jewelry_no
