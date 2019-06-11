@@ -14,6 +14,7 @@ Time: 23:53
         <result column="title" property="title"/>
         <result column="commodity_no" property="commodityNo"/>
         <result column="subhead" property="subhead"/>
+        <result column="commodity_status" property="commodityStatus"/>
         <result column="commodity_price" property="commodityPrice"/>
         <collection property="imageList" ofType="cn.ykthink.jewelry.model.common.vo.CommonCommodityImageVO"
                     column="{commodityJewelryUuid=commodity_uuid}"
@@ -27,7 +28,8 @@ Time: 23:53
         commodity.title as title,
         commodity.subhead as subhead,
         commodity.commodity_price as commodity_price,
-        commodity.commodity_no
+        commodity.commodity_no,
+        commodity.commodity_status
         from commodity left join store on store.uuid=commodity.store_uuid
         <where>
             commodity.is_deleted = 0
@@ -77,7 +79,7 @@ Time: 23:53
                commodity.detail          as detail,
                texture.uuid              as texture_uuid,
                texture.texture_name      as texture_name,
-               store.store_consumption as   store,
+               store.store_consumption   as store,
                commodity.category_uuid
         from commodity
                  left join texture on commodity.texture_uuid = texture.uuid

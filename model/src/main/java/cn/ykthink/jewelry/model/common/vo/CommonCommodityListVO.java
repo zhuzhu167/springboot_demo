@@ -30,4 +30,7 @@ public class CommonCommodityListVO {
 
     @ApiModelProperty(value = "商品售价", name = "commodityPrice", example = "123", dataType = "BigDecimal", required = true)
     private String commodityPrice;
+    @ApiModelProperty(value = "上架0-否1-是", name = "commodityStatus", example = "1", dataType = "Integer", required = true)
+    private Integer commodityStatus;
+
 }
