@@ -109,8 +109,7 @@
     </update>
     <update id="updateCommodity">
         update commodity
-        set uuid            = #{uuid},
-            category_uuid   = #{categoryUuid},
+        set category_uuid   = #{categoryUuid},
             commodity_price = #{commodityPrice},
             title           = #{title},
             subhead         = #{subhead},

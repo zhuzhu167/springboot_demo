@@ -229,9 +229,11 @@ public class CmsCommodityServiceImpl implements CmsCommodityService {
         //先逻辑删除所有图片
         cmsCommodityMapper.removeImage(commodityUuid);
         CommodityPO commodityPO = new CommodityPO();
+        commodityPO.setUuid(commodityUuid);
         commodityPO.setCommodityPrice(body.getCommodityPrice());
         commodityPO.setDetail(body.getDetail());
         commodityPO.setSubhead(body.getSubhead());
+        commodityPO.setCategoryUuid(body.getCategoryUuid());
         commodityPO.setTextureUuid(body.getTextureUuid());
         commodityPO.setTitle(body.getTitle());
         //更新商品信息
