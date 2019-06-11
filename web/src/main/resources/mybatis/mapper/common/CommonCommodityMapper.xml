@@ -125,6 +125,7 @@ Time: 23:53
         <result column="jewelry_price" property="jewelryPrice"/>
         <collection property="imageList" ofType="cn.ykthink.jewelry.model.common.vo.CommonCommodityImageVO">
             <result column="image_url" property="imageUrl"/>
+            <result column="image_uuid" property="imageUuid"/>
         </collection>
     </resultMap>
 
@@ -136,9 +137,10 @@ Time: 23:53
                clarity       as clarity,
                cut           as cut,
                polishing     as polishing,
-               light         as polishing,
+               light         as light,
                jewelry_price as jewelry_price,
-               image_url     as image_url
+               image_url     as image_url,
+               image.uuid    as image_uuid
         from jewelry
                  left join images on jewelry.uuid = images.commodity_jewelry_uuid
         where jewelry.uuid = #{jewelryUuid}
