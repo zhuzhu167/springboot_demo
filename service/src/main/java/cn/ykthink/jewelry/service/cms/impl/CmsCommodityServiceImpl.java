@@ -61,7 +61,7 @@ public class CmsCommodityServiceImpl implements CmsCommodityService {
     @Override
     public ResponseEntity<Object> addCategory(CmsCategoryBO body) {
         CategoryPO categoryPO = new CategoryPO();
-        categoryPO.setCategory(body.getCategory());
+        categoryPO.setCategory(body.getCategoryName());
         categoryPO.setCopywriting(body.getCopywriting());
         categoryPO.setSort(body.getSort());
         cmsCommodityMapper.insertCategory(categoryPO);
@@ -80,7 +80,7 @@ public class CmsCommodityServiceImpl implements CmsCommodityService {
     @Override
     public ResponseEntity<Object> updateCategory(String categoryUuid, CmsCategoryBO body) {
         CategoryPO categoryPO = new CategoryPO();
-        categoryPO.setCategory(body.getCategory());
+        categoryPO.setCategory(body.getCategoryName());
         categoryPO.setCopywriting(body.getCopywriting());
         categoryPO.setSort(body.getSort());
         if (cmsCommodityMapper.updateCategory(categoryUuid, categoryPO) > 0) {

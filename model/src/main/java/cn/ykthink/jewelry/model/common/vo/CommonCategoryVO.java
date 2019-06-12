@@ -20,4 +20,7 @@ public class CommonCategoryVO {
 
     @ApiModelProperty(value = "文案", name = "copywriting", example = "文案", dataType = "String", required = true)
     private String copywriting;
+
+    @ApiModelProperty(value = "排序", name = "sort", example = "123", dataType = "String", required = true)
+    private Integer sort;
 }

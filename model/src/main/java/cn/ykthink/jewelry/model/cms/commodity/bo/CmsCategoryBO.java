@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * Author: YK
@@ -15,12 +16,12 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class CmsCategoryBO {
     @NotBlank
-    @ApiModelProperty(value = "类目名称", name = "category", example = "123", dataType = "String", required = true)
-    private String category;
+    @ApiModelProperty(value = "类目名称", name = "categoryName", example = "123", dataType = "String", required = true)
+    private String categoryName;
     @NotBlank
     @ApiModelProperty(value = "文案", name = "copywriting", example = "123", dataType = "String", required = true)
     private String copywriting;
-    @NotBlank
+    @NotNull
     @ApiModelProperty(value = "排序", name = "sort", example = "123", dataType = "Integer", required = true)
     private Integer sort;
 }
