@@ -70,6 +70,10 @@ public class CmsCommodityServiceImpl implements CmsCommodityService {
 
     @Override
     public ResponseEntity<Object> removeCategory(String categoryUuid) {
+        if (cmsCommodityMapper.checkoutCommodityNum(categoryUuid) > 0
+        ) {
+            return ResponseEntitySupport.error(HttpStatus.INTERNAL_SERVER_ERROR, "请先将所有商品清除后再删除该类目", "Please clear all items before deleting the category.");
+        }
         if (cmsCommodityMapper.removeIsDeleted("category", categoryUuid) > 0) {
             return ResponseEntitySupport.success();
         } else {

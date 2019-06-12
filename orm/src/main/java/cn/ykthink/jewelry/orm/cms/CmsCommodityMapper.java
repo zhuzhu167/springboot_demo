@@ -77,6 +77,14 @@ public interface CmsCommodityMapper {
     Integer removeIsDeleted(@Param("tableName") String tableName, @Param("uuid") String uuid);
 
     /**
+     * 查询类目下的商品信息
+     *
+     * @param categoryUuid
+     * @return
+     */
+    Integer checkoutCommodityNum(@Param("categoryUuid") String categoryUuid);
+
+    /**
      * 更新钻石信息
      *
      * @param jewelryPO
@@ -104,7 +112,7 @@ public interface CmsCommodityMapper {
      * @param imageUuid
      * @return
      */
-    Integer restoreImage(@Param("imageUuid") String imageUuid,@Param("imageUrl")String imageUrl);
+    Integer restoreImage(@Param("imageUuid") String imageUuid, @Param("imageUrl") String imageUrl);
 
     /**
      * 上下架商品
@@ -112,7 +120,7 @@ public interface CmsCommodityMapper {
      * @param commodityUuid
      * @param commodityStatus
      */
-    Integer shelfCommodity(@Param("commodityUuid") String commodityUuid,@Param("commodityStatus") Integer commodityStatus);
+    Integer shelfCommodity(@Param("commodityUuid") String commodityUuid, @Param("commodityStatus") Integer commodityStatus);
 
     /**
      * 生成库存

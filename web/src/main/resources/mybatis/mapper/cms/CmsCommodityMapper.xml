@@ -129,4 +129,10 @@
         where is_deleted = 0
         order by create_time
     </select>
+    <select id="checkoutCommodityNum" resultType="java.lang.Integer">
+        select count(uuid)
+        from commodity
+        where category_uuid = #{categoryUuid}
+          and is_deleted = 0
+    </select>
 </mapper>
