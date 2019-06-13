@@ -141,6 +141,11 @@
         </foreach>
         and (is_order=1 or is_deleted=1)
     </select>
+    <select id="selectCartCommodityMessage" resultType="java.lang.String">
+        select subhead
+        from cart_commodity
+        where uuid = #{cartCommodityUuid}
+    </select>
 
     <insert id="insertOrder">
         <selectKey keyProperty="uuid" resultType="string" order="BEFORE">
@@ -255,5 +260,6 @@
                              where commodity.uuid in
                                    (select cart_commodity.commodity_uuid from cart_commodity where cart_commodity.uuid =
                                                                                                    #{cartCommodityUuid}))
+          and store.store_consumption > 0
     </update>
 </mapper>

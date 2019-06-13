@@ -2,6 +2,7 @@ package cn.ykthink.jewelry.core.exception;
 
 
 import cn.ykthink.jewelry.core.constant.HttpResponseConstant;
+import cn.ykthink.jewelry.core.exception.cmsException.storeException;
 import cn.ykthink.jewelry.core.support.http.ResponseEntitySupport;
 import lombok.extern.log4j.Log4j2;
 import net.sf.json.JSONObject;
@@ -57,6 +58,20 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Object> handleParseException(ParseException e) {
         log.error("格式转换异常：", e);
         return ResponseEntitySupport.error(HttpStatus.INTERNAL_SERVER_ERROR, HttpResponseConstant.HTTP_MESSAGE_INTERNAL_SERVER_ERROR, "网络繁忙");
+    }
+
+    /**
+     * 库存不足异常
+     *
+     * @param e
+     * @return
+     */
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(storeException.class)
+    @ResponseBody
+    public ResponseEntity<Object> handleStoreException(storeException  e) {
+        log.error("库存不足异常：", e);
+        return ResponseEntitySupport.error(HttpStatus.FORBIDDEN, e.getMessage()+"库存不足", e.getMessage()+"Inventory shortage");
     }
 
     /**

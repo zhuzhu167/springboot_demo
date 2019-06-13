@@ -125,4 +125,10 @@ public interface PcCartMapper {
      * @return
      */
     Integer checkCart(@Param("cartCommodityUuidList") List<String> cartCommodityUuidList);
+
+    /**
+     * 查商品名称
+     * @param cartCommodityUuid
+     */
+    String selectCartCommodityMessage(String cartCommodityUuid);
 }

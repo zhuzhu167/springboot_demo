@@ -33,7 +33,7 @@ public class JWTokenAspect {
     @Resource
     private HttpServletResponse response;
 
-    public  Object validateToken(ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object validateToken(ProceedingJoinPoint joinPoint) throws Throwable {
         //获取当前执行的方法
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         //判断当前执行的方法是否存在IgnoreToken注解
@@ -41,31 +41,22 @@ public class JWTokenAspect {
             //放行
             return joinPoint.proceed();
         }
-        try {
-            String token = request.getHeader("X-Access-Token");
-            if (StringUtils.isBlank(token)) {
-                return ResponseEntitySupport.error(HttpStatus.UNAUTHORIZED, HttpResponseConstant.HTTP_MESSAGE_PRECONDITION_FAILED, "X-Access-Token Defect");
-            }
-            //判断token是否过期
-            try {
-                String uuid = JWTokenUtil.validateJWToken(token, "uuid");
-                if (StringUtils.isBlank(uuid)) {
-                    return ResponseEntitySupport.error(HttpStatus.UNAUTHORIZED, "无效的用户", "Invalid token");
-                }
-            } catch (IllegalStateException e) {
-                return ResponseEntitySupport.error(HttpStatus.UNAUTHORIZED, "无效token", "Invalid token");
-            }
-            try {
-                //进行http预处理
-                AbstractHttpSupport.intercept(request, response, joinPoint);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-            //放行
-            return joinPoint.proceed();
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-            return ResponseEntitySupport.error(HttpStatus.INTERNAL_SERVER_ERROR, HttpResponseConstant.HTTP_MESSAGE_INTERNAL_SERVER_ERROR, "网络繁忙");
+        String token = request.getHeader("X-Access-Token");
+        if (StringUtils.isBlank(token)) {
+            return ResponseEntitySupport.error(HttpStatus.UNAUTHORIZED, HttpResponseConstant.HTTP_MESSAGE_PRECONDITION_FAILED, "X-Access-Token Defect");
         }
+        //判断token是否过期
+        try {
+            String uuid = JWTokenUtil.validateJWToken(token, "uuid");
+            if (StringUtils.isBlank(uuid)) {
+                return ResponseEntitySupport.error(HttpStatus.UNAUTHORIZED, "无效的用户", "Invalid token");
+            }
+        } catch (IllegalStateException e) {
+            return ResponseEntitySupport.error(HttpStatus.UNAUTHORIZED, "无效token", "Invalid token");
+        }
+        //进行http预处理
+        AbstractHttpSupport.intercept(request, response, joinPoint);
+        //放行
+        return joinPoint.proceed();
     }
 }

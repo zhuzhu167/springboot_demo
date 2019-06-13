@@ -1,5 +1,6 @@
 package cn.ykthink.jewelry.service.pc.impl;
 
+import cn.ykthink.jewelry.core.exception.cmsException.storeException;
 import cn.ykthink.jewelry.core.support.http.ResponseEntitySupport;
 import cn.ykthink.jewelry.core.untils.JWTokenUtil;
 import cn.ykthink.jewelry.model.common.po.OrderCommodityPO;
@@ -126,7 +127,12 @@ public class PcCartServiceImpl implements PcCartService {
             orderCommodityPO.setCommodityPrice(pcCartMapper.selectCommodityPrice(cartCommodityUuid));
             pcCartMapper.insertOrderCommodity(orderCommodityPO);
             pcCartMapper.updateCartStatusIsOrder("cart_commodity", cartCommodityUuid);
-            pcCartMapper.updateCommodityStore(cartCommodityUuid);
+            //修改库存
+            Integer storeCheck = pcCartMapper.updateCommodityStore(cartCommodityUuid);
+            if (storeCheck == 0) {
+                String commodityMessage=pcCartMapper.selectCartCommodityMessage(cartCommodityUuid);
+                throw new storeException(commodityMessage);
+            }
         }
         return ResponseEntitySupport.success();
     }
