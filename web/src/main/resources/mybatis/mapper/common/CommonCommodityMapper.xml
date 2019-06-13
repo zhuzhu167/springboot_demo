@@ -33,7 +33,6 @@ Time: 23:53
         from commodity left join store on store.uuid=commodity.store_uuid
         <where>
             commodity.is_deleted = 0
-            and store.store_consumption > 0
             <if test="commodityStatus!=null">
                 and commodity.commodity_status=#{commodityStatus}
             </if>
@@ -62,7 +61,7 @@ Time: 23:53
         <result column="texture_name" property="textureName"/>
         <result column="texture_uuid" property="textureUuid"/>
         <result column="category_uuid" property="categoryUuid"/>
-        <result column="store_consumption" property="store"/>
+        <result column="store" property="store"/>
         <collection property="imageList" ofType="cn.ykthink.jewelry.model.common.vo.CommonCommodityImageVO"
                     column="{commodityJewelryUuid=commodity_uuid}"
                     select="selectCommodityJewelryIntroductionImage">
@@ -83,7 +82,7 @@ Time: 23:53
                commodity.category_uuid
         from commodity
                  left join texture on commodity.texture_uuid = texture.uuid
-                 left join store on store.uuid = commodity.uuid
+                 left join store on store.uuid = commodity.store_uuid
         where commodity.uuid = #{commodityUuid}
           and commodity.is_deleted = 0
     </select>
@@ -140,7 +139,7 @@ Time: 23:53
                light         as light,
                jewelry_price as jewelry_price,
                image_url     as image_url,
-               images.uuid    as image_uuid
+               images.uuid   as image_uuid
         from jewelry
                  left join images on jewelry.uuid = images.commodity_jewelry_uuid
         where jewelry.uuid = #{jewelryUuid}
@@ -148,7 +147,7 @@ Time: 23:53
     </select>
 
     <select id="selectIndexCategory" resultType="cn.ykthink.jewelry.model.common.vo.CommonCategoryVO">
-        select uuid as category_uuid, category as category_name, category,copywriting,sort
+        select uuid as category_uuid, category as category_name, category, copywriting, sort
         from category
         where is_deleted = 0
     </select>
