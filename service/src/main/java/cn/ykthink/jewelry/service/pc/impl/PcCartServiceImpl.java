@@ -130,7 +130,8 @@ public class PcCartServiceImpl implements PcCartService {
             //修改库存
             Integer storeCheck = pcCartMapper.updateCommodityStore(cartCommodityUuid);
             if (storeCheck == 0) {
-                String commodityMessage=pcCartMapper.selectCartCommodityMessage(cartCommodityUuid);
+                //库存不足异常
+                String commodityMessage = pcCartMapper.selectCartCommodityMessage(cartCommodityUuid);
                 throw new storeException(commodityMessage);
             }
         }

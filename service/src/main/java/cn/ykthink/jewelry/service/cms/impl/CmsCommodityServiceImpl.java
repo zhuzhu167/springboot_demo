@@ -255,7 +255,11 @@ public class CmsCommodityServiceImpl implements CmsCommodityService {
             while (ImageListIterator.hasNext()) {
                 CmsCommodityJewelryImageBO image = ImageListIterator.next();
                 if (StringUtils.isNotBlank(image.getImageUuid()) && StringUtils.isNotBlank(image.getImageUrl())) {
+                    //uuid和图片地址都不为空是修改图片
                     cmsCommodityMapper.restoreImage(image.getImageUuid(), image.getImageUrl());
+                    ImageListIterator.remove();
+                } else if (StringUtils.isBlank(image.getImageUrl())) {
+                    //图片地址为空是删除图片
                     ImageListIterator.remove();
                 }
             }
