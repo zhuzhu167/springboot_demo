@@ -27,6 +27,7 @@ import java.util.List;
  * Time: 17:55
  */
 @Configuration
+@EnableSwagger2
 public class Swagger2 {
     @Bean
     public Docket createRestApi() {

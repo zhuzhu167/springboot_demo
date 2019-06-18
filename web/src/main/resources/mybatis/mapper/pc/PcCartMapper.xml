@@ -255,11 +255,11 @@
         update store
         set store.store_consumption = store.store_consumption - 1,
             store.modified_time     = DATE_FORMAT(NOW(), "%Y-%m-%d %H:%i:%s")
-        where store.uuid in (select commodity.store_uuid
+        where store.uuid = (select commodity.store_uuid
                              from commodity
-                             where commodity.uuid in
+                             where commodity.uuid =
                                    (select cart_commodity.commodity_uuid from cart_commodity where cart_commodity.uuid =
-                                                                                                   #{cartCommodityUuid}))
+                                                                                                   #{cartCommodityUuid}) FOR UPDATE )
           and store.store_consumption > 0
     </update>
 </mapper>

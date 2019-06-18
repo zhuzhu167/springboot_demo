@@ -4,23 +4,24 @@
     <update id="updateOrderStatus">
         update `order`
         set order_status  = #{status},
+            pay_date      = DATE_FORMAT(NOW(), "%Y-%m-%d %H:%i:%s"),
             modified_time = DATE_FORMAT(NOW(), "%Y-%m-%d %H:%i:%s")
         where uuid = #{uuid}
     </update>
 
     <update id="removeIsDeleted">
         update `order` as o,
-               order_commodity as oc,
-               order_jewelry as oje
+        order_commodity as oc,
+        order_jewelry as oje
         <set>
             o.is_deleted = 1,
             oc.is_deleted = 1,
             oje.is_deleted = 1
         </set>
         where o.uuid = oc.order_uuid
-          and o.uuid = oje.order_uuid
-          and oc.order_jewelry_uuid = oje.uuid
-          and o.uuid = #{orderUuid}
+        and o.uuid = oje.order_uuid
+        and oc.order_jewelry_uuid = oje.uuid
+        and o.uuid = #{orderUuid}
     </update>
 
     <select id="checkLogisticsStatus" resultType="java.lang.Integer">
@@ -32,7 +33,7 @@
     <update id="updateLogisticsStatus">
         update `order`
         set logistics_status = 1,
-            modified_time = DATE_FORMAT(NOW(), "%Y-%m-%d %H:%i:%s")
+            modified_time    = DATE_FORMAT(NOW(), "%Y-%m-%d %H:%i:%s")
         where uuid = #{orderUuid}
     </update>
 
