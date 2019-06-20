@@ -2,8 +2,8 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://mysql:3306/jewelry?serverTimezone=UTC&useSSL=false&characterEncoding=utf8
-    username: ${MYSQL_USER:rot}
-    password: ${MSYQL_PWD:fyk159753}
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PWD}
     driver-class-name: com.mysql.jdbc.Driver
     #连接池配置
     #获得连接后检测其可用性
@@ -32,7 +32,7 @@ spring:
     database: 1
     host: redis
     port: 6379
-    password: ${REDIS_PWD:fyk159753}
+    password: ${REDIS_PWD}
     timeout: 1000ms
     jedis:
       pool:
